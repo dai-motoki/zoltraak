@@ -541,3 +541,28 @@ import writer.book.lecture
 - [ ] Make the directory construction not pasted but asked to be built from the system
 - [ ] Functionalize the Python file retrieval part and externalize it
 - [ ] Introduce designers and developers.
+
+# Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## How to add a contributor
+
+To add a contributor, follow these steps:
+
+1. Leave a comment on an issue or pull request in the following format:
+@all-contributors please add @username for <contributions>
+Replace `@username` with the GitHub username of the contributor and `<contributions>` with the type of contributions they made. Contribution types can be found in the [Emoji Key](https://allcontributors.org/docs/en/emoji-key).
+
+2. The bot will then create a pull request to add the contributor to the project.
+
+3. Once the pull request is merged, the contributor will be added to the README.

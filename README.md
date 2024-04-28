@@ -637,3 +637,28 @@ import writer.book.lecture
 zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi  
 
 とやると要件定義書名にバージョンを記載してくれる。
+
+# Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## コントリビューターの追加方法
+
+コントリビューターを追加するには、以下の手順を実行してください:
+
+1. issueまたはプルリクエストに、以下の形式でコメントを残してください:
+@all-contributors please add @username for <contributions>
+`@username`をコントリビューターのGitHubユーザー名に、`<contributions>`をコントリビュートのタイプに置き換えてください。コントリビュートのタイプは、[Emoji Key](https://allcontributors.org/docs/en/emoji-key)を参照してください。
+
+2. ボットがコントリビューターをプロジェクトに追加するためのプルリクエストを作成します。
+
+3. プルリクエストがマージされると、コントリビューターがREADMEに追加されます。
