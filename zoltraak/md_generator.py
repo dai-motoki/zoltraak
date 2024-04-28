@@ -47,12 +47,12 @@ def generate_md_from_prompt(
     
     print(f"""
 ==============================================================
-目標                           : 起動術式を用いて魔法術式を構築する
-\033[31m起動術式\033[0m (プロンプトコンパイラ)  : {prompt_compiler}
+ステップ1. 起動術式を用いて魔法術式を構築する
+\033[31m起動術式\033[0m (プロンプトコンパイラ)   : {prompt_compiler}
 \033[32m魔法術式\033[0m (要件定義書)            : {target_file_path}
 \033[34m錬成術式\033[0m (プロンプトフォーマッタ): {prompt_formatter}
-\033[90m言霊\033[0m   (LLMベンダー・モデル名) : {developer}/{model_name}
-ファイルを開く                 : {open_file}
+\033[90m言霊\033[0m   (LLMベンダー・モデル名)  : {developer}/{model_name}
+ファイルを開く                     : {open_file}
 ==============================================================
     """)
 
@@ -277,10 +277,27 @@ def print_generation_result(target_file_path, open_file=True):
     """
     req = "requirements"
     target_file_path = f"{req}/{target_file_path}"
-    print(f"\033[32m魔法術式（要件定義書）を生成しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
+    print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
+
+
+    target_dir = f"generated/{os.path.splitext(os.path.basename(target_file_path))[0]}"  # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
+
+
+
+    print(f"""
+
+==============================================================
+ステップ2. 魔法術式を用いて領域術式を実行する
+\033[32m魔法術式\033[0m (要件定義書)                  : {target_file_path}
+\033[32m領域術式\033[0m **記述予定**                : 
+\033[32m領域対象\033[0m (ディレクトリパス)              : {target_dir}
+ファイル・ディレクトリを開く                   : {open_file}
+==============================================================
+    """)
+
     
     # ユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
-    build_directory = input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを構築・実行しますか？ (y/n): ")
+    build_directory = input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを実行しますか？ (y/n): ")
     
     if build_directory.lower() == 'y':
         # ユーザーがyと答えた場合、zoltraakコマンドを実行してディレクトリを構築

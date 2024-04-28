@@ -92,41 +92,46 @@ def process_markdown_file(args):
     Markdownファイルを処理する
     """
 
-    # print(os.path.basename(args.input))
-    # print(os.path.basename(args.input))
-    # # md_file_path = os.path.join("requirements", os.path.basename(args.input))
-    # md_file_path = os.path.join("requirements", os.path.basename(args.input))
-    md_file_path = args.input
-    # print("md_file_path:", md_file_path)
-    output_dir = os.path.abspath(args.output_dir)
-    # print("output_dir:", output_dir)
-    prompt = args.prompt
+    md_file_path = args.input                                                # 入力されたMarkdownファイルのパスを取得
+    output_dir = os.path.abspath(args.output_dir)                            # 出力ディレクトリの絶対パスを取得
+    prompt = args.prompt                                                     # プロンプトを取得
 
-    zoltraak_dir = os.path.dirname(zoltraak.__file__)
+    zoltraak_dir = os.path.dirname(zoltraak.__file__)                        # zoltraakパッケージのディレクトリパスを取得
 
-    if args.custom_compiler:
-        compiler_path = get_custom_compiler_path(args.custom_compiler)
-    else:
-        compiler_path = None if args.compiler == "None" else os.path.join(zoltraak_dir, "grimoires/compiler", args.compiler + ("" if args.compiler.endswith(".md") else ".md"))
-        print(f"デフォルトコンパイラーのパス: {compiler_path}")
+    if args.custom_compiler:                                                 # カスタムコンパイラーが指定されている場合
+        compiler_path = get_custom_compiler_path(args.custom_compiler)       # - カスタムコンパイラーのパスを取得
+    else:                                                                    # カスタムコンパイラーが指定されていない場合
+        compiler_path = (                                                    # - デフォルトコンパイラーのパスを設定
+            None                                                             # -- コンパイラーが"None"の場合はNoneに設定
+            if args.compiler == "None"
+            else os.path.join(                                               # -- それ以外の場合はzoltraakディレクトリ内のパスを設定
+                zoltraak_dir,
+                "grimoires/compiler",
+                args.compiler + ("" if args.compiler.endswith(".md") else ".md"),
+            )
+        )
+        print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
 
-    formatter_path = os.path.join(zoltraak_dir, "grimoires/formatter", args.formatter + ("" if args.formatter.endswith(".md") else ".md"))
-    print("compiler_path:", compiler_path)
-    print("formatter_path:", formatter_path)
-
-    md_file_rel_path = os.path.relpath(md_file_path, os.getcwd())
-    py_file_rel_path = os.path.splitext(md_file_rel_path)[0] + ".py"
-    py_file_path = os.path.join(output_dir, py_file_rel_path)
-
-    os.makedirs(os.path.dirname(py_file_path), exist_ok=True)
-    convert_md_to_py(
-        md_file_path,
-        py_file_path,
-        prompt,
-        compiler_path,
-        formatter_path,
+    formatter_path = os.path.join(                                           # フォーマッタのパスを設定
+        zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
+        "grimoires/formatter",
+        args.formatter + ("" if args.formatter.endswith(".md") else ".md"),
     )
+    print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
+    print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
 
+    md_file_rel_path = os.path.relpath(md_file_path, os.getcwd())            # 現在のワーキングディレクトリからの相対パスを取得
+    py_file_rel_path = os.path.splitext(md_file_rel_path)[0] + ".py"         # Markdownファイルの拡張子を.pyに変更
+    py_file_path = os.path.join(output_dir, py_file_rel_path)                # 出力ディレクトリとPythonファイルの相対パスを結合
+
+    os.makedirs(os.path.dirname(py_file_path), exist_ok=True)                # Pythonファイルの出力ディレクトリを作成（既に存在する場合は何もしない）
+    convert_md_to_py(                                                        # MarkdownファイルをPythonファイルに変換
+        md_file_path,                                                        # - 入力Markdownファイルのパス
+        py_file_path,                                                        # - 出力Pythonファイルのパス
+        prompt,                                                              # - プロンプト
+        compiler_path,                                                       # - コンパイラーのパス
+        formatter_path,                                                      # - フォーマッタのパス
+    )
 def get_custom_compiler_path(custom_compiler):
     compiler_path = os.path.abspath(custom_compiler)
     if not os.path.exists(compiler_path):
