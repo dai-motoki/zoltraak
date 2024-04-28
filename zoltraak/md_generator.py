@@ -36,7 +36,7 @@ def generate_md_from_prompt(
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
     # プロンプトコンパイラとプロンプトフォーマッタを変数として受け取る
-    if "grimoires" in compiler_path:                                          # grimoires/ディレクトリにコンパイラパスが含まれている場合
+    if compiler_path is not None and "grimoires" in compiler_path:                                          # grimoires/ディレクトリにコンパイラパスが含まれている場合
         prompt_compiler = os.path.basename(compiler_path)                     # - コンパイラパスからファイル名のみを取得してprompt_compilerに代入
     else:                                                                     # grimoires/ディレクトリにコンパイラパスが含まれていない場合
         prompt_compiler = compiler_path                                       # - コンパイラパスをそのままprompt_compilerに代入
