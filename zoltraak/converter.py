@@ -49,7 +49,7 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
 
     # ターゲットファイルが存在し、ハッシュ値が一致する場合はターゲットファイルを実行または返す
     if os.path.exists(target_file_path):
-        with open(target_file_path, "r") as target_file:
+        with open(target_file_path, "r", encoding = "utf-8") as target_file:
             lines = target_file.readlines()
             if len(lines) > 0 and lines[-1].startswith("# HASH: "):
                 embedded_hash = lines[-1].split("# HASH: ")[1].strip()
@@ -59,7 +59,7 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
                         subprocess.run(["python", target_file_path])
                     else:
                         # ターゲットファイル（マークダウンファイル）の内容を返す
-                        with open(target_file_path, "r") as md_file:
+                        with open(target_file_path, "r", encoding = "utf-8") as md_file:
                             md_content = md_file.read()
                         return md_content
                 else:
@@ -69,9 +69,9 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
                     if os.path.exists(past_source_file_path):
                         import difflib
 
-                        with open(past_source_file_path, "r") as old_source_file:
+                        with open(past_source_file_path, "r", encoding = "utf-8") as old_source_file:
                             old_source_lines = old_source_file.readlines()
-                        with open(source_file_path, "r") as new_source_file:
+                        with open(source_file_path, "r", encoding = "utf-8") as new_source_file:
                             new_source_lines = new_source_file.readlines()
 
                         # ソースファイルの差分を計算
@@ -118,7 +118,7 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
                                     print("無効な選択肢です。もう一度入力してください。")
                         
                         # 全ての選択肢でハッシュ値を更新
-                        with open(target_file_path, "a") as target_file:
+                        with open(target_file_path, "a", encoding = "utf-8") as target_file:
                             target_file.write(f"\n# HASH: {source_hash}")
                     else:
                         print(f"{source_file_path}は新しいファイルです。")
@@ -162,7 +162,7 @@ def apply_diff_to_target_file(target_file_path, target_diff, client, model="clau
         model (str): 使用するモデルの名前（デフォルトは "claude-3-sonnet-20240229"）
     """
     # ターゲットファイルの現在の内容を読み込む
-    with open(target_file_path, "r") as file:
+    with open(target_file_path, "r", encoding = "utf-8") as file:
         current_content = file.read()
 
     # プロンプトを作成してAPIに送信し、修正された内容を取得
@@ -186,7 +186,7 @@ def apply_diff_to_target_file(target_file_path, target_diff, client, model="clau
     modified_content = create_prompt_and_get_response(client, model, prompt, 2000, 0.3)
 
     # 修正後の内容をターゲットファイルに書き込む
-    with open(target_file_path, "w") as file:
+    with open(target_file_path, "w", encoding = "utf-8") as file:
         file.write(modified_content)
 
     print(f"{target_file_path}に修正を適用しました。")
@@ -200,7 +200,7 @@ def propose_target_diff(target_file_path, source_diff_text, client):
         client (anthropic.Anthropic): Anthropic APIクライアント
     """
     # プロンプトにターゲットファイルの内容を変数として追加
-    with open(target_file_path, "r") as target_file:
+    with open(target_file_path, "r", encoding = "utf-8") as target_file:
         current_target_code = target_file.read()
     
     prompt = f'''
@@ -304,16 +304,16 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
         shutil.copy(source_file_path, past_source_file_path)
     
     # ソースファイルとLLMの説明文を読み込む
-    with open(source_file_path, "r") as source_file:
+    with open(source_file_path, "r", encoding = "utf-8") as source_file:
         source_content = source_file.read()
-    # with open("zoltraak/llms/claude.txt", "r") as f:
+    # with open("zoltraak/llms/claude.txt", "r", encoding = "utf-8") as f:
     #     claude_code = f.read()
 
     # LLMへのプロンプトを作成
     # 利用LLM: {claude_code}
     # dev_python.mdファイルからプロンプトを読み込む
 
-    # with open("zoltraak/setting/developer/dev_python.md", "r") as f:
+    # with open("zoltraak/setting/developer/dev_python.md", "r", encoding = "utf-8") as f:
     #     dev_python_prompt = f.read()
     # prompt = dev_python_prompt.format(source_content=source_content)
 
@@ -364,12 +364,12 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
 
     # 生成されたコードをターゲットファイルに書き込む
     os.makedirs(os.path.dirname(target_file_path), exist_ok=True)
-    with open(target_file_path, "w") as target_file:
+    with open(target_file_path, "w", encoding = "utf-8") as target_file:
         target_file.write(code)
 
     # ターゲットファイルにソースファイルのハッシュ値を埋め込む
     if source_hash is not None:
-        with open(target_file_path, "a") as target_file:
+        with open(target_file_path, "a", encoding = "utf-8") as target_file:
             target_file.write(f"\n# HASH: {source_hash}\n")
         print(f"ターゲットファイルにハッシュ値を埋め込みました: {source_hash}")
 

@@ -33,25 +33,17 @@ def main():
     if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
-        print(args.input)
-        print("mo")
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
-            args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
+            args.compiler = "dev_obj"                                    # --- デフォルトのコンパイラー（general_def）を使用
         elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         
         process_markdown_file(args)                                          # - Markdownファイルを処理する関数を呼び出す
     else:                                                                    # 入力がテキストの場合
-        if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合  
-            show_compiler_error_and_exit()                                   # --- コンパイラーエラーを表示して終了
-        elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
+        if args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         
         process_text_input(args)                                             # - テキスト入力を処理する関数を呼び出す
-
-
-
-
 
 
 def show_version_and_exit():
@@ -97,14 +89,8 @@ def process_markdown_file(args):
     """
     Markdownファイルを処理する
     """
-    # print(os.path.basename(args.input))
-    # print(os.path.basename(args.input))
-    # # md_file_path = os.path.join("requirements", os.path.basename(args.input))
-    # md_file_path = os.path.join("requirements", os.path.basename(args.input))
-    md_file_path = args.input
-    print("md_file_path:", md_file_path)
+    md_file_path = os.path.join("requirements", os.path.basename(args.input))
     output_dir = os.path.abspath(args.output_dir)
-    print("output_dir:", output_dir)
     prompt = args.prompt
 
     zoltraak_dir = os.path.dirname(zoltraak.__file__)
@@ -112,10 +98,10 @@ def process_markdown_file(args):
     if args.custom_compiler:
         compiler_path = get_custom_compiler_path(args.custom_compiler)
     else:
-        compiler_path = os.path.join(zoltraak_dir, "setting/compiler", args.compiler + ".md")
+        compiler_path = None if args.compiler == "None" else os.path.join(zoltraak_dir, "setting/compiler", args.compiler + ("" if args.compiler.endswith(".md") else ".md"))
         print(f"デフォルトコンパイラーのパス: {compiler_path}")
 
-    formatter_path = os.path.join(zoltraak_dir, "setting/formatter", args.formatter + ".md")
+    formatter_path = os.path.join(zoltraak_dir, "setting/formatter", args.formatter + ("" if args.formatter.endswith(".md") else ".md"))
     print("compiler_path:", compiler_path)
     print("formatter_path:", formatter_path)
 
