@@ -113,6 +113,10 @@ def process_markdown_file(args):
         )
         print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
 
+    if not os.path.exists(compiler_path):
+        print(f"\033[31mファイル「{compiler_path}」が存在しないため検索モードに切り替わります。\033[0m")
+        compiler_path = None
+
     formatter_path = os.path.join(                                           # フォーマッタのパスを設定
         zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
         "grimoires/formatter",
@@ -147,7 +151,6 @@ def get_custom_compiler_path(custom_compiler):
         print("2. カスタムコンパイラーのファイルパスが正しいことを確認してください。")
         print("3. ファイル名の拡張子が '.md' であることを確認してください。")
         print("4. ファイルの読み取り権限があることを確認してください。")
-        exit(1)
     # print(f"カスタムコンパイラー: {compiler_path}")
     return compiler_path
 
