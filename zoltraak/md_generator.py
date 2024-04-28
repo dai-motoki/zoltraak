@@ -22,23 +22,6 @@ def generate_md_from_prompt(
     formatter_path=None,
     open_file=True,  # ファイルを開くかどうかのフラグを追加
 ):
-    # プロンプトコンパイラとプロンプトフォーマッタを変数として受け取る
-    prompt_compiler = os.path.basename(compiler_path) if "grimoires" in compiler_path else compiler_path
-    prompt_formatter = os.path.basename(formatter_path) if "grimoires" in formatter_path else formatter_path
-    
-    print(f"""
-==============================================================
-目標                         : {goal_prompt}
-要件定義書                   : {target_file_path}
-プロンプトコンパイラ (起動式): {prompt_compiler}
-プロンプトフォーマッタ       : {prompt_formatter}
-LLMベンダー                  : {developer}
-モデル名                     : {model_name}
-ファイルを開く               : {open_file}
-==============================================================
-    """)
-
-
     """
     promptから要件定義書（マークダウンファイル）を生成する関数
 
@@ -51,25 +34,43 @@ LLMベンダー                  : {developer}
         formatter_path (str): フォーマッタのパス（デフォルトはNone）
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
-    prompt = create_prompt(goal_prompt, compiler_path, formatter_path)        # プロンプトを作成
-    # print("goal_prompt", goal_prompt)
-    # print("promtp", prompt)
+    # プロンプトコンパイラとプロンプトフォーマッタを変数として受け取る
+    if "grimoires" in compiler_path:                                          # grimoires/ディレクトリにコンパイラパスが含まれている場合
+        prompt_compiler = os.path.basename(compiler_path)                     # - コンパイラパスからファイル名のみを取得してprompt_compilerに代入
+    else:                                                                     # grimoires/ディレクトリにコンパイラパスが含まれていない場合
+        prompt_compiler = compiler_path                                       # - コンパイラパスをそのままprompt_compilerに代入
+    if "grimoires" in formatter_path:                                         # grimoires/ディレクトリにフォーマッタパスが含まれている場合
+        prompt_formatter = os.path.basename(formatter_path)                   # - フォーマッタパスからファイル名のみを取得してprompt_formatterに代入
+    else:                                                                     # grimoires/ディレクトリにフォーマッタパスが含まれていない場合
+        prompt_formatter = formatter_path                                     # - フォーマッタパスをそのままprompt_formatterに代入
     
-    done = False  # スピナーの終了フラグを追加
-    spinner_thread = threading.Thread(target=show_spinner, args=(lambda: done, "要件定義書執筆"))  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
-    spinner_thread.start()  # スピナーの表示を開始
-    
-    response = generate_response(                                             # developerごとの分岐を関数化して応答を生成
-        developer, model_name, prompt                                         # - デベロッパー、モデル名、プロンプトを引数に渡す
-    )                                                                         #
-    
-    done = True  # 応答生成後にスピナーの終了フラグをTrueに設定
-    spinner_thread.join()  # スピナーの表示を終了
-    
-    md_content = response.strip()                                             # 生成された要件定義書の内容を取得し、前後の空白を削除
-    save_md_content(md_content, target_file_path)                             # 生成された要件定義書の内容をファイルに保存
-    print_generation_result(target_file_path, open_file)                      # 生成結果を出力し、open_fileフラグに応じてファイルを開く
+    print(f"""
+==============================================================
+目標                           : 起動術式を用いて魔法術式を構築する
+\033[31m起動術式\033[0m (プロンプトコンパイラ)  : {prompt_compiler}
+\033[32m魔法術式\033[0m (要件定義書)            : {target_file_path}
+\033[34m錬成術式\033[0m (プロンプトフォーマッタ): {prompt_formatter}
+\033[90m言霊\033[0m   (LLMベンダー・モデル名) : {developer}/{model_name}
+ファイルを開く                 : {open_file}
+==============================================================
+    """)
 
+
+    prompt = create_prompt(goal_prompt, compiler_path, formatter_path)  # プロンプトを作成
+    done = False                                                        # スピナーの終了フラグを追加
+    spinner_thread = threading.Thread(                                  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
+        target=show_spinner,
+        args=(lambda: done, f"ステップ1. \033[31m起動術式\033[0mを用いて\033[32m魔法術式\033[0mを構築")           
+    )                                                                   #
+    spinner_thread.start()                                              # スピナーの表示を開始
+    response = generate_response(                                       # developerごとの分岐を関数化して応答を生成
+        developer, model_name, prompt                                   #
+    )                                                                   #
+    done = True                                                         # 応答生成後にスピナーの終了フラグをTrueに設定
+    spinner_thread.join()                                               # スピナーの表示を終了
+    md_content = response.strip()                                       # 生成された要件定義書の内容を取得し、前後の空白を削除
+    save_md_content(md_content, target_file_path)                       # 生成された要件定義書の内容をファイルに保存
+    print_generation_result(target_file_path, open_file)                # 生成結果を出力し、open_fileフラグに応じてファイルを開く
 
 def show_spinner(done, goal):
     """スピナーを表示する関数
@@ -86,10 +87,9 @@ def show_spinner(done, goal):
     ] + [f"{progress_bar}☆ﾟ.*･｡"]
     spinner = [spinner_base + anim for anim in spinner_animation]
     
-     # リッチなスピナーのアニメーションパターンを定義。各フレームの末尾に「...」を追加して改行
     while not done():                                                   # done()がFalseの間、スピナーを表示し続ける
         for cursor in spinner:                                          # - スピナーのアニメーションパターンを順番に処理
-            sys.stdout.write(cursor + "\b" * (len(cursor)+10))               # -- カーソル文字を出力し、その文字数分だけバックスペースを出力して上書き
+            sys.stdout.write(cursor + "\b" * (len(cursor)+100))          # -- カーソル文字を出力し、その文字数分だけバックスペースを出力して上書き
             sys.stdout.flush()                                          # -- 出力をフラッシュして即時表示
             time.sleep(0.1)                                             # -- 0.1秒のディレイを追加
 
@@ -257,15 +257,25 @@ def print_generation_result(target_file_path, open_file=True):
     """
     req = "requirements"
     target_file_path = f"{req}/{target_file_path}"
-    print(f"\033[32m要件定義書を生成しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
+    print(f"\033[32m魔法術式（要件定義書）を生成しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
     
     # ユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
-    build_directory = input("要件定義書からディレクトリを構築しますか？ (y/n): ")
+    build_directory = input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを構築・実行しますか？ (y/n): ")
     
     if build_directory.lower() == 'y':
         # ユーザーがyと答えた場合、zoltraakコマンドを実行してディレクトリを構築
+        done = False  # スピナーの終了フラグを追加
+        spinner_thread = threading.Thread(  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
+            target=show_spinner,
+            args=(lambda: done, f"ステップ2. \033[32m魔法式\033[0mから\033[33m領域\033[0mを構築")
+        )
+        spinner_thread.start()  # スピナーの表示を開始
+        
         import subprocess
         subprocess.run(["zoltraak", target_file_path])
+        
+        done = True  # zoltraakコマンド実行後にスピナーの終了フラグをTrueに設定
+        spinner_thread.join()  # スピナーの表示を終了
     else:
         # ユーザーがnと答えた場合、既存の手順を表示
         print(f"\033[33m以下のコマンドをコピーして、ターミナルに貼り付けて実行してください。\033[0m")  # 実行方法の説明を黄色で表示
