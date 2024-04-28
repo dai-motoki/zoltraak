@@ -65,7 +65,7 @@ Readme files in other languages are available here. Currently we support:
    これにより、入力したプロンプトに基づいた要件定義書が生成されます。生成された要件定義書は叩き台となるため、必要に応じて内容を修正・拡充してください。
 
 2. プロンプトコンパイラ（起動式）の指定
-   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。
+   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。指定なしの場合は、最も適切と思われるプロンプトコンパイラを5つ自動でピックアップするコンパイラが実行されます。
 
    | コンパイラ名 | 説明 |
    | --- | --- |
@@ -261,6 +261,7 @@ zoltraak/grimoires/
 │   ├── func.md
 │   ├── lisp.md
 │   ├── obj.md
+│   ├── obj_mermaid.md
 │   ├── obj_lisp.md
 │   ├── obj_lisp_g.md
 │   ├── obj_lisp_g_base64.md
@@ -269,6 +270,7 @@ zoltraak/grimoires/
 │   └── emoji.md
 ├── formatter: プロンプトフォーマッタ
 │   ├── md_comment.md
+│   ├── md_comment_xx.md (md_commentの言語指定：en, zhなどに対応。ご利用の言語の略称でまずは動くか確認して、動かない場合は追加対応をお待ちください)
 │   └── py_comment.md
 ├── interpretspec: インタプリタ型LLM強化プロンプト
 │   └── hirokichi.md
