@@ -234,6 +234,8 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language
         print(f"プロンプトファイル {compiler_path} が見つかりません。")  # - エラーメッセージを表示
         prompt = ""
 
+    if prompt != "" and language is not None and not formatter_path.endswith("_lang.md"):
+        prompt = formatter[formatter.rindex("## Output Language"):]  + "\n- Follow the format defined in the format section. DO NOT output the section itself." + prompt # 言語指定の強調前出しでサンドイッチにしてみる。
     # print(prompt) # デバッグ用
     return prompt
 
@@ -258,7 +260,7 @@ def get_formatter(formatter_path, language=None):
                     if formatter_path.endswith("_lang.md"):
                         formatter = formatter.replace("{language}", language)
                     else:
-                        formatter += f"""\n- You must generate your response using in {language}.\n- You must output everything including code block, according to the previous instructions."""
+                        formatter += f"\n- You must output everything including code block and diagrams, according to the previous instructions, but make sure you write your response in {language}.\n\n## Output Language\n- You must generate your response using {language}, which is the language of the formatter just above this sentence."
         else:  # -- フォーマッタファイルが存在しない場合
             print(f"フォーマッタファイル {formatter_path} が見つかりません。")  # --- エラーメッセージを表示
             formatter = ""  # --- フォーマッタを空文字列に設定
