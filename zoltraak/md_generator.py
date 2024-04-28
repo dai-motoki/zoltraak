@@ -215,6 +215,7 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None):
         prompt += f"""まず、goal_promptを踏まえて、最初に取るべきステップを明示してください。
         そのステップやgoal_prompt自身と比較して、最も適切なファイルを上位5つ選び、それぞれの理由とともに説明してください。
         また、それぞれの実行プロンプトを、zoltraak \"{goal_prompt}\" -c [ファイル名（拡張子なし）]で、code blockに入れて添付してください。"""
+        prompt += prompt + formatter
     elif os.path.exists(compiler_path):  # プロンプトファイルが存在する場合
         with open(compiler_path, "r", encoding = "utf-8") as file:  # - プロンプトファイルを読み込みモードで開く
             prompt = file.read().format(
