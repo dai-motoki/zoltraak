@@ -235,8 +235,8 @@ class TestCompilerFunctionality(unittest.TestCase):  # クラス名をTestCompil
             target_file_path=expected_md_path,
             developer="anthropic",
             model_name="claude-3-haiku-20240307",
-            compiler_path=f"setting/compiler/{compiler_path}",
-            formatter_path="setting/formatter/None.md",
+            compiler_path=f"grimoires/compiler/{compiler_path}",
+            formatter_path="grimoires/formatter/None.md",
             open_file=False
         )
 

@@ -136,7 +136,7 @@ def create_prompt_and_get_response_groq(model, prompt):
     )
     return chat_completion.choices[0].message.content.strip()
 
-def create_prompt(goal_prompt, compiler_path="setting/compiler/dev_obj.md", formatter_path=None):
+def create_prompt(goal_prompt, compiler_path="grimoires/compiler/dev_obj.md", formatter_path=None):
     """
     LLMへのプロンプトを作成する関数
 
@@ -148,7 +148,7 @@ def create_prompt(goal_prompt, compiler_path="setting/compiler/dev_obj.md", form
     Returns:
         str: 作成されたプロンプト
     """
-    # prompt_file = "setting/compiler/dev_obj.md"  # デフォルトのプロンプトファイルのパスを指定
+    # prompt_file = "grimoires/compiler/dev_obj.md"  # デフォルトのプロンプトファイルのパスを指定
     # if compiler_path:  # コンパイラパスが指定されている場合
         # prompt_file = compiler_path  # - プロンプトファイルのパスをコンパイラパスに変更
 

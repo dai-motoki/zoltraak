@@ -15,7 +15,7 @@ setup(
     ],
     package_data={
         '': ['*.txt', '*.md', '*.json', '*.csv', '*.yaml', '*.yml'],
-        'zoltraak': ['llms/*','utils/*', 'setting/**/*'],
+        'zoltraak': ['llms/*','utils/*', 'grimoires/**/*'],
     },
     entry_points={
         "console_scripts": [

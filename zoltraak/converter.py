@@ -313,7 +313,7 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
     # 利用LLM: {claude_code}
     # dev_python.mdファイルからプロンプトを読み込む
 
-    # with open("zoltraak/setting/developer/dev_python.md", "r") as f:
+    # with open("zoltraak/grimoires/developer/dev_python.md", "r") as f:
     #     dev_python_prompt = f.read()
     # prompt = dev_python_prompt.format(source_content=source_content)
 
@@ -330,13 +330,13 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
         'source_content': source_content
     }
     zoltraak_dir = os.path.dirname(zoltraak.__file__)
-    prompt = load_prompt(f"{zoltraak_dir}/setting/architect/architect_detail.md", variables)
+    prompt = load_prompt(f"{zoltraak_dir}/grimoires/architect/architect_detail.md", variables)
     print(prompt)
     # variables = {
     #     'source_file_path': "readm/",
     #     'source_file_name': "readme",
     # }
-    # prompt = load_prompt("zoltraak/setting/architect/architect_detail_dir.md", variables)
+    # prompt = load_prompt("zoltraak/grimoires/architect/architect_detail_dir.md", variables)
     # print(prompt)
 
 
