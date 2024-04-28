@@ -37,6 +37,6 @@ def generate_response(prompt):
         ]
     )
 
-    print(response)
+    # print(response)
     
     return response.content[0].text.strip()

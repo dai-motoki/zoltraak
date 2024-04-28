@@ -22,15 +22,19 @@ def generate_md_from_prompt(
     formatter_path=None,
     open_file=True,  # ファイルを開くかどうかのフラグを追加
 ):
+    # プロンプトコンパイラとプロンプトフォーマッタを変数として受け取る
+    prompt_compiler = os.path.basename(compiler_path) if "grimoires" in compiler_path else compiler_path
+    prompt_formatter = os.path.basename(formatter_path) if "grimoires" in formatter_path else formatter_path
+    
     print(f"""
 ==============================================================
-goal_prompt: {goal_prompt}
-target_file_path: {target_file_path}
-developer: {developer}
-model_name: {model_name}
-compiler_path: {compiler_path}
-formatter_path: {formatter_path}
-open_file: {open_file}
+目標                         : {goal_prompt}
+要件定義書                   : {target_file_path}
+プロンプトコンパイラ (起動式): {prompt_compiler}
+プロンプトフォーマッタ       : {prompt_formatter}
+LLMベンダー                  : {developer}
+モデル名                     : {model_name}
+ファイルを開く               : {open_file}
 ==============================================================
     """)
 
@@ -48,11 +52,11 @@ open_file: {open_file}
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
     prompt = create_prompt(goal_prompt, compiler_path, formatter_path)        # プロンプトを作成
-    print("goal_prompt", goal_prompt)
-    print("promtp", prompt)
+    # print("goal_prompt", goal_prompt)
+    # print("promtp", prompt)
     
     done = False  # スピナーの終了フラグを追加
-    spinner_thread = threading.Thread(target=show_spinner, args=(lambda: done,))  # スピナーを表示するスレッドを作成し、終了フラグを渡す
+    spinner_thread = threading.Thread(target=show_spinner, args=(lambda: done, "要件定義書執筆"))  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
     spinner_thread.start()  # スピナーの表示を開始
     
     response = generate_response(                                             # developerごとの分岐を関数化して応答を生成
@@ -67,14 +71,15 @@ open_file: {open_file}
     print_generation_result(target_file_path, open_file)                      # 生成結果を出力し、open_fileフラグに応じてファイルを開く
 
 
-def show_spinner(done):
+def show_spinner(done, goal):
     """スピナーを表示する関数
 
     Args:
         done (function): スピナーを終了するかどうかを判定する関数
     """
     progress_bar = "━" * 22
-    spinner_base = "要件定義書作成中... 🪄 "
+
+    spinner_base = goal + "中... 🪄 "
     spinner_animation = [
         f"{progress_bar[:i]}☆ﾟ.*･｡ﾟ{' ' * (len(progress_bar) - i)}"
         for i in range(1, len(progress_bar) + 1)
