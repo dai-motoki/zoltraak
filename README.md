@@ -9,6 +9,12 @@ Zoltraakは自然言語を実行言語に変換するプロンプトコンパイ
 以下将来的にTODO: 
 独自言語呪文や暗号呪文へのコンパイルも可能とするため周りから呪文を抜き取られリバースエンジニアリングされる心配もありません。 微調整の後それを古代語として圧縮し呪文を秘匿する事も可能です。 また、独自言語を用い数語微修正するのみで、実行言語が瞬時に変わり術が発動します。
 
+## 他言語（Other languages）
+他言語版readmeは以下からご覧になれます。現在サポートしているのは以下の言語です。
+
+Readme files in other languages are available here. Currently we support:
+- [English](README_EN.md)
+
 # 目次
 
 
