@@ -331,7 +331,7 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
     }
     zoltraak_dir = os.path.dirname(zoltraak.__file__)
     prompt = load_prompt(f"{zoltraak_dir}/grimoires/architect/architect_detail.md", variables)
-    print(prompt)
+    # print(prompt)
     # variables = {
     #     'source_file_path': "readm/",
     #     'source_file_name': "readme",
