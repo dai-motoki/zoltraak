@@ -222,7 +222,7 @@ twine upload dist/*
 ## Directory Structure
 
 ```
-zoltraak/setting/
+zoltraak/grimoires/
 ├── compiler: Converter from incantation to natural language
 │   ├── akirapp.md
 │   ├── func.md
@@ -241,7 +241,7 @@ zoltraak/setting/
 │   └── hirokichi.md
 └── softdb: Soft DB
 
-memo: Want to include an experimental system to benchmark all items in the setting directory
+memo: Want to include an experimental system to benchmark all items in the grimoires directory
 
 ```
 

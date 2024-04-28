@@ -255,7 +255,7 @@ twine upload dist/*
 ## ディレクトリ構成
 
 ```
-zoltraak/setting/
+zoltraak/grimoires/
 ├── compiler: 詠唱から自然言語への変換器
 │   ├── akirapp.md
 │   ├── func.md
@@ -275,7 +275,7 @@ zoltraak/setting/
 └── softdb: 柔らかいDB
 
 
-memo: setting内の全てのベンチマークは各々やるような実験システムもいれたい
+memo: grimoires内の全てのベンチマークは各々やるような実験システムもいれたい
 
 ```
 

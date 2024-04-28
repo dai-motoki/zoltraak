@@ -98,10 +98,10 @@ def process_markdown_file(args):
     if args.custom_compiler:
         compiler_path = get_custom_compiler_path(args.custom_compiler)
     else:
-        compiler_path = None if args.compiler == "None" else os.path.join(zoltraak_dir, "setting/compiler", args.compiler + ("" if args.compiler.endswith(".md") else ".md"))
+        compiler_path = None if args.compiler == "None" else os.path.join(zoltraak_dir, "grimoires/compiler", args.compiler + ("" if args.compiler.endswith(".md") else ".md"))
         print(f"デフォルトコンパイラーのパス: {compiler_path}")
 
-    formatter_path = os.path.join(zoltraak_dir, "setting/formatter", args.formatter + ("" if args.formatter.endswith(".md") else ".md"))
+    formatter_path = os.path.join(zoltraak_dir, "grimoires/formatter", args.formatter + ("" if args.formatter.endswith(".md") else ".md"))
     print("compiler_path:", compiler_path)
     print("formatter_path:", formatter_path)
 

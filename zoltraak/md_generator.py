@@ -149,7 +149,7 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None):
     Returns:
         str: 作成されたプロンプト
     """
-    # prompt_file = "setting/compiler/dev_obj.md"  # デフォルトのプロンプトファイルのパスを指定
+    # prompt_file = "grimoires/compiler/dev_obj.md"  # デフォルトのプロンプトファイルのパスを指定
     # if compiler_path:  # コンパイラパスが指定されている場合
         # prompt_file = compiler_path  # - プロンプトファイルのパスをコンパイラパスに変更
 
@@ -158,7 +158,7 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None):
     if compiler_path is None:
         # 検索関数の起動
         zoltraak_dir = os.path.dirname(zoltraak.__file__)
-        compiler_folder = f"{zoltraak_dir}/setting/compiler"
+        compiler_folder = f"{zoltraak_dir}/grimoires/compiler"
         compiler_files = [file for file in os.listdir(compiler_folder) if file.endswith(".md")]
 
         prompt = "以下のファイルから、goal_promptに最も適したものを選んでください。\n\n"
