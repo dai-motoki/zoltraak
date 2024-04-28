@@ -7,7 +7,7 @@
     2.1 os.mkdirsを使用して`ルートディレクトリ`を作成する
     2.2 os.path.joinとos.mkdirsを使用して、詳細なディレクトリ構成を作成する  
     2.3 osモジュールの機能を使用して、必要なファイル群を作成する（ディレクトリの中に何もない場合は新しく作る）
-        with open(os.path.join(ディレクトリパス, 'ファイル名'), 'w') as f:
+        with open(os.path.join(ディレクトリパス, 'ファイル名'), 'w', encoding = "utf-8") as f:
     pass
     2.4 
     ルートディレクトリにREADME.mdファイルを書き込みモードで開く
