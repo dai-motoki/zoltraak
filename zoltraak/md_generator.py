@@ -4,6 +4,10 @@ import anthropic
 from dotenv import load_dotenv
 from groq import Groq  # Groqをインポート
 import zoltraak
+from tqdm import tqdm  # tqdmをインポート
+import threading
+import time
+import sys
 
 load_dotenv()  # .envファイルから環境変数を読み込む
 anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
@@ -19,16 +23,20 @@ def generate_md_from_prompt(
     formatter_path=None,
     open_file=True,  # ファイルを開くかどうかのフラグを追加
 ):
+    # プロンプトコンパイラとプロンプトフォーマッタを変数として受け取る
+    prompt_compiler = os.path.basename(compiler_path) if "grimoires" in compiler_path else compiler_path
+    prompt_formatter = os.path.basename(formatter_path) if "grimoires" in formatter_path else formatter_path
+    
     print(f"""
-====================================
-goal_prompt: {goal_prompt}
-target_file_path: {target_file_path}
-developer: {developer}
-model_name: {model_name}
-compiler_path: {compiler_path}
-formatter_path: {formatter_path}
-open_file: {open_file}
-====================================
+==============================================================
+目標                         : {goal_prompt}
+要件定義書                   : {target_file_path}
+プロンプトコンパイラ (起動式): {prompt_compiler}
+プロンプトフォーマッタ       : {prompt_formatter}
+LLMベンダー                  : {developer}
+モデル名                     : {model_name}
+ファイルを開く               : {open_file}
+==============================================================
     """)
 
 
@@ -45,14 +53,48 @@ open_file: {open_file}
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
     prompt = create_prompt(goal_prompt, compiler_path, formatter_path)        # プロンプトを作成
-    print("goal_prompt", goal_prompt)
-    print("promtp", prompt)
+    # print("goal_prompt", goal_prompt)
+    # print("promtp", prompt)
+    
+    done = False  # スピナーの終了フラグを追加
+    spinner_thread = threading.Thread(target=show_spinner, args=(lambda: done, "要件定義書執筆"))  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
+    spinner_thread.start()  # スピナーの表示を開始
+    
     response = generate_response(                                             # developerごとの分岐を関数化して応答を生成
         developer, model_name, prompt                                         # - デベロッパー、モデル名、プロンプトを引数に渡す
     )                                                                         #
+    
+    done = True  # 応答生成後にスピナーの終了フラグをTrueに設定
+    spinner_thread.join()  # スピナーの表示を終了
+    
     md_content = response.strip()                                             # 生成された要件定義書の内容を取得し、前後の空白を削除
     save_md_content(md_content, target_file_path)                             # 生成された要件定義書の内容をファイルに保存
     print_generation_result(target_file_path, open_file)                      # 生成結果を出力し、open_fileフラグに応じてファイルを開く
+
+
+def show_spinner(done, goal):
+    """スピナーを表示する関数
+
+    Args:
+        done (function): スピナーを終了するかどうかを判定する関数
+    """
+    progress_bar = "━" * 22
+
+    spinner_base = goal + "中... 🪄 "
+    spinner_animation = [
+        f"{progress_bar[:i]}☆ﾟ.*･｡ﾟ{' ' * (len(progress_bar) - i)}"
+        for i in range(1, len(progress_bar) + 1)
+    ] + [f"{progress_bar}☆ﾟ.*･｡"]
+    spinner = [spinner_base + anim for anim in spinner_animation]
+    
+     # リッチなスピナーのアニメーションパターンを定義。各フレームの末尾に「...」を追加して改行
+    while not done():                                                   # done()がFalseの間、スピナーを表示し続ける
+        for cursor in spinner:                                          # - スピナーのアニメーションパターンを順番に処理
+            sys.stdout.write(cursor + "\b" * (len(cursor)+10))               # -- カーソル文字を出力し、その文字数分だけバックスペースを出力して上書き
+            sys.stdout.flush()                                          # -- 出力をフラッシュして即時表示
+            time.sleep(0.1)                                             # -- 0.1秒のディレイを追加
+
+
 
 def generate_response(developer, model_name, prompt):
     """
@@ -233,11 +275,18 @@ def print_generation_result(target_file_path, open_file=True):
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
     print(f"\033[32m要件定義書を生成しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
-    print(f"\033[33m以下のコマンドをコピーして、ターミナルに貼り付けて実行してください。\033[0m")  # 実行方法の説明を黄色で表示
-    print(f"\033[36mzoltraak {target_file_path}\033[0m")  # 実行コマンドを水色で表示
-    pyperclip.copy(f"zoltraak {target_file_path}")  # 実行コマンドをクリップボードにコピー
-    print("\033[35mコマンドをクリップボードにコピーしました。ターミナルに貼り付けて実行できます。\033[0m")  # コピー完了メッセージを紫色で表示
-    if open_file:  # open_fileフラグがTrueの場合
-        os.system(f"code {target_file_path}")  # ファイルを開く（VSCodeにおける`code syllabus_graph.png`に相当）
-
-
+    
+    # ユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
+    build_directory = input("要件定義書からディレクトリを構築しますか？ (y/n): ")
+    
+    if build_directory.lower() == 'y':
+        # ユーザーがyと答えた場合、zoltraakコマンドを実行してディレクトリを構築
+        import subprocess
+        subprocess.run(["zoltraak", target_file_path])
+    else:
+        # ユーザーがnと答えた場合、既存の手順を表示
+        print(f"\033[33m以下のコマンドをコピーして、ターミナルに貼り付けて実行してください。\033[0m")  # 実行方法の説明を黄色で表示
+        print(f"\033[36mzoltraak {target_file_path}\033[0m")  # 実行コマンドを水色で表示
+        pyperclip.copy(f"zoltraak {target_file_path}")  # 実行コマンドをクリップボードにコピー
+        print("\033[35mコマンドをクリップボードにコピーしました。ターミナルに貼り付けて実行できます。\033[0m")  # コピー完了メッセージを紫色で表示
+        

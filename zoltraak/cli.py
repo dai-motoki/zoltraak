@@ -33,6 +33,8 @@ def main():
     if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
+        # print(args.input)
+        # print("mo")
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
             args.compiler = "dev_obj"                                    # --- デフォルトのコンパイラー（general_def）を使用
         elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
@@ -89,8 +91,15 @@ def process_markdown_file(args):
     """
     Markdownファイルを処理する
     """
-    md_file_path = os.path.join("requirements", os.path.basename(args.input))
+
+    # print(os.path.basename(args.input))
+    # print(os.path.basename(args.input))
+    # # md_file_path = os.path.join("requirements", os.path.basename(args.input))
+    # md_file_path = os.path.join("requirements", os.path.basename(args.input))
+    md_file_path = args.input
+    # print("md_file_path:", md_file_path)
     output_dir = os.path.abspath(args.output_dir)
+    # print("output_dir:", output_dir)
     prompt = args.prompt
 
     zoltraak_dir = os.path.dirname(zoltraak.__file__)
@@ -128,13 +137,13 @@ def get_custom_compiler_path(custom_compiler):
         print("3. ファイル名の拡張子が '.md' であることを確認してください。")
         print("4. ファイルの読み取り権限があることを確認してください。")
         exit(1)
-    print(f"カスタムコンパイラーのパス: {compiler_path}")
+    # print(f"カスタムコンパイラー: {compiler_path}")
     return compiler_path
 
 def process_text_input(args):
     text = args.input
     md_file_path = generate_md_file_name(text)
-    print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
+    # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
     if args.custom_compiler:

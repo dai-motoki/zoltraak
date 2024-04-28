@@ -252,7 +252,7 @@ echo "ビルドしたパッケージをPyPIにアップロード中..."
 twine upload dist/*
 ```
 
-## ディレクトリ構成
+## 魔導書構成
 
 ```
 zoltraak/grimoires/
@@ -622,3 +622,10 @@ import writer.book.lecture
 - [ ] ディレクトリ構築はペーストではなくシステムから構築するか聞かれるようにする
 - [ ] Pythonのファイル取得部は関数化して外部ファイル化ける
 - [ ] デザイナーと開発者を導入。
+
+
+# 0.1.25 更新情報
+2024_04_28 
+
+- setting → grimoiresに変更
+- dev_react_fast_api を追加
