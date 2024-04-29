@@ -20,7 +20,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -30,17 +30,14 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dai-motoki"><img src="https://avatars.githubusercontent.com/u/58665894?v=4?s=100" width="100px;" alt="DAISUKE MOTOKI"/><br /><sub><b>DAISUKE MOTOKI</b></sub></a><br /><a href="#code-dai-motoki" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThePioneerJP"><img src="https://avatars.githubusercontent.com/u/116901962?v=4?s=100" width="100px;" alt="The Pioneer"/><br /><sub><b>The Pioneer</b></sub></a><br /><a href="#code-ThePioneerJP" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
 
-
-コントリビュータの追加方法はこちら
-→ 
-[クリック](#コントリビューターの追加方法)
-
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 Zoltraakは自然言語を実行言語に変換するプロンプトコンパイラシステムを採用し、数語の呪文から起動術式を用いて複雑な術式を展開しこれを即時実行可能な古代システム語へとコンパイルします。これにより術師の数語の呪文は強力な言霊の数々を織り込んだ魔法陣を通り魔法の範囲と威力を大幅に向上させることが可能となります。また詠唱、無詠唱での高速な創造魔法を実現可能とします。これにより相対する敵よりも圧倒的に高速かつ柔軟な術の発動を可能とします。
