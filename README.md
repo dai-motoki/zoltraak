@@ -33,10 +33,8 @@ Readme files in other languages are available here. Currently we support:
 
 
 
-
+# Zoltraakの動作イメージ
 ![Last frame of video](assets/images/last_frame.png)
-
-
 
 
 ## 利用方法
@@ -138,6 +136,7 @@ zoltraak "今月中にオブジェクト指向設計を用いて、多機能在�
 zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -f md_comment -l CSharp
 zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -l グルジア語
 ```
+
 
 ## プロジェクトへの参加
 
@@ -652,6 +651,7 @@ zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi
 
 とやると要件定義書名にバージョンを記載してくれる。
 
+
 # Contributors
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
@@ -676,3 +676,4 @@ zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi
 2. ボットがコントリビューターをプロジェクトに追加するためのプルリクエストを作成します。
 
 3. プルリクエストがマージされると、コントリビューターがREADMEに追加されます。
+
