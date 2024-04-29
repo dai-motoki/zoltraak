@@ -50,11 +50,20 @@
         "code"
       ]
     },
-    {
+            {
       "login": "onikan27",
       "name": "akino",
       "avatar_url": "https://avatars.githubusercontent.com/u/74908945?v=4",
       "profile": "https://github.com/onikan27",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "sarukun99",
+      "name": "tomoyuki enomoto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4081854?v=4",
+      "profile": "https://github.com/sarukun99",
       "contributions": [
         "code"
       ]
