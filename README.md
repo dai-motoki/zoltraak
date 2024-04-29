@@ -669,9 +669,13 @@ zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi
 
 コントリビューターを追加するには、以下の手順を実行してください:
 
-1. issueまたはプルリクエストに、以下の形式でコメントを残してください:
+1. issueまたはプルリクエストに、以下の形式でコメントを残してください:  
+
+```
 @all-contributors please add @username for <contributions>
+```
 `@username`をコントリビューターのGitHubユーザー名に、`<contributions>`をコントリビュートのタイプに置き換えてください。コントリビュートのタイプは、[Emoji Key](https://allcontributors.org/docs/en/emoji-key)を参照してください。
+
 
 2. ボットがコントリビューターをプロジェクトに追加するためのプルリクエストを作成します。
 
