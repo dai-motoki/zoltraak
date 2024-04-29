@@ -109,6 +109,18 @@ zoltraak dir/*.md (planned)
 
 ![llmcomment.png](assets/images/llmcomment.png)
 
+### Optional Arguments
+- ``-f``: Format specification. Located in the grimoires folder.
+- ``-l``: Generic language specification. The language name can be in the local name such as "Español", in English like "Spanish", or in Japanese like "スペイン語" (Spanish).
+  - If a generic language formatter (a file ending with "``_lang.md``") exists for the specified format, the processing will be based on that file.
+  - If it doesn't exist, the default language set compiler will be triggered. However, since the effect is relatively less stable, it is highly recommended to create a generic language formatter.
+
+```
+zoltraak "Develop a multi-functional inventory management system using object-oriented design within this month" -c dev_obj -l English
+zoltraak "Develop a multi-functional inventory management system using object-oriented design within this month" -c dev_obj -f md_comment -l CSharp
+zoltraak "Develop a multi-functional inventory management system using object-oriented design within this month" -c dev_obj -l Georgian
+```
+
 ## Joining the Project
 
 1. Clone the repository:
