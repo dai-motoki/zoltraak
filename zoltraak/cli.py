@@ -185,6 +185,3 @@ def generate_md_file_name(prompt):
     response = claude.generate_response(file_name_prompt)
     file_name = response.strip()
     return f"{file_name}"
-
-
-main()
