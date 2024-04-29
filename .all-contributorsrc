@@ -41,7 +41,7 @@
         "code"
       ]
     },
-        {
+    {
       "login": "Sunwood-ai-labs",
       "name": "Maki",
       "avatar_url": "https://avatars.githubusercontent.com/u/108736814?v=4",
@@ -50,7 +50,7 @@
         "code"
       ]
     },
-            {
+    {
       "login": "onikan27",
       "name": "akino",
       "avatar_url": "https://avatars.githubusercontent.com/u/74908945?v=4",
@@ -64,6 +64,15 @@
       "name": "tomoyuki enomoto",
       "avatar_url": "https://avatars.githubusercontent.com/u/4081854?v=4",
       "profile": "https://github.com/sarukun99",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "umayado17",
+      "name": "umayado17",
+      "avatar_url": "https://avatars.githubusercontent.com/u/40725757?v=4",
+      "profile": "https://github.com/umayado17",
       "contributions": [
         "code"
       ]
