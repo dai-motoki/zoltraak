@@ -66,7 +66,7 @@ Readme files in other languages are available here. Currently we support:
    これにより、入力したプロンプトに基づいた要件定義書が生成されます。生成された要件定義書は叩き台となるため、必要に応じて内容を修正・拡充してください。
 
 2. プロンプトコンパイラ（起動式）の指定
-   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。
+   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。指定なしの場合は、最も適切と思われるプロンプトコンパイラを5つ自動でピックアップするコンパイラが実行されます。
 
    | コンパイラ名 | 説明 |
    | --- | --- |
@@ -87,24 +87,22 @@ Readme files in other languages are available here. Currently we support:
    ```
 
 
+4. `test_dev_obj.md`というファイルを作成し、後続スレッドの内容をコピーして貼り付けてください。このファイルをzoltraakを実行するディレクトリと同じ階層に配置します。
 
-
-2. `test_dev_obj.md`というファイルを作成し、後続スレッドの内容をコピーして貼り付けてください。このファイルをzoltraakを実行するディレクトリと同じ階層に配置します。
-
-3. `test_dev_obj.md`を以下のルールに従って自分の定義書生成プログラムに書き換えましょう:
+5. `test_dev_obj.md`を以下のルールに従って自分の定義書生成プログラムに書き換えましょう:
    - `{prompt}`は zoltraakの後のプロンプト（呪文）が入るので消さないでください。
    - `## 2. ファイル・フォルダ構成`も消さないでください。
    - それ以外は自由に変更可能です。
 
-4. 以下のコマンドを実行して、自作コンパイラを使用します:
+6. 以下のコマンドを実行して、自作コンパイラを使用します:
    ```sh
    zoltraak プロンプト -cc 自作コンパイラ
    zoltraak "コーヒーショップ顧客管理システムを作りたい" -cc test_dev_obj.md
    ```
 
-5. `zoltraak requirements/~~~.md`が貼り付けできるようになっているはずなので実行してください。
+7. `zoltraak requirements/~~~.md`が貼り付けできるようになっているはずなので実行してください。
 
-6. ディレクトリが構築されます。Cursor、VSCodeにてopenコマンドが起動しない方は以下を参照してください:
+8. ディレクトリが構築されます。Cursor、VSCodeにてopenコマンドが起動しない方は以下を参照してください:
    https://note.com/88gram/n/n4ead3a677b83
 
 注意: 全てClaude3 Haikuにより実行されています（一回あたり約1円の料金がかかります。ご自身で確認ください）。
@@ -128,6 +126,18 @@ zoltraak dir/*.md （作成予定）
 
 
 ![llmcomment.png](assets/images/llmcomment.png)
+
+### オプショナル引数
+- ``-f`` : フォーマット指定。grimoiresフォルダ
+- ``-l`` : 汎用言語指定。言語名は、"Español"などの現地名でも、"Spanish"のような英語でも、「スペイン語」のような日本語でもOKです。
+  - 指定フォーマットについて、汎用言語フォーマッター（"``_lang.md``"で終わるファイル）が存在する場合は、そのファイルに基づき処理されます。
+  - 存在しない場合は、デフォルトの言語セットコンパイラが起動します。ただ、相対的に効果がやや不安定なので、汎用言語フォーマッターを作成しておくことが強く推奨されます。
+
+```
+zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -l English
+zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -f md_comment -l CSharp
+zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -l グルジア語
+```
 
 ## プロジェクトへの参加
 
@@ -262,6 +272,7 @@ zoltraak/grimoires/
 │   ├── func.md
 │   ├── lisp.md
 │   ├── obj.md
+│   ├── obj_mermaid.md
 │   ├── obj_lisp.md
 │   ├── obj_lisp_g.md
 │   ├── obj_lisp_g_base64.md
@@ -270,6 +281,7 @@ zoltraak/grimoires/
 │   └── emoji.md
 ├── formatter: プロンプトフォーマッタ
 │   ├── md_comment.md
+│   ├── md_comment_xx.md (md_commentの言語指定：en, zhなどに対応。ご利用の言語の略称でまずは動くか確認して、動かない場合は追加対応をお待ちください)
 │   └── py_comment.md
 ├── interpretspec: インタプリタ型LLM強化プロンプト
 │   └── hirokichi.md

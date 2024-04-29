@@ -12,7 +12,7 @@ import zoltraak
 load_dotenv()  # .envファイルから環境変数を読み込む
 anthropic.api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAPI keyを取得
 
-def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None):
+def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None):
     client = anthropic.Anthropic(api_key=anthropic.api_key)
 
     if prompt is None:
@@ -148,6 +148,7 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
                 model_name="claude-3-haiku-20240307",
                 compiler_path=compiler_path,
                 formatter_path=formatter_path,
+                language = language,
                 open_file=True
             )
 

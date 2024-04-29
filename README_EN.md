@@ -51,7 +51,7 @@ There is no need to worry about the spells being extracted and reverse-engineere
    This will generate a requirements document based on the entered prompt. The generated requirements document serves as a draft, so modify and expand the content as needed.
 
 2. Specifying the prompt compiler (invocation formula)
-   The prompt compiler (invocation formula) that can be changed according to the purpose is specified after the `-c` option.
+   The prompt compiler (invocation formula) that can be changed according to the purpose is specified after the `-c` option. Running without this option will present you a search result that shows the top 5 most-suited compiler for your request.
 
    | Compiler Name | Description |
    | --- | --- |
@@ -108,6 +108,18 @@ zoltraak dir/*.md (planned)
 ```
 
 ![llmcomment.png](assets/images/llmcomment.png)
+
+### Optional Arguments
+- ``-f``: Format specification. Located in the grimoires folder.
+- ``-l``: Generic language specification. The language name can be in the local name such as "Español", in English like "Spanish", or in Japanese like "スペイン語" (Spanish).
+  - If a generic language formatter (a file ending with "``_lang.md``") exists for the specified format, the processing will be based on that file.
+  - If it doesn't exist, the default language set compiler will be triggered. However, since the effect is relatively less stable, it is highly recommended to create a generic language formatter.
+
+```
+zoltraak "Develop a multi-functional inventory management system using object-oriented design within this month" -c dev_obj -l English
+zoltraak "Develop a multi-functional inventory management system using object-oriented design within this month" -c dev_obj -f md_comment -l CSharp
+zoltraak "Develop a multi-functional inventory management system using object-oriented design within this month" -c dev_obj -l Georgian
+```
 
 ## Joining the Project
 
@@ -228,6 +240,7 @@ zoltraak/grimoires/
 │   ├── func.md
 │   ├── lisp.md
 │   ├── obj.md
+│   ├── obj_mermaid.md
 │   ├── obj_lisp.md
 │   ├── obj_lisp_g.md
 │   ├── obj_lisp_g_base64.md
@@ -236,6 +249,7 @@ zoltraak/grimoires/
 │   └── emoji.md
 ├── formatter: Prompt formatters
 │   ├── md_comment.md
+│   ├── md_comment_xx.md (md_comment that can specify some languages including but not limited to en and zh. Try running it first with the abbreviated form of your target language. If it doesn't work, please wait for the further support)
 │   └── py_comment.md
 ├── interpretspec: Interpreter-type LLM enhancement prompts
 │   └── hirokichi.md

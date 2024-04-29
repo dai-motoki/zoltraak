@@ -21,6 +21,7 @@ def generate_md_from_prompt(
     model_name="claude-3-opus-20240229",  # モデル名の引数を独立させる
     compiler_path=None,
     formatter_path=None,
+    language=None, #汎用言語指定
     open_file=True,  # ファイルを開くかどうかのフラグを追加
 ):
     """
@@ -45,6 +46,13 @@ def generate_md_from_prompt(
     else:                                                                     # grimoires/ディレクトリにフォーマッタパスが含まれていない場合
         prompt_formatter = formatter_path                                     # - フォーマッタパスをそのままprompt_formatterに代入
     
+    # 汎用言語フォーマッタへの変更
+    if language is not None:
+        # prompt_formatterに_lang.mdが存在するならそれを、しないならprompt_formatterのまま
+        lang_formatter_path = os.path.splitext(prompt_formatter)[0] + "_lang.md"
+        if os.path.exists(lang_formatter_path):
+            prompt_formatter = lang_formatter_path
+    
     print(f"""
 ==============================================================
 ステップ1. 起動術式を用いて魔法術式を構築する
@@ -57,7 +65,7 @@ def generate_md_from_prompt(
     """)
 
 
-    prompt = create_prompt(goal_prompt, compiler_path, formatter_path)  # プロンプトを作成
+    prompt = create_prompt(goal_prompt, compiler_path, formatter_path, language)  # プロンプトを作成
     done = False                                                        # スピナーの終了フラグを追加
     spinner_thread = threading.Thread(                                  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
         target=show_spinner,
@@ -179,7 +187,7 @@ def create_prompt_and_get_response_groq(model, prompt):
     )
     return chat_completion.choices[0].message.content.strip()
 
-def create_prompt(goal_prompt, compiler_path=None, formatter_path=None):
+def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language=None):
     """
     LLMへのプロンプトを作成する関数
 
@@ -195,7 +203,7 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None):
     # if compiler_path:  # コンパイラパスが指定されている場合
         # prompt_file = compiler_path  # - プロンプトファイルのパスをコンパイラパスに変更
 
-    formatter = get_formatter(formatter_path)
+    formatter = get_formatter(formatter_path, language)
 
     if compiler_path is None:
         # 検索関数の起動
@@ -226,10 +234,13 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None):
         print(f"プロンプトファイル {compiler_path} が見つかりません。")  # - エラーメッセージを表示
         prompt = ""
 
+    if prompt != "" and language is not None and not formatter_path.endswith("_lang.md"):
+        prompt = formatter[formatter.rindex("## Output Language"):]  + "\n- Follow the format defined in the format section. DO NOT output the section itself." + prompt # 言語指定の強調前出しでサンドイッチにしてみる。
+    # print(prompt) # デバッグ用
     return prompt
 
 
-def get_formatter(formatter_path):
+def get_formatter(formatter_path, language=None):
     """
     フォーマッタを取得する関数
 
@@ -245,6 +256,11 @@ def get_formatter(formatter_path):
         if os.path.exists(formatter_path):  # -- フォーマッタファイルが存在する場合
             with open(formatter_path, "r", encoding = "utf-8") as file:  # --- フォーマッタファイルを読み込みモードで開く
                 formatter = file.read()  # ---- フォーマッタの内容を読み込む
+                if language is not None:
+                    if formatter_path.endswith("_lang.md"):
+                        formatter = formatter.replace("{language}", language)
+                    else:
+                        formatter += f"\n- You must output everything including code block and diagrams, according to the previous instructions, but make sure you write your response in {language}.\n\n## Output Language\n- You must generate your response using {language}, which is the language of the formatter just above this sentence."
         else:  # -- フォーマッタファイルが存在しない場合
             print(f"フォーマッタファイル {formatter_path} が見つかりません。")  # --- エラーメッセージを表示
             formatter = ""  # --- フォーマッタを空文字列に設定
