@@ -201,82 +201,30 @@ zoltraak "今月中にオブジェクト指向設計を用いて、多機能在�
 
 1. リポジトリをクローンします:
    ```
-   git clone https://github.com/yourusername/Zoltraak.git
+   git clone https://github.com/dai-motoki/zoltraak.git
    ```
 
 2. プロジェクトディレクトリに移動します:
    ```
-   cd Zoltraak
+   cd zoltraak
    ```
 
-3. 必要な依存関係をインストールします:
-   ```
-   pip install -r requirements.txt
-   ```
-
-4. Anthropic APIキーを設定します:
-   - プロジェクトのルートディレクトリに`.env`ファイルを作成します。
-   - 以下の行を`.env`ファイルに追加し、`YOUR_API_KEY`を実際のAnthropicのAPIキーに置き換えます:
-     ```
-     ANTHROPIC_API_KEY=YOUR_API_KEY
-     ```
-
-
-
-
-
-
-
-
-# pypiパッケージをローカル環境で開発するには以下の手順を踏むのが一般的です。
-
-1. 仮想環境の作成
+3. 仮想環境の作成
 まず、パッケージ開発用の独立した仮想環境を作成します。これにより、システム全体のPythonとは分離された環境で開発できます。
 
 ```bash
 python -m venv zoltraak-dev
 source zoltraak-dev/bin/activate  # Linuxの場合
-mypackage-env\Scripts\activate.bat  # Windowsの場合 
+zoltraak-env\Scripts\activate.bat  # Windowsの場合 
 ```
 
-2. 必要なパッケージのインストール
+4. 必要なパッケージのインストール
 開発に必要な依存パッケージをインストールします。例えば、`setuptools`と`wheel`は最低限必要です。
 
 ```bash
 pip install setuptools wheel
 ```
 
-3. パッケージのディレクトリ構成
-以下のような基本的なディレクトリ構成でパッケージを作成します。
-
-```
-mypackage/
-    mypackage/
-        __init__.py
-        module1.py
-        module2.py
-    tests/
-        test_module1.py
-        test_module2.py
-    setup.py
-    README.md
-```
-
-4. `setup.py`の作成
-パッケージのメタデータや依存関係を記述した`setup.py`ファイルを作成します。例えば以下のようになります。
-
-```python
-from setuptools import setup, find_packages
-
-setup(
-    name='mypackage',
-    version='0.1.0',
-    packages=find_packages(),
-    install_requires=[
-        # 依存パッケージ
-    ],
-)
-```
 
 5. パッケージのインストール
 開発中のパッケージを仮想環境にインストールします。
@@ -287,25 +235,17 @@ pip install -e .
 
 これで、仮想環境内でパッケージを使用したり、変更を加えたりできるようになります。
 
-6. パッケージの使用とテスト
-パッケージの機能を使用したり、ユニットテストを実行したりして、開発を進めます。
 
-7. ビルドと配布
-完成したパッケージは以下のコマンドでビルドし、PyPIに公開できます。
-
-```bash
-python setup.py sdist bdist_wheel
-twine upload dist/*
-```
-
-以上が、ローカル環境でのpypiパッケージ開発の基本的な流れです。仮想環境を使い、適切なディレクトリ構成と`setup.py`を用意することがポイントです。
+4. Anthropic APIキーを設定します:
+   - プロジェクトのルートディレクトリに`.env`ファイルを作成します。
+   - 以下の行を`.env`ファイルに追加し、`YOUR_API_KEY`を実際のAnthropicのAPIキーに置き換えます:
+     ```
+     ANTHROPIC_API_KEY=YOUR_API_KEY
+     ```
 
 
 
-
-
-
-### 追加コマンド
+### 追加コマンド（以下はオーナーのみ）
 
 
 update_and_upload.sh
