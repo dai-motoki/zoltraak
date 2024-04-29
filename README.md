@@ -33,8 +33,9 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThePioneerJP"><img src="https://avatars.githubusercontent.com/u/116901962?v=4?s=100" width="100px;" alt="The Pioneer"/><br /><sub><b>The Pioneer</b></sub></a><br /><a href="#code-ThePioneerJP" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/hiroki1014"><img src="https://avatars.githubusercontent.com/u/39159218?v=4?s=100" width="100px;" alt="Hiroki Koshika"/><br /><sub><b>Hiroki Koshika</b></sub></a><br /><a href="#code-hiroki1014" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/UnagiTabetai"><img src="https://avatars.githubusercontent.com/u/143519346?v=4?s=100" width="100px;" alt="MARUMO"/><br /><sub><b>MARUMO</b></sub></a><br /><a href="#code-UnagiTabetai" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sarukun99"><img src="https://avatars.githubusercontent.com/u/4081854?v=4?s=100" width="100px;" alt="tomoyuki enomoto"/><br /><sub><b>tomoyuki enomoto</b></sub></a><br /><a href="#code-sarukun99" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://hamaruki.com/"><img src="https://avatars.githubusercontent.com/u/108736814?v=4?s=100" width="100px;" alt="Maki"/><br /><sub><b>Maki</b></sub></a><br /><a href="#code-Sunwood-ai-labs" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/onikan27"><img src="https://avatars.githubusercontent.com/u/74908945?v=4?s=100" width="100px;" alt="akino"/><br /><sub><b>akino</b></sub></a><br /><a href="#code-onikan27" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sarukun99"><img src="https://avatars.githubusercontent.com/u/4081854?v=4?s=100" width="100px;" alt="tomoyuki enomoto"/><br /><sub><b>tomoyuki enomoto</b></sub></a><br /><a href="#code-sarukun99" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
