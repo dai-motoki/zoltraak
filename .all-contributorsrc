@@ -23,7 +23,7 @@
         "code"
       ]
     },
-        {
+    {
       "login": "hiroki1014",
       "name": "Hiroki Koshika",
       "avatar_url": "https://avatars.githubusercontent.com/u/39159218?v=4",
@@ -37,6 +37,15 @@
       "name": "MARUMO",
       "avatar_url": "https://avatars.githubusercontent.com/u/143519346?v=4",
       "profile": "https://github.com/UnagiTabetai",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Sunwood-ai-labs",
+      "name": "Maki",
+      "avatar_url": "https://avatars.githubusercontent.com/u/108736814?v=4",
+      "profile": "https://hamaruki.com/",
       "contributions": [
         "code"
       ]
