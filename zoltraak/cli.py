@@ -110,15 +110,15 @@ def process_markdown_file(args):
                 args.compiler + ("" if args.compiler.endswith(".md") else ".md"),
             )
         )
-        print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
+        # print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
 
     formatter_path = os.path.join(                                           # フォーマッタのパスを設定
         zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
         "grimoires/formatter",
         args.formatter + ("" if args.formatter.endswith(".md") else ".md"),
     )
-    print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
-    print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
+    # print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
+    # print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
 
     md_file_rel_path = os.path.relpath(md_file_path, os.getcwd())            # 現在のワーキングディレクトリからの相対パスを取得
     py_file_rel_path = os.path.splitext(md_file_rel_path)[0] + ".py"         # Markdownファイルの拡張子を.pyに変更

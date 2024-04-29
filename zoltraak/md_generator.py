@@ -280,20 +280,9 @@ def print_generation_result(target_file_path, open_file=True):
     print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
 
 
-    target_dir = f"generated/{os.path.splitext(os.path.basename(target_file_path))[0]}"  # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
 
 
 
-    print(f"""
-
-==============================================================
-ステップ2. 魔法術式を用いて領域術式を実行する
-\033[32m魔法術式\033[0m (要件定義書)                  : {target_file_path}
-\033[32m領域術式\033[0m **記述予定**                : 
-\033[32m領域対象\033[0m (ディレクトリパス)              : {target_dir}
-ファイル・ディレクトリを開く                   : {open_file}
-==============================================================
-    """)
 
     
     # ユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる

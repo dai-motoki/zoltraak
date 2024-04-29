@@ -2,7 +2,8 @@
 Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔法の名です。
 
 これまでの未体系であった呪文からの術の発動を、魔法の文法体系に昇華しより高速かつ広範囲な術式展開と強大な魔法の発動を可能とするシステムです。
-![](assets/images/dai4697_A_digital_painting_of_a_female_wizard_casting_a_powerfu_84046a02-5831-48c1-b8e3-c8b5a49d69e8.png)
+
+![](assets/videos/zoltraak2_smooth_high_quality.gif)
 
 Zoltraakは自然言語を実行言語に変換するプロンプトコンパイラシステムを採用し、数語の呪文から起動術式を用いて複雑な術式を展開しこれを即時実行可能な古代システム語へとコンパイルします。これにより術師の数語の呪文は強力な言霊の数々を織り込んだ魔法陣を通り魔法の範囲と威力を大幅に向上させることが可能となります。また詠唱、無詠唱での高速な創造魔法を実現可能とします。これにより相対する敵よりも圧倒的に高速かつ柔軟な術の発動を可能とします。
 
@@ -628,7 +629,10 @@ import writer.book.lecture
 2024_04_28 
 
 - setting → grimoiresに変更
-- dev_react_fast_api を追加
+- react & fast APIの要件定義書を記載しディレクトリを構築するdev_react_fast_api を追加
+- formatter 25パターンほど追加
+- 実行フローを整理、アニメーション追加
+
 
 # チップス
 
