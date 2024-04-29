@@ -191,6 +191,27 @@ def apply_diff_to_target_file(target_file_path, target_diff, client, model="clau
         file.write(modified_content)
 
     print(f"{target_file_path}に修正を適用しました。")
+def create_prompt_and_get_response(client, model, prompt, max_tokens, temperature):
+    """
+    Anthropic APIを使用して、指定されたモデルでプロンプトに基づいてテキストを生成する関数
+
+    Args:
+        client (anthropic.Anthropic): Anthropic APIクライアント
+        model (str): 使用するモデルの名前
+        prompt (str): 送信するプロンプト
+        max_tokens (int): 生成する最大トークン数
+        temperature (float): 生成の多様性を制御する温度パラメータ
+    Returns:
+        str: 生成されたテキスト
+    """
+    response = client.messages.create(
+        model=model,
+        max_tokens=max_tokens,
+        temperature=temperature,
+        system="",
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return response.content[0].text.strip()
 def propose_target_diff(target_file_path, source_diff_text, client):
     """
     ターゲットファイルの変更差分を提案する関数
