@@ -17,7 +17,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 <a href="https://github.com/dai-motoki/zoltraak" alt="GitHub issues by-label">
 <img src="https://img.shields.io/github/issues/XiaogangHe/InVEST-Cities-in-Nature" /></a> -->
 
-# 貢献者
+## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
@@ -47,6 +47,28 @@ Zoltraakは自然言語を実行言語に変換するプロンプトコンパイ
 
 以下将来的にTODO: 
 独自言語呪文や暗号呪文へのコンパイルも可能とするため周りから呪文を抜き取られリバースエンジニアリングされる心配もありません。 微調整の後それを古代語として圧縮し呪文を秘匿する事も可能です。 また、独自言語を用い数語微修正するのみで、実行言語が瞬時に変わり術が発動します。
+
+
+## ディストリビューション
+
+- zoltraak-docker
+
+https://github.com/Sunwood-ai-labs/zoltraak_docker
+
+- Streamlit
+
+https://x.com/habatakurikei/status/1784561693705560419 
+
+https://twitter.com/habatakurikei 
+https://twitter.com/habatakurikei
+
+
+- hagging face 
+
+https://t.co/TlEq204NBG
+https://x.com/hokazuya/status/1784887255154282524
+
+
 
 ## 他言語（Other languages）
 他言語版readmeは以下からご覧になれます。現在サポートしているのは以下の言語です。
