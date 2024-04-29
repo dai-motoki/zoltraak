@@ -22,6 +22,7 @@ def main():
     parser.add_argument("-f", "--formatter", help="コードフォーマッター", default="md_comment")
     parser.add_argument("-cc", "--custom-compiler", help="自作コンパイラー（自作定義書生成文書）")
     parser.add_argument("-v", "--version", action="store_true", help="バージョン情報を表示")  # 追加: バージョン情報表示オプション
+    parser.add_argument("-l", "--language", help="出力言語を指定", default=None)  # 追加: 汎用言語指定オプション
     args = parser.parse_args()
 
     if args.version:                                                         # バージョン情報表示オプションが指定された場合
@@ -36,13 +37,13 @@ def main():
         # print(args.input)
         # print("mo")
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
-            args.compiler = "dev_obj"                                    # --- デフォルトのコンパイラー（general_def）を使用
+            args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
         elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         
         process_markdown_file(args)                                          # - Markdownファイルを処理する関数を呼び出す
     else:                                                                    # 入力がテキストの場合
-        if args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
+        if args.compiler and args.custom_compiler:                           # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         
         process_text_input(args)                                             # - テキスト入力を処理する関数を呼び出す
@@ -110,15 +111,22 @@ def process_markdown_file(args):
                 args.compiler + ("" if args.compiler.endswith(".md") else ".md"),
             )
         )
-        print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
+        # print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
+
+    if not os.path.exists(compiler_path):
+        print(f"\033[31mファイル「{compiler_path}」が存在しないため検索モードに切り替わります。\033[0m")
+        compiler_path = None
 
     formatter_path = os.path.join(                                           # フォーマッタのパスを設定
         zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
         "grimoires/formatter",
         args.formatter + ("" if args.formatter.endswith(".md") else ".md"),
     )
-    print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
-    print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
+    # print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
+    # print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
+
+    language = None if args.language is None else args.language              # 汎用言語指定
+    print("language:", args.language)
 
     md_file_rel_path = os.path.relpath(md_file_path, os.getcwd())            # 現在のワーキングディレクトリからの相対パスを取得
     py_file_rel_path = os.path.splitext(md_file_rel_path)[0] + ".py"         # Markdownファイルの拡張子を.pyに変更
@@ -131,7 +139,9 @@ def process_markdown_file(args):
         prompt,                                                              # - プロンプト
         compiler_path,                                                       # - コンパイラーのパス
         formatter_path,                                                      # - フォーマッタのパス
+        language                                                             # - 汎用言語指定
     )
+
 def get_custom_compiler_path(custom_compiler):
     compiler_path = os.path.abspath(custom_compiler)
     if not os.path.exists(compiler_path):
@@ -141,7 +151,6 @@ def get_custom_compiler_path(custom_compiler):
         print("2. カスタムコンパイラーのファイルパスが正しいことを確認してください。")
         print("3. ファイル名の拡張子が '.md' であることを確認してください。")
         print("4. ファイルの読み取り権限があることを確認してください。")
-        exit(1)
     # print(f"カスタムコンパイラー: {compiler_path}")
     return compiler_path
 
@@ -152,9 +161,10 @@ def process_text_input(args):
     prompt = f"{text}"
 
     if args.custom_compiler:
-        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter}")
+        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter} -l {args.language}")
     else:
-        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter}")
+        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} -l {args.language}")
+
 def generate_md_file_name(prompt):
     # promptからファイル名を生成するためにgenerate_response関数を利用
 

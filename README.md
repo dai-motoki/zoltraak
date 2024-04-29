@@ -2,7 +2,8 @@
 Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔法の名です。
 
 これまでの未体系であった呪文からの術の発動を、魔法の文法体系に昇華しより高速かつ広範囲な術式展開と強大な魔法の発動を可能とするシステムです。
-![](assets/images/dai4697_A_digital_painting_of_a_female_wizard_casting_a_powerfu_84046a02-5831-48c1-b8e3-c8b5a49d69e8.png)
+
+![](assets/videos/zoltraak2_smooth_high_quality.gif)
 
 Zoltraakは自然言語を実行言語に変換するプロンプトコンパイラシステムを採用し、数語の呪文から起動術式を用いて複雑な術式を展開しこれを即時実行可能な古代システム語へとコンパイルします。これにより術師の数語の呪文は強力な言霊の数々を織り込んだ魔法陣を通り魔法の範囲と威力を大幅に向上させることが可能となります。また詠唱、無詠唱での高速な創造魔法を実現可能とします。これにより相対する敵よりも圧倒的に高速かつ柔軟な術の発動を可能とします。
 
@@ -35,6 +36,106 @@ Readme files in other languages are available here. Currently we support:
 # Zoltraakの動作イメージ
 ![Last frame of video](assets/images/last_frame.png)
 
+
+## 利用方法
+
+1. Zoltraakをインストール
+   ```sh
+   pip install --upgrade zoltraak
+   ```
+
+## 利用方法
+
+
+1. 使い方
+   1. `.env` ファイルに以下の環境変数を設定します。
+      ```
+      ANTHROPIC_API_KEY={Anthropicのキー}
+      ```
+   2. 以下のコマンドでZoltraakをインストールします。
+      ```
+      pip install zoltraak
+      ```
+   3. 以下のコマンドを実行し、プロンプトを入力します。
+      ```
+      zoltraak "最新の大規模言語モデルが学べるポケモンゲームの様なシステムを作りたい" -c dev_obj
+      ```
+
+   これにより、入力したプロンプトに基づいた要件定義書が生成されます。生成された要件定義書は叩き台となるため、必要に応じて内容を修正・拡充してください。
+
+2. プロンプトコンパイラ（起動式）の指定
+   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。指定なしの場合は、最も適切と思われるプロンプトコンパイラを5つ自動でピックアップするコンパイラが実行されます。
+
+   | コンパイラ名 | 説明 |
+   | --- | --- |
+   | dev_func | 関数型プログラミングを用いた開発タスクに関する要件定義書を生成するコンパイラ |
+   | dev_obj | オブジェクト指向設計を用いた開発タスクに関する要件定義書を生成するコンパイラ |
+   | biz_consult | ビジネスコンサルティングに関するドキュメントを生成するコンパイラ |
+   | general_def | 一般的な開発タスクに関する要件定義書を生成するコンパイラ |
+   | general_reqdef | 一般的な要求事項に関する要件定義書を生成するコンパイラ |
+   | dev_react_fastapi | React + FastAPIを用いた開発タスクに関する要件定義書を生成するコンパイラ |
+
+3. 具体例
+   ```sh
+   zoltraak "Manimを用いて、MoE（専門家の混合）モデルを視覚化するプログラムを開発する" -c dev_func
+   zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj 
+   zoltraak "今月中に中小企業向けのビジネスコンサルティングドキュメントを作成する。具体的には、マーケティング戦略、財務管理、人材育成に関するアドバイスを含む" -c biz_consult
+   zoltraak "今月中に教育用の拡張現実（AR）アプリケーションを開発する" -c general_def
+   zoltraak "今月中に政府向けの少子化対策として、具体的な施策と予算案を含む提言書を執筆する" -c general_reqdef
+   ```
+
+
+4. `test_dev_obj.md`というファイルを作成し、後続スレッドの内容をコピーして貼り付けてください。このファイルをzoltraakを実行するディレクトリと同じ階層に配置します。
+
+5. `test_dev_obj.md`を以下のルールに従って自分の定義書生成プログラムに書き換えましょう:
+   - `{prompt}`は zoltraakの後のプロンプト（呪文）が入るので消さないでください。
+   - `## 2. ファイル・フォルダ構成`も消さないでください。
+   - それ以外は自由に変更可能です。
+
+6. 以下のコマンドを実行して、自作コンパイラを使用します:
+   ```sh
+   zoltraak プロンプト -cc 自作コンパイラ
+   zoltraak "コーヒーショップ顧客管理システムを作りたい" -cc test_dev_obj.md
+   ```
+
+7. `zoltraak requirements/~~~.md`が貼り付けできるようになっているはずなので実行してください。
+
+8. ディレクトリが構築されます。Cursor、VSCodeにてopenコマンドが起動しない方は以下を参照してください:
+   https://note.com/88gram/n/n4ead3a677b83
+
+注意: 全てClaude3 Haikuにより実行されています（一回あたり約1円の料金がかかります。ご自身で確認ください）。
+
+
+```
+zoltraak book.md -p "本を書きたい"
+```
+
+ファイル作成後は以下のように何度でも書き換えることができる。
+```
+zoltraak book.md -p "もっと分量増やしたい"
+```
+
+```sh
+# RAGに突っ込むファイル群を指定
+zoltraak aaaa.md -f ./input.md （作成予定）
+# 一括修正
+zoltraak dir/*.md （作成予定）
+```
+
+
+![llmcomment.png](assets/images/llmcomment.png)
+
+### オプショナル引数
+- ``-f`` : フォーマット指定。grimoiresフォルダ
+- ``-l`` : 汎用言語指定。言語名は、"Español"などの現地名でも、"Spanish"のような英語でも、「スペイン語」のような日本語でもOKです。
+  - 指定フォーマットについて、汎用言語フォーマッター（"``_lang.md``"で終わるファイル）が存在する場合は、そのファイルに基づき処理されます。
+  - 存在しない場合は、デフォルトの言語セットコンパイラが起動します。ただ、相対的に効果がやや不安定なので、汎用言語フォーマッターを作成しておくことが強く推奨されます。
+
+```
+zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -l English
+zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -f md_comment -l CSharp
+zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -l グルジア語
+```
 
 
 ## プロジェクトへの参加
@@ -170,6 +271,7 @@ zoltraak/grimoires/
 │   ├── func.md
 │   ├── lisp.md
 │   ├── obj.md
+│   ├── obj_mermaid.md
 │   ├── obj_lisp.md
 │   ├── obj_lisp_g.md
 │   ├── obj_lisp_g_base64.md
@@ -178,6 +280,7 @@ zoltraak/grimoires/
 │   └── emoji.md
 ├── formatter: プロンプトフォーマッタ
 │   ├── md_comment.md
+│   ├── md_comment_xx.md (md_commentの言語指定：en, zhなどに対応。ご利用の言語の略称でまずは動くか確認して、動かない場合は追加対応をお待ちください)
 │   └── py_comment.md
 ├── interpretspec: インタプリタ型LLM強化プロンプト
 │   └── hirokichi.md
@@ -537,10 +640,40 @@ import writer.book.lecture
 2024_04_28 
 
 - setting → grimoiresに変更
-- dev_react_fast_api を追加
+- react & fast APIの要件定義書を記載しディレクトリを構築するdev_react_fast_api を追加
+- formatter 25パターンほど追加
+- 実行フローを整理、アニメーション追加
+
 
 # チップス
 
 zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi  
 
 とやると要件定義書名にバージョンを記載してくれる。
+
+
+# Contributors
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## コントリビューターの追加方法
+
+コントリビューターを追加するには、以下の手順を実行してください:
+
+1. issueまたはプルリクエストに、以下の形式でコメントを残してください:
+@all-contributors please add @username for <contributions>
+`@username`をコントリビューターのGitHubユーザー名に、`<contributions>`をコントリビュートのタイプに置き換えてください。コントリビュートのタイプは、[Emoji Key](https://allcontributors.org/docs/en/emoji-key)を参照してください。
+
+2. ボットがコントリビューターをプロジェクトに追加するためのプルリクエストを作成します。
+
+3. プルリクエストがマージされると、コントリビューターがREADMEに追加されます。
+
