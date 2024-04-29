@@ -7,10 +7,7 @@ import shutil
 from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.utils.prompt_import import load_prompt
 import zoltraak
-
-
-load_dotenv()  # .envファイルから環境変数を読み込む
-anthropic.api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAPI keyを取得
+import zoltraak.settings
 
 def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None):
     client = anthropic.Anthropic(api_key=anthropic.api_key)

@@ -4,7 +4,6 @@ import os.path
 import zoltraak
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
-
 # print(package_dir)
 # from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.converter import convert_md_to_py
@@ -188,3 +187,4 @@ def generate_md_file_name(prompt):
     return f"{file_name}"
 
 
+main()

@@ -1,8 +1,6 @@
 import os
 import anthropic
-from dotenv import load_dotenv
-
-load_dotenv()  # .envファイルから環境変数を読み込む
+from zoltraak import settings
 
 def generate_response(prompt):
     """

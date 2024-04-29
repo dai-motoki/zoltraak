@@ -8,10 +8,7 @@ from tqdm import tqdm  # tqdmをインポート
 import threading
 import time
 import sys
-
-load_dotenv()  # .envファイルから環境変数を読み込む
-anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
-groq_api_key = os.getenv("GROQ_API_KEY")  # 環境変数からGroqのAPI keyを取得
+import zoltraak.settings
 
 
 def generate_md_from_prompt(
