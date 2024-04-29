@@ -31,6 +31,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/dai-motoki"><img src="https://avatars.githubusercontent.com/u/58665894?v=4?s=100" width="100px;" alt="DAISUKE MOTOKI"/><br /><sub><b>DAISUKE MOTOKI</b></sub></a><br /><a href="#code-dai-motoki" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThePioneerJP"><img src="https://avatars.githubusercontent.com/u/116901962?v=4?s=100" width="100px;" alt="The Pioneer"/><br /><sub><b>The Pioneer</b></sub></a><br /><a href="#code-ThePioneerJP" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/hiroki1014"><img src="https://avatars.githubusercontent.com/u/39159218?v=4?s=100" width="100px;" alt="Hiroki Koshika"/><br /><sub><b>Hiroki Koshika</b></sub></a><br /><a href="#code-hiroki1014" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/UnagiTabetai"><img src="https://avatars.githubusercontent.com/u/143519346?v=4?s=100" width="100px;" alt="MARUMO"/><br /><sub><b>MARUMO</b></sub></a><br /><a href="#code-UnagiTabetai" title="Code">💻</a></td>
     </tr>
   </tbody>
