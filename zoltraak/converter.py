@@ -19,9 +19,9 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
         source_file_path = md_file_path
         target_file_path = py_file_path
         # デバッグ用のprint文を追加
-        print(f"ソースファイルのパス: {source_file_path}")
-        print(f"ターゲットファイルのパス: {target_file_path}")
-        print(f"プロンプト: {prompt}")
+        # print(f"ソースファイルのパス: {source_file_path}")
+        # print(f"ターゲットファイルのパス: {target_file_path}")
+        # print(f"プロンプト: {prompt}")
         
         past_source_folder = "past_md_files"
     else:
@@ -299,6 +299,20 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
         past_source_file_path (str): 過去のソースファイルのパス
         source_hash (str): ソースファイルのハッシュ値
     """
+
+    create_domain_grimoire = "grimoires/architect/architect_detail.md"
+    target_dir = f"generated/{os.path.splitext(os.path.basename(target_file_path))[0]}"  # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
+    print(f"""
+
+==============================================================
+ステップ2. 魔法術式を用いて領域術式を実行する
+\033[32m魔法術式\033[0m (要件定義書)            : {target_file_path}
+\033[32m領域術式\033[0m                         : {create_domain_grimoire}
+\033[32m領域対象\033[0m (ディレクトリパス)    : {target_dir}
+==============================================================
+    """)
+
+
     # 現在のソースファイルを過去のソースファイルとして保存
     if past_source_file_path is not None:
         shutil.copy(source_file_path, past_source_file_path)
@@ -330,7 +344,7 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
         'source_content': source_content
     }
     zoltraak_dir = os.path.dirname(zoltraak.__file__)
-    prompt = load_prompt(f"{zoltraak_dir}/grimoires/architect/architect_detail.md", variables)
+    prompt = load_prompt(f"{zoltraak_dir}/{create_domain_grimoire}", variables)
     # print(prompt)
     # variables = {
     #     'source_file_path': "readm/",
