@@ -1,9 +1,47 @@
-# 創造魔法 Zoltraak
+![](assets/videos/zoltraak2_smooth_high_quality.gif)
+<h1>創造魔法 Zoltraak</h1>
+<p>
 Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔法の名です。
 
 これまでの未体系であった呪文からの術の発動を、魔法の文法体系に昇華しより高速かつ広範囲な術式展開と強大な魔法の発動を可能とするシステムです。
 
-![](assets/videos/zoltraak2_smooth_high_quality.gif)
+</p>
+<a href="https://twitter.com/ai_syacho" alt="Twitter Follow">
+<img src="https://img.shields.io/twitter/follow/Xiaogang_He.svg?label=Follow&style=social" /></a>
+<a href="https://twitter.com/ai_syacho" alt="License"></a>
+</p>
+
+<!-- <p align="center">
+<a href="https://github.com/dai-motoki/zoltraak" alt="GitHub contributors">
+<img src="https://img.shields.io/github/contributors/XiaogangHe/python-climate-visuals.svg" /></a>
+<a href="https://github.com/dai-motoki/zoltraak" alt="GitHub issues by-label">
+<img src="https://img.shields.io/github/issues/XiaogangHe/InVEST-Cities-in-Nature" /></a> -->
+
+# 貢献者
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dai-motoki"><img src="https://avatars.githubusercontent.com/u/58665894?v=4?s=100" width="100px;" alt="DAISUKE MOTOKI"/><br /><sub><b>DAISUKE MOTOKI</b></sub></a><br /><a href="#code-dai-motoki" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+
+コントリビュータの追加方法はこちら
+→ 
+[クリック](#コントリビューターの追加方法)
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 Zoltraakは自然言語を実行言語に変換するプロンプトコンパイラシステムを採用し、数語の呪文から起動術式を用いて複雑な術式を展開しこれを即時実行可能な古代システム語へとコンパイルします。これにより術師の数語の呪文は強力な言霊の数々を織り込んだ魔法陣を通り魔法の範囲と威力を大幅に向上させることが可能となります。また詠唱、無詠唱での高速な創造魔法を実現可能とします。これにより相対する敵よりも圧倒的に高速かつ柔軟な術の発動を可能とします。
 
@@ -651,28 +689,6 @@ zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi
 
 とやると要件定義書名にバージョンを記載してくれる。
 
-
-# Contributors
-
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dai-motoki"><img src="https://avatars.githubusercontent.com/u/58665894?v=4?s=100" width="100px;" alt="DAISUKE MOTOKI"/><br /><sub><b>DAISUKE MOTOKI</b></sub></a><br /><a href="#code-dai-motoki" title="Code">💻</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## コントリビューターの追加方法
 
