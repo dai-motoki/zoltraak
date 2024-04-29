@@ -41,11 +41,20 @@
         "code"
       ]
     },
-    {
+        {
       "login": "Sunwood-ai-labs",
       "name": "Maki",
       "avatar_url": "https://avatars.githubusercontent.com/u/108736814?v=4",
       "profile": "https://hamaruki.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "sarukun99",
+      "name": "tomoyuki enomoto",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4081854?v=4",
+      "profile": "https://github.com/sarukun99",
       "contributions": [
         "code"
       ]
