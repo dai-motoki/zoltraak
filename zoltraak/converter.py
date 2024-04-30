@@ -7,6 +7,7 @@ import shutil
 from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.utils.prompt_import import load_prompt
 import zoltraak
+import zoltraak.llms.claude as claude
 
 
 load_dotenv()  # .envファイルから環境変数を読み込む
@@ -323,17 +324,6 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
     # ソースファイルとLLMの説明文を読み込む
     with open(source_file_path, "r", encoding = "utf-8") as source_file:
         source_content = source_file.read()
-    # with open("zoltraak/llms/claude.txt", "r", encoding = "utf-8") as f:
-    #     claude_code = f.read()
-
-    # LLMへのプロンプトを作成
-    # 利用LLM: {claude_code}
-    # dev_python.mdファイルからプロンプトを読み込む
-
-    # with open("zoltraak/grimoires/developer/dev_python.md", "r", encoding = "utf-8") as f:
-    #     dev_python_prompt = f.read()
-    # prompt = dev_python_prompt.format(source_content=source_content)
-
 
     # ソースファイルのファイル名を取得
     source_file_name = os.path.splitext(os.path.basename(source_file_path))[0]
@@ -348,35 +338,9 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
     }
     zoltraak_dir = os.path.dirname(zoltraak.__file__)
     prompt = load_prompt(f"{zoltraak_dir}/{create_domain_grimoire}", variables)
-    # print(prompt)
-    # variables = {
-    #     'source_file_path': "readm/",
-    #     'source_file_name': "readme",
-    # }
-    # prompt = load_prompt("zoltraak/grimoires/architect/architect_detail_dir.md", variables)
-    # print(prompt)
 
+    code = claude.generate_response("claude-3-haiku-20240307",prompt, 4000, 0.3)
 
-
-
-    # プロンプトにソースコンテンツを埋め込む
-    # プログラム内に進捗状況の表示:
-    #     進捗バーの長さを計算
-    #     進捗率のパーセントを計算
-    #     進捗バーとパーセントを表示
-
-    # Anthropic APIを使用してターゲットファイルを生成
-    response = client.messages.create(
-        model="claude-3-opus-20240229",
-        # model="claude-3-haiku-20240307",
-        max_tokens=4000,
-        temperature=0.3,
-        system="You are a programmer.",
-        messages=[{"role": "user", "content": prompt}]
-    )
-
-    # 生成されたコードから不要な部分を削除
-    code = response.content[0].text.strip()
     code = code.replace("```python", "").replace("```", "")
 
     # 生成されたコードをターゲットファイルに書き込む

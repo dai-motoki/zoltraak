@@ -8,6 +8,8 @@ from tqdm import tqdm  # tqdmをインポート
 import threading
 import time
 import sys
+import zoltraak.llms.claude as claude
+
 
 load_dotenv()  # .envファイルから環境変数を読み込む
 anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
@@ -131,7 +133,7 @@ def generate_response(developer, model_name, prompt):
     if developer == "groq":  # Groqを使用する場合
         response = create_prompt_and_get_response_groq(model_name, prompt)
     elif developer == "anthropic":  # Anthropicを使用する場合
-        response = create_prompt_and_get_response_anthropic(model_name, prompt, 4000, 0.7)
+        response = claude.generate_response(model_name, prompt, 4000, 0.7)
     
     else:  # 想定外のデベロッパーの場合
         raise ValueError(
@@ -139,29 +141,6 @@ def generate_response(developer, model_name, prompt):
             "サポートされているデベロッパーは 'anthropic' と 'groq' です。"
         )
     return response
-
-def create_prompt_and_get_response_anthropic(model, prompt, max_tokens, temperature):
-    """
-    Anthropic APIを使用して、指定されたモデルでプロンプトに基づいてテキストを生成する関数
-
-    Args:
-        model (str): 使用するモデルの名前
-        prompt (str): 送信するプロンプト
-        max_tokens (int): 生成する最大トークン数
-        temperature (float): 生成の多様性を制御する温度パラメータ
-
-    Returns:
-        str: 生成されたテキスト
-    """
-    client = anthropic.Anthropic(api_key=anthropic_api_key)  # Anthropic APIクライアントを作成
-    response = client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        temperature=temperature,
-        system="",
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.content[0].text.strip()
 
 
 def create_prompt_and_get_response_groq(model, prompt):
