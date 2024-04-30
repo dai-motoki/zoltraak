@@ -1,4 +1,4 @@
-![](assets/videos/zoltraak2_smooth_high_quality.gif)
+![](https://github.com/dai-motoki/zoltraak/blob/main/assets/videos/zoltraak2_smooth_high_quality.gif?raw=true)
 <h1>創造魔法 Zoltraak</h1>
 <p>
 Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔法の名です。
@@ -85,27 +85,27 @@ https://x.com/hokazuya/status/1784887255154282524
 他言語版readmeは以下からご覧になれます。現在サポートしているのは以下の言語です。
 
 Readme files in other languages are available here. Currently we support:
-- [English](README_EN.md)
+- [English](https://github.com/dai-motoki/zoltraak/blob/main/README_EN.md)
 
 # 目次
 
 
-- [研究](docs/research.md)
-- [設定](docs/configuration.md)
-- [FAQ](docs/faq.md)
-- [始め方](docs/getting-started.md)
-- [インストール](docs/installation.md)
-- [使用方法](docs/usage.md)
-- [例](docs/examples)
-- [トラブルシューティング](docs/troubleshooting.md)
-- [ビデオ](docs/video.md)
-- [貢献](docs/contributing.md)
+- [研究](https://github.com/dai-motoki/zoltraak/blob/main/docs/research.md)
+- [設定](https://github.com/dai-motoki/zoltraak/blob/main/docs/configuration.md)
+- [FAQ](https://github.com/dai-motoki/zoltraak/blob/main/docs/faq.md)
+- [始め方](https://github.com/dai-motoki/zoltraak/blob/main/docs/getting-started.md)
+- [インストール](https://github.com/dai-motoki/zoltraak/blob/main/docs/installation.md)
+- [使用方法](https://github.com/dai-motoki/zoltraak/blob/main/docs/usage.md)
+- [例](https://github.com/dai-motoki/zoltraak/blob/main/docs/examples)
+- [トラブルシューティング](https://github.com/dai-motoki/zoltraak/blob/main/docs/troubleshooting.md)
+- [ビデオ](https://github.com/dai-motoki/zoltraak/blob/main/docs/video.md)
+- [貢献](https://github.com/dai-motoki/zoltraak/blob/main/docs/contributing.md)
 
 
 
 
 # Zoltraakの動作イメージ
-![Last frame of video](assets/images/last_frame.png)
+![Last frame of video](https://github.com/dai-motoki/zoltraak/blob/main/assets/images/last_frame.png?raw=true)
 
 
 ## 利用方法
@@ -194,7 +194,7 @@ zoltraak dir/*.md （作成予定）
 ```
 
 
-![llmcomment.png](assets/images/llmcomment.png)
+![llmcomment.png](https://github.com/dai-motoki/zoltraak/blob/main/assets/images/llmcomment.png?raw=true)
 
 ### オプショナル引数
 - ``-f`` : フォーマット指定。grimoiresフォルダ
@@ -393,7 +393,7 @@ pip install zoltraak
 - [ ] このファイルで、色合いに相当する部分のプロンプトの行数を教えて
 - [ ] 差分をプロンプトとして伝達したい。
 - [ ] 全て１から作り直す。mdファイルから
-![image](assets/images//graph.png)
+![image](https://github.com/dai-motoki/zoltraak/blob/main/assets/images//graph.png?raw=true)
 
 
 
