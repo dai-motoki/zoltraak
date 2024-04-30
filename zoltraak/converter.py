@@ -301,14 +301,15 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
         source_hash (str): ソースファイルのハッシュ値
     """
 
-    create_domain_grimoire = "grimoires/architect/architect_detail.md"
+    # create_domain_grimoire = "grimoires/architect/architect_detail.md"
+    create_domain_grimoire = "grimoires/architect/architect_daiagrams.md"
     target_dir = f"generated/{os.path.splitext(os.path.basename(target_file_path))[0]}"  # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
     print(f"""
 
 ==============================================================
 ステップ2. 魔法術式を用いて領域術式を実行する
-\033[32m魔法術式\033[0m (要件定義書)            : {target_file_path}
-\033[32m領域術式\033[0m                         : {create_domain_grimoire}
+\033[32m魔法術式\033[0m  (要件定義書)          : {create_domain_grimoire}
+\033[32m領域術式\033[0m                      : {target_file_path}
 \033[32m領域対象\033[0m (ディレクトリパス)    : {target_dir}
 ==============================================================
     """)
@@ -390,8 +391,13 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
 
     # 生成されたコードを実行（Pythonファイルの場合）
     if target_file_path.endswith(".py"):
-        exec(code)
-    # マークダウンファイルの場合は内容を返す
+        try:
+            exec(code)
+        except SyntaxError as e:
+            print(f"Pythonファイルの実行中にエラーが発生しました。")
+            print(f"エラーメッセージ: {str(e)}")
+            print("Pythonファイルの内容を確認（おそらく余計な日本語や英語が入っています）し、必要であれば修正してください。")
+    # マークダウンファイルの場合は内容を返す 
     else:
         return code
 
