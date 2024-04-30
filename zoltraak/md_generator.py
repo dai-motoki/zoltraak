@@ -9,6 +9,7 @@ import threading
 import time
 import sys
 import zoltraak.llms.claude as claude
+import re
 
 
 load_dotenv()  # .envファイルから環境変数を読み込む
@@ -24,7 +25,8 @@ def generate_md_from_prompt(
     compiler_path=None,
     formatter_path=None,
     language=None, #汎用言語指定
-    open_file=True,  # ファイルを開くかどうかのフラグを追加
+    readme_lang=None, # Readme翻訳先言語指定
+    open_file=False,  # ファイルを開くかどうかのフラグを追加
 ):
     """
     promptから要件定義書（マークダウンファイル）を生成する関数
@@ -43,17 +45,19 @@ def generate_md_from_prompt(
         prompt_compiler = os.path.basename(compiler_path)                     # - コンパイラパスからファイル名のみを取得してprompt_compilerに代入
     else:                                                                     # grimoires/ディレクトリにコンパイラパスが含まれていない場合
         prompt_compiler = compiler_path                                       # - コンパイラパスをそのままprompt_compilerに代入
+    
+    # 汎用言語フォーマッタへの変更
+    if language is not None:
+        # formatter_pathに_lang.mdが存在するならそれを、しないならformatter_pathのまま
+        lang_formatter_path = os.path.splitext(formatter_path)[0] + "_lang.md"
+        if os.path.exists(lang_formatter_path):
+            formatter_path = lang_formatter_path
+    
+    # フォーマッターについて、デフォフォルダの時見栄えをシンプルにする
     if "grimoires" in formatter_path:                                         # grimoires/ディレクトリにフォーマッタパスが含まれている場合
         prompt_formatter = os.path.basename(formatter_path)                   # - フォーマッタパスからファイル名のみを取得してprompt_formatterに代入
     else:                                                                     # grimoires/ディレクトリにフォーマッタパスが含まれていない場合
         prompt_formatter = formatter_path                                     # - フォーマッタパスをそのままprompt_formatterに代入
-    
-    # 汎用言語フォーマッタへの変更
-    if language is not None:
-        # prompt_formatterに_lang.mdが存在するならそれを、しないならprompt_formatterのまま
-        lang_formatter_path = os.path.splitext(prompt_formatter)[0] + "_lang.md"
-        if os.path.exists(lang_formatter_path):
-            prompt_formatter = lang_formatter_path
     
     print(f"""
 ステップ1. 起動術式を用いて魔法術式を構築する
@@ -67,7 +71,7 @@ def generate_md_from_prompt(
     """)
 
 
-    prompt = create_prompt(goal_prompt, compiler_path, formatter_path, language)  # プロンプトを作成
+    prompt = create_prompt(goal_prompt, compiler_path, formatter_path, language, readme_lang)  # プロンプトを作成
     done = False                                                        # スピナーの終了フラグを追加
     spinner_thread = threading.Thread(                                  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
         target=show_spinner,
@@ -80,8 +84,8 @@ def generate_md_from_prompt(
     done = True                                                         # 応答生成後にスピナーの終了フラグをTrueに設定
     spinner_thread.join()                                               # スピナーの表示を終了
     md_content = response.strip()                                       # 生成された要件定義書の内容を取得し、前後の空白を削除
-    save_md_content(md_content, target_file_path)                       # 生成された要件定義書の内容をファイルに保存
-    print_generation_result(target_file_path, open_file)                # 生成結果を出力し、open_fileフラグに応じてファイルを開く
+    save_md_content(md_content, target_file_path, readme_lang)        # 生成された要件定義書の内容をファイルに保存
+    print_generation_result(target_file_path, compiler_path, open_file)                # 生成結果を出力し、open_fileフラグに応じてファイルを開く
 
 def show_spinner(done, goal):
     """スピナーを表示する関数
@@ -166,7 +170,7 @@ def create_prompt_and_get_response_groq(model, prompt):
     )
     return chat_completion.choices[0].message.content.strip()
 
-def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language=None):
+def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language=None, readme_lang=None):
     """
     LLMへのプロンプトを作成する関数
 
@@ -182,7 +186,7 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language
     # if compiler_path:  # コンパイラパスが指定されている場合
         # prompt_file = compiler_path  # - プロンプトファイルのパスをコンパイラパスに変更
 
-    formatter = get_formatter(formatter_path, language)
+    formatter = get_formatter(formatter_path, language, readme_lang)
 
     if compiler_path is None:
         # 検索関数の起動
@@ -205,21 +209,23 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language
         prompt += prompt + formatter
     elif os.path.exists(compiler_path):  # プロンプトファイルが存在する場合
         with open(compiler_path, "r", encoding = "utf-8") as file:  # - プロンプトファイルを読み込みモードで開く
-            prompt = file.read().format(
-                prompt=goal_prompt
-            )  # -- プロンプトファイルの内容を読み込み、goal_promptを埋め込む
+            prompt = file.read()  # -- プロンプトファイルの内容を読み込み、goal_promptを埋め込む
         prompt = prompt + formatter  # - プロンプトにフォーマッタを追加
     else:  # プロンプトファイルが存在しない場合
         print(f"プロンプトファイル {compiler_path} が見つかりません。")  # - エラーメッセージを表示
         prompt = ""
 
-    if prompt != "" and language is not None and not formatter_path.endswith("_lang.md"):
-        prompt = formatter[formatter.rindex("## Output Language"):]  + "\n- Follow the format defined in the format section. DO NOT output the section itself." + prompt # 言語指定の強調前出しでサンドイッチにしてみる。
+    if prompt != "" and language is not None:
+        if not formatter_path.endswith("_lang.md"):
+            prompt = formatter[formatter.rindex("## Output Language"):]  + "\n- Follow the format defined in the format section. DO NOT output the section itself." + prompt # 言語指定の強調前出しでサンドイッチにしてみる。
+        elif re.match("(english|英語|en)", language.lower()):
+            prompt = formatter + prompt # 特に英語指示が「デフォルト言語指示」と混同されやすく、効きがやたら悪いので英語の場合は挟み撃ちにする
+
     # print(prompt) # デバッグ用
     return prompt
 
 
-def get_formatter(formatter_path, language=None):
+def get_formatter(formatter_path, language=None, readme_lang=None):
     """
     フォーマッタを取得する関数
 
@@ -229,13 +235,16 @@ def get_formatter(formatter_path, language=None):
     Returns:
         str: フォーマッタの内容
     """
-    if formatter_path is None:  # フォーマッタパスが指定されていない場合
+    if readme_lang is not None:
+        formatter = f"\n\n---\n\n## Task\nTranslate above into {readme_lang}. Translate everything. Keep the original links and markdown format. Only output the translated result."
+    elif formatter_path is None:  # フォーマッタパスが指定されていない場合
         formatter = ""  # - フォーマッタを空文字列に設定
     else:  # フォーマッタパスが指定されている場合
         if os.path.exists(formatter_path):  # -- フォーマッタファイルが存在する場合
             with open(formatter_path, "r", encoding = "utf-8") as file:  # --- フォーマッタファイルを読み込みモードで開く
                 formatter = file.read()  # ---- フォーマッタの内容を読み込む
                 if language is not None:
+                    print(formatter_path)
                     if formatter_path.endswith("_lang.md"):
                         formatter = formatter.replace("{language}", language)
                     else:
@@ -247,7 +256,7 @@ def get_formatter(formatter_path, language=None):
     return formatter
 
 
-def save_md_content(md_content, target_file_path):
+def save_md_content(md_content, target_file_path, readme_lang=None):
     """
     生成された要件定義書の内容をファイルに保存する関数
 
@@ -255,35 +264,33 @@ def save_md_content(md_content, target_file_path):
         md_content (str): 生成された要件定義書の内容
         target_file_path (str): 保存先のファイルパス
     """
-    requirements_dir = "requirements"                                         # 生成された要件定義書をrequirements/の中に格納する
-    os.makedirs(requirements_dir, exist_ok=True)                              # - requirements/ディレクトリを作成（既に存在する場合は何もしない）
+    output_dir = ""
+    if readme_lang is not None:
+        output_dir = os.path.dirname(zoltraak.__file__)
+    # TODO --ouput-dir引数対応
+    else:
+        output_dir = "requirements"                                         # 生成された要件定義書をrequirements/の中に格納する
+        os.makedirs(output_dir, exist_ok=True)                              # - requirements/ディレクトリを作成（既に存在する場合は何もしない）
     target_file_name = os.path.basename(target_file_path)                     # - ターゲットファイルのファイル名を取得
-    target_file_path = os.path.join(requirements_dir, target_file_name)       # - requirements/ディレクトリとファイル名を結合してターゲットファイルのパスを生成
+    target_file_path = os.path.join(output_dir, target_file_name)       # - outputディレクトリとファイル名を結合してターゲットファイルのパスを生成
     with open(target_file_path, "w", encoding = "utf-8") as target_file:                          # ターゲットファイルを書き込みモードで開く
         target_file.write(md_content)                                         # - 生成された要件定義書の内容をファイルに書き込む
 
-def print_generation_result(target_file_path, open_file=True):
+def print_generation_result(target_file_path, compiler_path, readme_lang, open_file=False):
     """
     要件定義書の生成結果を表示する関数
 
     Args:
         target_file_path (str): 生成された要件定義書のファイルパス
+        compiler_path (str): コンパイラのパス
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
     req = "requirements"
     target_file_path = f"{req}/{target_file_path}"
     print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
-
-
-
-
-
-
     
-    # ユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
-    build_directory = input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを実行しますか？ (y/n): ")
-    
-    if build_directory.lower() == 'y':
+    # 検索結果生成以外ではユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
+    if  compiler_path is not None and readme_lang is None and input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを実行しますか？ (y/n): ").lower() == 'y':
         # ユーザーがyと答えた場合、zoltraakコマンドを実行してディレクトリを構築
         done = False  # スピナーの終了フラグを追加
         spinner_thread = threading.Thread(  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
@@ -303,4 +310,7 @@ def print_generation_result(target_file_path, open_file=True):
         print(f"\033[36mzoltraak {target_file_path}\033[0m")  # 実行コマンドを水色で表示
         pyperclip.copy(f"zoltraak {target_file_path}")  # 実行コマンドをクリップボードにコピー
         print("\033[35mコマンドをクリップボードにコピーしました。ターミナルに貼り付けて実行できます。\033[0m")  # コピー完了メッセージを紫色で表示
+        if open_file:  # open_fileフラグがTrueの場合
+            print("中身を確認するオプションがONであるため、ファイルを開きます。")
+            os.system(f"code {target_file_path}")  # ファイルを開く（VSCodeにおける`code syllabus_graph.png`に相当）
         

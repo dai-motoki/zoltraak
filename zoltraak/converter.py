@@ -13,17 +13,21 @@ load_dotenv()  # .envファイルから環境変数を読み込む
 anthropic.api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAPI keyを取得
 
 class MarkdownToPythonConverter:
-    def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None):
+    def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None, readme_lang=None):
         self.md_file_path = md_file_path
         self.py_file_path = py_file_path
         self.prompt = prompt
         self.compiler_path = compiler_path
         self.formatter_path = formatter_path
         self.language = language
+        self.readme_lang = readme_lang
         self.client = anthropic.Anthropic(api_key=anthropic.api_key)
 
     def convert(self):
-        if self.prompt is None:
+        if self.readme_lang is not None:
+            self.source_file_path = self.compiler_path
+            self.target_file_path = self.md_file_path
+        elif self.prompt is None:
             self.source_file_path = self.md_file_path
             self.target_file_path = self.py_file_path
             self.past_source_folder = "past_md_files"
@@ -37,7 +41,7 @@ class MarkdownToPythonConverter:
                 self.propose_target_diff(self.target_file_path, self.prompt)
                 return
 
-        if os.path.exists(self.source_file_path):
+        if self.readme_lang is None and os.path.exists(self.source_file_path):
             self.source_hash = self.calculate_file_hash(self.source_file_path)
             os.makedirs(self.past_source_folder, exist_ok=True)
             self.past_source_file_path = os.path.join(self.past_source_folder, os.path.basename(self.source_file_path))
@@ -98,7 +102,7 @@ class MarkdownToPythonConverter:
             target.generate_target_code()
         else:
             print(f"""
-要件定義書執筆中: {self.target_file_path}は新しいファイルです。少々お時間をいただきます。
+{"検索結果生成中" if self.compiler_path is None else "要件定義書執筆中"}: {self.target_file_path}は新しいファイルです。少々お時間をいただきます。
                   """)
             generate_md_from_prompt(
                 self.prompt,
@@ -108,7 +112,8 @@ class MarkdownToPythonConverter:
                 compiler_path=self.compiler_path,
                 formatter_path=self.formatter_path,
                 language=self.language,
-                open_file=True
+                readme_lang=self.readme_lang,
+                open_file=self.compiler_path is None or self.readme_lang is not None # 検索かReadme翻訳の時は開かせる
             )
 
     def propose_target_diff(self, target_file_path, prompt):
