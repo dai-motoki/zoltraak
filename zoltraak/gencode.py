@@ -1,4 +1,9 @@
-
+import os
+import shutil
+import subprocess
+import zoltraak
+import zoltraak.llms.claude as claude
+from zoltraak.utils.prompt_import import load_prompt
 class TargetCodeGenerator:
     def __init__(self, source_file_path, target_file_path, past_source_file_path, source_hash):
         self.source_file_path = source_file_path
