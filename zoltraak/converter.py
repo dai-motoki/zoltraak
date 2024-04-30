@@ -8,6 +8,7 @@ from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.utils.prompt_import import load_prompt
 import zoltraak
 import zoltraak.llms.claude as claude
+from zoltraak.gencode import TargetCodeGenerator
 
 
 load_dotenv()  # .envファイルから環境変数を読み込む
@@ -104,7 +105,8 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
                                     input("修正が完了したらEnterキーを押してください。")
                                     break
                                 elif choice == "2":
-                                    generate_target_code(source_file_path, target_file_path, past_source_file_path, source_hash)
+                                    target = TargetCodeGenerator(source_file_path, target_file_path, past_source_file_path, source_hash)
+                                    target.generate_target_code()
                                     print(f"新しく生成されたターゲットファイル: {target_file_path}")
                                     break
                                 elif choice == "3":
@@ -129,14 +131,9 @@ def convert_md_to_py(md_file_path, py_file_path, prompt=None, compiler_path=None
 高級言語コンパイル中: {target_file_path}は新しいファイルです。少々お時間をいただきます。
 {source_file_path} -> {target_file_path}
                   """)
-            print(past_source_file_path)
-            generate_target_code(
-                source_file_path,
-                target_file_path,
-                # client,
-                past_source_file_path,
-                source_hash
-            )
+            # print(past_source_file_path)
+            target = TargetCodeGenerator(source_file_path, target_file_path, past_source_file_path, source_hash)
+            target.generate_target_code()
             
         else:
             print(f"""
@@ -185,34 +182,13 @@ def apply_diff_to_target_file(target_file_path, target_diff, client, model="clau
 
 番号など変わった場合は振り直しもお願いします。
     '''
-    modified_content = create_prompt_and_get_response(client, model, prompt, 2000, 0.3)
+    modified_content = claude.generate_response(client, model, prompt, 2000, 0.3)
 
     # 修正後の内容をターゲットファイルに書き込む
     with open(target_file_path, "w", encoding = "utf-8") as file:
         file.write(modified_content)
 
     print(f"{target_file_path}に修正を適用しました。")
-def create_prompt_and_get_response(client, model, prompt, max_tokens, temperature):
-    """
-    Anthropic APIを使用して、指定されたモデルでプロンプトに基づいてテキストを生成する関数
-
-    Args:
-        client (anthropic.Anthropic): Anthropic APIクライアント
-        model (str): 使用するモデルの名前
-        prompt (str): 送信するプロンプト
-        max_tokens (int): 生成する最大トークン数
-        temperature (float): 生成の多様性を制御する温度パラメータ
-    Returns:
-        str: 生成されたテキスト
-    """
-    response = client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        temperature=temperature,
-        system="",
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.content[0].text.strip()
 def propose_target_diff(target_file_path, source_diff_text, client):
     """
     ターゲットファイルの変更差分を提案する関数
@@ -311,164 +287,6 @@ def propose_target_diff(target_file_path, source_diff_text, client):
             choice = input("選択してください (1, 2, 3): ")
 
 
-def generate_target_code(
-    source_file_path,                                                         # ソースファイルのパス
-    target_file_path,                                                         # 生成するターゲットファイルのパス
-    past_source_file_path,                                                    # 過去のソースファイルのパス
-    source_hash,                                                              # ソースファイルのハッシュ値
-):
-    """
-    ソースファイルからターゲットファイルを生成する関数
-    """
-    create_domain_grimoire = "grimoires/architect/architect_develop.md"       # 領域術式（要件定義書）のパスを指定
-    target_dir = (                                                            # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
-        f"generated/{os.path.splitext(os.path.basename(target_file_path))[0]}"
-    )
-    print_step2_info(create_domain_grimoire, target_file_path, target_dir)    # ステップ2の情報を出力
-
-    if past_source_file_path is not None:                                     # 過去のソースファイルパスが指定されている場合
-        save_current_source_as_past(source_file_path, past_source_file_path)  # - 現在のソースファイルを過去のソースファイルとして保存
-        
-    source_content   = read_source_file(source_file_path)                     # ソースファイルの内容を読み込む
-    source_file_name = get_source_file_name(source_file_path)                 # ソースファイルのファイル名（拡張子なし）を取得
-    variables        = create_variables_dict(                                 # 変数の辞書を作成
-        source_file_path,                                                     # - ソースファイルのパス
-        source_file_name,                                                     # - ソースファイル名
-        source_content,                                                       # - ソースファイルの内容
-    )  
-    
-    prompt = load_prompt_with_variables(create_domain_grimoire, variables)    # 領域術式（要件定義書）からプロンプトを読み込み、変数を埋め込む
-    code   = generate_code_with_claude(prompt)                                # Claudeを使用してコードを生成
-    
-    write_code_to_target_file(code, target_file_path)                         # 生成されたコードをターゲットファイルに書き込む
-    
-    if source_hash is not None:                                               # ソースファイルのハッシュ値が指定されている場合
-        append_source_hash_to_target_file(target_file_path, source_hash)      # - ソースファイルのハッシュ値をターゲットファイルに追記
-        
-    if target_file_path.endswith(".py"):                                      # ターゲットファイルがPythonファイルの場合
-        try_execute_generated_code(code, target_file_path)                    # - 生成されたコードを実行
-    else:                                                                     # ターゲットファイルがマークダウンファイルの場合
-        return code                                                           # - 生成されたコードを返す
-        
-    print_target_file_path(target_file_path)                                  # ターゲットファイルのパスを出力
-    open_target_file_in_vscode(target_file_path)                              # ターゲットファイルをVS Codeで開く
-    
-    if target_file_path.endswith(".py"):                                      # ターゲットファイルがPythonファイルの場合
-        run_python_file(target_file_path)                                     # - Pythonファイルを実行
-        
-def print_step2_info(create_domain_grimoire, target_file_path, target_dir):
-    """
-    ステップ2の情報を出力する関数
-    """
-    print(                                                                    
-        f"""
-
-==============================================================
-ステップ2. 魔法術式を用いて領域術式を実行する
-\033[32m領域術式\033[0m  (要件定義書)          : {create_domain_grimoire}
-\033[32m実行術式\033[0m                      : {target_file_path}
-\033[32m領域対象\033[0m (ディレクトリパス)    : {target_dir}
-==============================================================
-    """
-    )
-
-def save_current_source_as_past(source_file_path, past_source_file_path):
-    """
-    現在のソースファイルを過去のソースファイルとして保存する関数
-    """
-    shutil.copy(source_file_path, past_source_file_path)                  
-    
-def read_source_file(source_file_path):
-    """
-    ソースファイルの内容を読み込む関数
-    """
-    with open(source_file_path, "r", encoding="utf-8") as source_file:        
-        source_content = source_file.read()                                   
-    return source_content
-
-def get_source_file_name(source_file_path):
-    """
-    ソースファイルのファイル名（拡張子なし）を取得する関数
-    """
-    source_file_name = os.path.splitext(os.path.basename(source_file_path))[0]
-    if source_file_name.startswith("def_"):                                   
-        source_file_name = source_file_name[4:]                               
-    return source_file_name
-
-def create_variables_dict(source_file_path, source_file_name, source_content):
-    """
-    変数の辞書を作成する関数
-    """
-    variables = {                                                             
-        "source_file_path": source_file_path,                                 
-        "source_file_name": source_file_name,                                 
-        "source_content": source_content,                                     
-    }
-    return variables
-
-def load_prompt_with_variables(create_domain_grimoire, variables):
-    """
-    領域術式（要件定義書）からプロンプトを読み込み、変数を埋め込む関数
-    """
-    zoltraak_dir = os.path.dirname(zoltraak.__file__)                         
-    prompt = load_prompt(f"{zoltraak_dir}/{create_domain_grimoire}", variables)
-    return prompt
-
-def generate_code_with_claude(prompt):
-    """
-    Claudeを使用してコードを生成する関数
-    """
-    code = claude.generate_response(                                          
-        "claude-3-haiku-20240307", prompt, 4000, 0.3                          
-    )
-    code = code.replace("```python", "").replace("```", "")                   
-    return code
-
-def write_code_to_target_file(code, target_file_path):
-    """
-    生成されたコードをターゲットファイルに書き込む関数
-    """
-    os.makedirs(os.path.dirname(target_file_path), exist_ok=True)             
-    with open(target_file_path, "w", encoding="utf-8") as target_file:        
-        target_file.write(code)                                               
-
-def append_source_hash_to_target_file(target_file_path, source_hash):
-    """
-    ソースファイルのハッシュ値をターゲットファイルに追記する関数
-    """
-    with open(target_file_path, "a", encoding="utf-8") as target_file:    
-        target_file.write(f"\n# HASH: {source_hash}\n")                   
-    print(f"ターゲットファイルにハッシュ値を埋め込みました: {source_hash}")           
-
-def try_execute_generated_code(code, target_file_path):
-    """
-    生成されたコードを実行する関数
-    """
-    try:                                                                  
-        exec(code)                                                        
-    except SyntaxError as e:                                              
-        print(f"Pythonファイルの実行中にエラーが発生しました。")                      
-        print(f"エラーメッセージ: {str(e)}")                                   
-        print("Pythonファイルの内容を確認（おそらく余計な日本語や英語が入っています）し、必要であれば修正してください。")
-
-def print_target_file_path(target_file_path):
-    """
-    ターゲットファイルのパスを出力する関数
-    """
-    print(f"ターゲットファイルのパス: {target_file_path}")                           
-
-def open_target_file_in_vscode(target_file_path):
-    """
-    ターゲットファイルをVS Codeで開く関数
-    """
-    os.system(f"code {target_file_path}")                                     
-
-def run_python_file(target_file_path):
-    """
-    Pythonファイルを実行する関数
-    """
-    print(f"Pythonファイルを実行します: {target_file_path}")                    
-    subprocess.run(["python", target_file_path])                          
 def calculate_file_hash(file_path):
     """
     ファイルのハッシュ値を計算する関数
