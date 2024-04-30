@@ -7,11 +7,12 @@
     2.1 os.mkdirsを使用して`ルートディレクトリ`を作成する
     2.2 os.path.joinとos.mkdirsを使用して、詳細なディレクトリ構成を作成する  
     ディレクトリ名をリストに記述し実行
-    2.3 osモジュールの機能を使用して、必要なファイル群を作成する（ディレクトリの中に何もない場合は新しく作る）
-    ファイル名をリストに記述し実行
-    2.4 `react&fastapi`を参考にdaiagramsモジュール を利用して然るべきディレクトリにpngファイルを作成するコードを記載
-    アーキテクチャの全体像を図示してください。主要なサービスとそれらの関係性を含めてください。
-    以下参考、diagramsのsaveやrenderは利用しないこと
+    2.3 osモジュールの機能を使用して、必要なファイルを作成する（ディレクトリの中に何もない場合は新しく作る）
+    2.4 実行ファイルには詳細コードを記述して保存
+        with open(file_path, 'w') as f:
+            f.write("""
+            詳細に記述
+            """
     2.5 ルートディレクトリにREADME.mdファイルを書き込みモードで開く
         - `要件定義ファイル`の内容を読み込みモードで開く
         -- `要件定義ファイル`の内容をREADME.mdに書き込む
@@ -25,20 +26,3 @@ pythonのsubprocessを使って code `ルートディレクトリ`/README.md
 - `要件定義書` = [source_content]
 - `要件定義書ファイル` = [source_file_path]
 - `ルートディレクトリ` = generated/[source_file_name]/
-
-- `react&fastapi` = 
-```
-from diagrams import Diagram, Cluster
-from diagrams.programming.framework import FastAPI, React
-from diagrams.onprem.database import PostgreSQL
-from diagrams.programming.language import Python
-
-graph_attr = {
-    "fontsize": "45",
-    "bgcolor": "transparent"
-}
-
-with Diagram("Application Architecture", show=False, direction="TB", filename=os.path.join(root_dir, 'diagrams', 'app_architecture'), outformat="png"):
-    with Cluster("A"):
-    with Cluster("B"):
-```

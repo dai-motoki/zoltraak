@@ -302,14 +302,15 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
     """
 
     # create_domain_grimoire = "grimoires/architect/architect_detail.md"
-    create_domain_grimoire = "grimoires/architect/architect_daiagrams.md"
+    # create_domain_grimoire = "grimoires/architect/architect_daiagrams.md"
+    create_domain_grimoire = "grimoires/architect/architect_develop.md"
     target_dir = f"generated/{os.path.splitext(os.path.basename(target_file_path))[0]}"  # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
     print(f"""
 
 ==============================================================
 ステップ2. 魔法術式を用いて領域術式を実行する
-\033[32m魔法術式\033[0m  (要件定義書)          : {create_domain_grimoire}
-\033[32m領域術式\033[0m                      : {target_file_path}
+\033[32m領域術式\033[0m  (要件定義書)          : {create_domain_grimoire}
+\033[32m実行術式\033[0m                      : {target_file_path}
 \033[32m領域対象\033[0m (ディレクトリパス)    : {target_dir}
 ==============================================================
     """)
@@ -366,8 +367,8 @@ def generate_target_code(source_file_path, target_file_path, client, past_source
 
     # Anthropic APIを使用してターゲットファイルを生成
     response = client.messages.create(
-        # model="claude-3-opus-20240229",
-        model="claude-3-haiku-20240307",
+        model="claude-3-opus-20240229",
+        # model="claude-3-haiku-20240307",
         max_tokens=4000,
         temperature=0.3,
         system="You are a programmer.",
