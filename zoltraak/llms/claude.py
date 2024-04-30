@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # .envファイルから環境変数を読み込む
 
-def generate_response(prompt):
+def generate_response(model, prompt, max_tokens, temperature):
     """
     Anthropic APIを使用してプロンプトに対する応答を生成する関数。
 
@@ -20,10 +20,9 @@ def generate_response(prompt):
     # print(prompt)
 
     response = client.messages.create(
-        # model="claude-3-opus-20240229",
-        model="claude-3-haiku-20240307",
-        max_tokens=100,
-        temperature=0.7,
+        model=model,
+        max_tokens=max_tokens,
+        temperature=temperature,
         messages=[
             {
                 "role": "user",

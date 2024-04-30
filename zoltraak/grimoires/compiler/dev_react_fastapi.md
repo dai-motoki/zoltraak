@@ -10,6 +10,16 @@
 ## 2. ファイル・フォルダ構成
 - Markdown形式で省略なしのファイル・フォルダ構成を記述
 - フロントエンド(React)とバックエンド(FastAPI)のディレクトリ構成を分けて記述
+- それぞれのDockerとdocker-compose.ymlを作成
+- ダイアグラムを記載
+├── diagrams/
+│   ├── app_architecture.png
+│   ├── sequence.png
+
+![シーケンス図](diagrams/sequence.png)
+
+## 3. アーキテクチャ図
+![アーキテクチャ](diagrams/app_architecture.png)
 
 ## 3. APIエンドポイント
 - FastAPIで実装するAPIエンドポイントを列挙
