@@ -11,7 +11,8 @@ setup(
         "groq",
         "python-dotenv",
         "pyperclip",
-        "wheel"
+        "wheel",
+        "diagrams"
     ],
     package_data={
         '': ['*.txt', '*.md', '*.json', '*.csv', '*.yaml', '*.yml'],

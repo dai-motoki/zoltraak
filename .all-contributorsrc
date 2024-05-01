@@ -76,6 +76,42 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kinopeee",
+      "name": "kinopeee",
+      "avatar_url": "https://avatars.githubusercontent.com/u/119112484?v=4",
+      "profile": "https://github.com/kinopeee",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Otori2501",
+      "name": "Otori",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10893373?v=4",
+      "profile": "https://github.com/Otori2501",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "tetumemo",
+      "name": "tetumemo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/164516526?v=4",
+      "profile": "https://t.co/qqv5Zts5V4",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "Habatakurikei",
+      "name": "Habatakurikei",
+      "avatar_url": "https://avatars.githubusercontent.com/u/131997581?v=4",
+      "profile": "https://habatakurikei.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
