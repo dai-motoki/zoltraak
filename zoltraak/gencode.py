@@ -37,7 +37,7 @@ class TargetCodeGenerator:
         Args:
             step_n (int): ステップ番号。デフォルトは2。
         """
-        create_domain_grimoire = "grimoires/architect/architect_develop.md"       # 領域術式（要件定義書）のパスを指定
+        create_domain_grimoire = "grimoires/architect/architect_claude.md"       # 領域術式（要件定義書）のパスを指定
         target_dir = (                                                            # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
             f"generated/{os.path.splitext(os.path.basename(self.target_file_path))[0]}"
         )
