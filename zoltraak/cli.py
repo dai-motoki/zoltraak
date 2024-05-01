@@ -2,12 +2,14 @@ import argparse
 import os
 import os.path
 import zoltraak
+from art import *
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 # print(package_dir)
 # from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.converter import MarkdownToPythonConverter
 import zoltraak.llms.claude as claude
+import zoltraak.llms.litellm_response as litellm
 
 
 def main():
@@ -165,7 +167,7 @@ def get_custom_compiler_path(custom_compiler):
 
 def process_text_input(args):
     text = args.input
-    md_file_path = generate_md_file_name(text)
+    md_file_path = generate_md_file_name(prompt=text, developer=args.developer, model_name=args.model_name)
     # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
@@ -174,7 +176,7 @@ def process_text_input(args):
     else:
         os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} -l {args.language}")
 
-def generate_md_file_name(prompt):
+def generate_md_file_name(prompt, developer, model_name):
     # promptからファイル名を生成するためにgenerate_response関数を利用
 
     # requirementsディレクトリが存在しない場合は作成する
@@ -191,7 +193,11 @@ def generate_md_file_name(prompt):
     file_name_prompt = f"{prompt}に基づいて、要件定義書のファイル名をdef_hogehoge.mdの形式で提案してください。\n"
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
-    # print("file_name_prompt:", file_name_prompt)
-    response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
+
+    if developer == "anthropic":  # Anthropicを使用する場合
+        response = claude.generate_response(model_name, prompt, 100, 0.7)
+    elif developer == "litellm":  # litellmを使用する場合
+        response = litellm.generate_response(model_name, prompt)
+
     file_name = response.strip()
     return f"{file_name}"

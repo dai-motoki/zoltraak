@@ -2,11 +2,12 @@
 
 from litellm import completion
 
-def generate_response(model_name, prompt, api_base=None):
+def generate_response(model_name, prompt, max_tokens=None, temperature=None, api_base=None):
+    # print("-------- litellm --------")
     response = completion(
         model=model_name, 
         messages=[{ "content": prompt,"role": "user"}], 
-        # api_base="http://localhost:11434",
+        # api_base="http://localhost:11434", # ollamaなどはこのエンドポイント
         api_base=api_base
     )
     return response['choices'][0].message.content.strip()
