@@ -23,6 +23,9 @@ def main():
     parser.add_argument("-cc", "--custom-compiler", help="自作コンパイラー（自作定義書生成文書）")
     parser.add_argument("-v", "--version", action="store_true", help="バージョン情報を表示")  # 追加: バージョン情報表示オプション
     parser.add_argument("-l", "--language", help="出力言語を指定", default=None)  # 追加: 汎用言語指定オプション
+
+    parser.add_argument("-d", "--developer", help="デベロッパー", default="anthropic")  
+    parser.add_argument("-m", "--model-name", help="モデル名", default="claude-3-haiku-20240307")  
     args = parser.parse_args()
 
     if args.version:                                                         # バージョン情報表示オプションが指定された場合
