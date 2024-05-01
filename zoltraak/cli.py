@@ -4,7 +4,6 @@ import os.path
 import zoltraak
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
-
 # print(package_dir)
 # from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.converter import MarkdownToPythonConverter
@@ -193,5 +192,3 @@ def generate_md_file_name(prompt):
     response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"
-
-

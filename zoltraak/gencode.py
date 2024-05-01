@@ -30,21 +30,57 @@ class TargetCodeGenerator:
         # 5. 結果の出力
         self.output_results()
         
-    def prepare_generation(self):
+    def prepare_generation(self, step_n=2):
         """
         ターゲットコード生成の準備を行うメソッド
+        
+        Args:
+            step_n (int): ステップ番号。デフォルトは2。
         """
-        create_domain_grimoire = "grimoires/architect/architect_develop.md"       # 領域術式（要件定義書）のパスを指定
+        create_domain_grimoire = "grimoires/architect/architect_claude.md"       # 領域術式（要件定義書）のパスを指定
         target_dir = (                                                            # target_file_pathからdevと.mdを省いて、generated/ の下につなげたものをtarget_dirに設定
             f"generated/{os.path.splitext(os.path.basename(self.target_file_path))[0]}"
         )
-        self.print_step2_info(create_domain_grimoire, target_dir)                 # ステップ2の情報を出力
+        
+        if step_n == 2:
+            self.print_step2_info(create_domain_grimoire, target_dir)             # ステップ2の情報を出力
+        elif step_n == 3:
+            self.print_step3_info(target_dir)                                     # ステップ3の情報を出力
 
         if self.past_source_file_path is not None:                                # 過去のソースファイルパスが指定されている場合
             self.save_current_source_as_past()                                    # - 現在のソースファイルを過去のソースファイルとして保存
         
         return create_domain_grimoire, target_dir
+    
+    def print_step2_info(self, create_domain_grimoire, target_dir):
+        """
+        ステップ2の情報を出力するメソッド
+        """
+        print(                                                                    
+            f"""
 
+==============================================================
+ステップ2. 魔法術式を用いて領域術式を実行する
+\033[32m領域術式\033[0m                      : {create_domain_grimoire}
+\033[32m実行術式\033[0m                      : {self.target_file_path}
+\033[32m領域対象\033[0m (ディレクトリパス)    : {target_dir}
+==============================================================
+        """
+        )
+
+    def print_step3_info(self, target_dir):
+        """
+        ステップ3の情報を出力するメソッド
+        """
+        print(
+            f"""
+
+==============================================================
+ステップ3. 展開術式を実行する  
+\033[32m展開対象\033[0m (ディレクトリパス)    : {target_dir}
+==============================================================
+        """
+        )
     def load_source_and_create_variables(self):
         """
         ソースファイルの読み込みと変数の作成を行うメソッド
@@ -60,7 +96,9 @@ class TargetCodeGenerator:
         プロンプトの読み込みとコード生成を行うメソッド
         """
         prompt = self.load_prompt_with_variables(create_domain_grimoire, variables)  # 領域術式（要件定義書）からプロンプトを読み込み、変数を埋め込む
+        # print(prompt)
         code   = self.generate_code_with_claude(prompt)                           # Claudeを使用してコードを生成
+        # print(code)
         
         return prompt, code
 
@@ -88,21 +126,6 @@ class TargetCodeGenerator:
         if self.target_file_path.endswith(".py"):                                 # ターゲットファイルがPythonファイルの場合
             self.run_python_file()                                                # - Pythonファイルを実行
             
-    def print_step2_info(self, create_domain_grimoire, target_dir):
-        """
-        ステップ2の情報を出力するメソッド
-        """
-        print(                                                                    
-            f"""
-
-==============================================================
-ステップ2. 魔法術式を用いて領域術式を実行する
-\033[32m領域術式\033[0m  (要件定義書)          : {create_domain_grimoire}
-\033[32m実行術式\033[0m                      : {self.target_file_path}
-\033[32m領域対象\033[0m (ディレクトリパス)    : {target_dir}
-==============================================================
-        """
-        )
 
     def save_current_source_as_past(self):
         """
