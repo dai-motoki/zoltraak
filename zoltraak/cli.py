@@ -6,8 +6,9 @@ import zoltraak
 current_directory = os.path.dirname(os.path.abspath(__file__))
 # print(package_dir)
 # from zoltraak.md_generator import generate_md_from_prompt
-from zoltraak.converter import convert_md_to_py
+from zoltraak.converter import MarkdownToPythonConverter
 import zoltraak.llms.claude as claude
+
 
 def main():
     current_dir = os.getcwd()
@@ -112,9 +113,10 @@ def process_markdown_file(args):
         )
         # print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
 
-    if not os.path.exists(compiler_path):
+    if compiler_path is not None and not os.path.exists(compiler_path):
         print(f"\033[31mファイル「{compiler_path}」が存在しないため検索モードに切り替わります。\033[0m")
         compiler_path = None
+        
 
     formatter_path = os.path.join(                                           # フォーマッタのパスを設定
         zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
@@ -131,15 +133,20 @@ def process_markdown_file(args):
     py_file_rel_path = os.path.splitext(md_file_rel_path)[0] + ".py"         # Markdownファイルの拡張子を.pyに変更
     py_file_path = os.path.join(output_dir, py_file_rel_path)                # 出力ディレクトリとPythonファイルの相対パスを結合
 
+
+    mtp = MarkdownToPythonConverter(md_file_path, py_file_path,
+                                    prompt, compiler_path, formatter_path, language)
     os.makedirs(os.path.dirname(py_file_path), exist_ok=True)                # Pythonファイルの出力ディレクトリを作成（既に存在する場合は何もしない）
-    convert_md_to_py(                                                        # MarkdownファイルをPythonファイルに変換
-        md_file_path,                                                        # - 入力Markdownファイルのパス
-        py_file_path,                                                        # - 出力Pythonファイルのパス
-        prompt,                                                              # - プロンプト
-        compiler_path,                                                       # - コンパイラーのパス
-        formatter_path,                                                      # - フォーマッタのパス
-        language                                                             # - 汎用言語指定
-    )
+    mtp.convert()
+
+    # convert_md_to_py(                                                        # MarkdownファイルをPythonファイルに変換
+    #     md_file_path,                                                        # - 入力Markdownファイルのパス
+    #     py_file_path,                                                        # - 出力Pythonファイルのパス
+    #     prompt,                                                              # - プロンプト
+    #     compiler_path,                                                       # - コンパイラーのパス
+    #     formatter_path,                                                      # - フォーマッタのパス
+    #     language                                                             # - 汎用言語指定
+    # )
 
 def get_custom_compiler_path(custom_compiler):
     compiler_path = os.path.abspath(custom_compiler)
@@ -182,6 +189,6 @@ def generate_md_file_name(prompt):
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
     # print("file_name_prompt:", file_name_prompt)
-    response = claude.generate_response(file_name_prompt)
+    response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"

@@ -9,7 +9,7 @@ import threading
 import time
 import sys
 import zoltraak.settings
-
+import zoltraak.llms.claude as claude
 
 def generate_md_from_prompt(
     goal_prompt,
@@ -51,13 +51,13 @@ def generate_md_from_prompt(
             prompt_formatter = lang_formatter_path
     
     print(f"""
-==============================================================
 ステップ1. 起動術式を用いて魔法術式を構築する
+==============================================================
 \033[31m起動術式\033[0m (プロンプトコンパイラ)   : {prompt_compiler}
-\033[32m魔法術式\033[0m (要件定義書)            : {target_file_path}
-\033[34m錬成術式\033[0m (プロンプトフォーマッタ): {prompt_formatter}
-\033[90m言霊\033[0m   (LLMベンダー・モデル名)  : {developer}/{model_name}
-ファイルを開く                     : {open_file}
+\033[32m魔法術式\033[0m (要件定義書)             : {target_file_path}
+\033[34m錬成術式\033[0m (プロンプトフォーマッタ) : {prompt_formatter}
+\033[90m言霊\033[0m   (LLMベンダー・モデル 名)   : {developer}/{model_name}
+ファイルを開く                    : {open_file}
 ==============================================================
     """)
 
@@ -128,7 +128,7 @@ def generate_response(developer, model_name, prompt):
     if developer == "groq":  # Groqを使用する場合
         response = create_prompt_and_get_response_groq(model_name, prompt)
     elif developer == "anthropic":  # Anthropicを使用する場合
-        response = create_prompt_and_get_response_anthropic(model_name, prompt, 4000, 0.7)
+        response = claude.generate_response(model_name, prompt, 4000, 0.7)
     
     else:  # 想定外のデベロッパーの場合
         raise ValueError(
@@ -136,29 +136,6 @@ def generate_response(developer, model_name, prompt):
             "サポートされているデベロッパーは 'anthropic' と 'groq' です。"
         )
     return response
-
-def create_prompt_and_get_response_anthropic(model, prompt, max_tokens, temperature):
-    """
-    Anthropic APIを使用して、指定されたモデルでプロンプトに基づいてテキストを生成する関数
-
-    Args:
-        model (str): 使用するモデルの名前
-        prompt (str): 送信するプロンプト
-        max_tokens (int): 生成する最大トークン数
-        temperature (float): 生成の多様性を制御する温度パラメータ
-
-    Returns:
-        str: 生成されたテキスト
-    """
-    client = anthropic.Anthropic(api_key=anthropic_api_key)  # Anthropic APIクライアントを作成
-    response = client.messages.create(
-        model=model,
-        max_tokens=max_tokens,
-        temperature=temperature,
-        system="",
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return response.content[0].text.strip()
 
 
 def create_prompt_and_get_response_groq(model, prompt):
