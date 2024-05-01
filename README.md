@@ -87,7 +87,14 @@ https://x.com/hokazuya/status/1784887255154282524
 他言語版readmeは以下からご覧になれます。現在サポートしているのは以下の言語です。
 
 Readme files in other languages are available here. Currently we support:
-- [English](https://github.com/dai-motoki/zoltraak/blob/main/README_EN.md)
+- [English](https://github.com/dai-motoki/zoltraak/blob/main/README_EN.md) : Note that it could be out of date, because it is manually maintained. To check an up-to-date info, I recommend you run ``zoltraak -r English``.
+
+サポートしていない言語についても、通常インストールののち、``zoltraak -r 言語名``を実行することで、その言語版のREADMEを入手することができます。
+
+If you would like to have an automatic and updated support, then:
+1. execute ``pip install zoltraak`` or ``pip install zoltraak --upgrade`` for your environment in favor (which could be venv or docker)
+2. activate the environment and execute ``zoltraak -r (language_name)``
+3. This README will be automatically translated into the language in favor
 
 # 目次
 
