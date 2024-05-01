@@ -272,6 +272,7 @@ def print_generation_result(target_file_path, open_file=True):
     """
     req = "requirements"
     target_file_path = f"{req}/{target_file_path}"
+    print("")
     print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
 
 

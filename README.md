@@ -91,7 +91,7 @@ Readme files in other languages are available here. Currently we support:
 
 # 目次
 
-
+- [自然言語プログラミング文法](docs/NLProgramming_grammar.md)
 - [研究](docs/research.md)
 - [設定](docs/configuration.md)
 - [FAQ](docs/faq.md)
