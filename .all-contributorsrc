@@ -85,6 +85,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Otori2501",
+      "name": "Otori",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10893373?v=4",
+      "profile": "https://github.com/Otori2501",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "tetumemo",
+      "name": "tetumemo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/164516526?v=4",
+      "profile": "https://t.co/qqv5Zts5V4",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

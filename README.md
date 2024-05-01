@@ -20,7 +20,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -40,6 +40,8 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/umayado17"><img src="https://avatars.githubusercontent.com/u/40725757?v=4?s=100" width="100px;" alt="umayado17"/><br /><sub><b>umayado17</b></sub></a><br /><a href="#code-umayado17" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/kinopeee"><img src="https://avatars.githubusercontent.com/u/119112484?v=4?s=100" width="100px;" alt="kinopeee"/><br /><sub><b>kinopeee</b></sub></a><br /><a href="#code-kinopeee" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Otori2501"><img src="https://avatars.githubusercontent.com/u/10893373?v=4?s=100" width="100px;" alt="Otori"/><br /><sub><b>Otori</b></sub></a><br /><a href="#doc-Otori2501" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://t.co/qqv5Zts5V4"><img src="https://avatars.githubusercontent.com/u/164516526?v=4?s=100" width="100px;" alt="tetumemo"/><br /><sub><b>tetumemo</b></sub></a><br /><a href="#doc-tetumemo" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
