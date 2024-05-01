@@ -85,7 +85,7 @@ def generate_md_from_prompt(
     spinner_thread.join()                                               # スピナーの表示を終了
     md_content = response.strip()                                       # 生成された要件定義書の内容を取得し、前後の空白を削除
     save_md_content(md_content, target_file_path, readme_lang)        # 生成された要件定義書の内容をファイルに保存
-    print_generation_result(target_file_path, compiler_path, open_file)                # 生成結果を出力し、open_fileフラグに応じてファイルを開く
+    print_generation_result(target_file_path, compiler_path, readme_lang, open_file)                # 生成結果を出力し、open_fileフラグに応じてファイルを開く
 
 def show_spinner(done, goal):
     """スピナーを表示する関数
@@ -244,7 +244,7 @@ def get_formatter(formatter_path, language=None, readme_lang=None):
             with open(formatter_path, "r", encoding = "utf-8") as file:  # --- フォーマッタファイルを読み込みモードで開く
                 formatter = file.read()  # ---- フォーマッタの内容を読み込む
                 if language is not None:
-                    print(formatter_path)
+                    # print(formatter_path) # デバッグ用
                     if formatter_path.endswith("_lang.md"):
                         formatter = formatter.replace("{language}", language)
                     else:
@@ -276,7 +276,7 @@ def save_md_content(md_content, target_file_path, readme_lang=None):
     with open(target_file_path, "w", encoding = "utf-8") as target_file:                          # ターゲットファイルを書き込みモードで開く
         target_file.write(md_content)                                         # - 生成された要件定義書の内容をファイルに書き込む
 
-def print_generation_result(target_file_path, compiler_path, readme_lang, open_file=False):
+def print_generation_result(target_file_path, compiler_path, readme_lang=None, open_file=False):
     """
     要件定義書の生成結果を表示する関数
 
@@ -286,7 +286,7 @@ def print_generation_result(target_file_path, compiler_path, readme_lang, open_f
         open_file (bool): ファイルを開くかどうかのフラグ（デフォルトはTrue）
     """
     req = "requirements"
-    target_file_path = f"{req}/{target_file_path}"
+    target_file_path = f"{req}/{target_file_path}" if readme_lang is None else f"{os.path.dirname(zoltraak.__file__)}/{target_file_path}"
     print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
     
     # 検索結果生成以外ではユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる

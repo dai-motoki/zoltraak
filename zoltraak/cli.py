@@ -102,10 +102,10 @@ def process_markdown_file(args):
     zoltraak_dir = os.path.dirname(zoltraak.__file__)                        # zoltraakパッケージのディレクトリパスを取得
 
     if args.readme != "None":
-        print(args.readme)
+        print("Readme翻訳先言語: " + args.readme)
         compiler_path = f"{zoltraak_dir}\README.md"
         
-        # README.mdが存在しないかからの場合は、github repoからダウンロードして、f"{zoltraak_dir}\README.md"にファイルを上書き保存する。
+        # README.mdが存在しないか空の場合は、github repoからダウンロードして、f"{zoltraak_dir}\README.md"にファイルを上書き保存する。
         if not os.path.exists(compiler_path) or os.path.getsize(compiler_path) < 100: # 変に改行とかでサイズ稼がれたりすると嫌なのでバッファとして100バイト以下とする
             import requests
             
@@ -146,7 +146,7 @@ def process_markdown_file(args):
     # print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
     # print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
 
-    language = None if args.language is None else args.language              # 汎用言語指定
+    language = None if args.language == "None" else args.language              # 汎用言語指定
     print("language:", args.language)
     readme_lang = None if args.readme == "None" else args.readme               # readme翻訳先言語指定
 
