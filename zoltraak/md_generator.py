@@ -8,14 +8,9 @@ from tqdm import tqdm  # tqdmをインポート
 import threading
 import time
 import sys
+import zoltraak.settings
 import zoltraak.llms.claude as claude
 import re
-
-
-load_dotenv()  # .envファイルから環境変数を読み込む
-anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
-groq_api_key = os.getenv("GROQ_API_KEY")  # 環境変数からGroqのAPI keyを取得
-
 
 def generate_md_from_prompt(
     goal_prompt,
@@ -153,15 +148,6 @@ def generate_response(developer, model_name, prompt):
             f"サポートされていないデベロッパー: {developer}。"
             "サポートされているデベロッパーは 'anthropic' と 'groq' です。"
         )
-    
-    # while readme_lang is not None and response.find("END OF TRANSLATION") < 0:
-    #     isFirst = prompt.find("## Additional Task") < 0
-    #     prompt = (prompt if isFirst else prompt[0:prompt.find("## Additional Task")]) + f"\n\n## Additional Task.\n\n Your translation is still incomplete. Continue with your translating above from Japanese into {readme_lang} by detecting the restarting point, which is equivalent to the end of \"Current Progress\" section. Only output the continued translation result. When and only when you finished your translation, that is, when everything in the original document is translated, write \"END OF TRANSLATION\" in English at the end of the line.\n\n## Current Progress\n```{response.strip()}```"
-    #     print("") # レイアウト崩れ防止の改行
-    #     print(prompt)
-    #     print(len(response.split("\n")))
-    #     print("翻訳が途中で途切れたため、継続します。")
-    #     response = response.strip() + generate_response(developer, model_name, prompt, readme_lang).strip()
 
     return response
 

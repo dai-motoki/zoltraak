@@ -1,4 +1,5 @@
 ![](https://github.com/dai-motoki/zoltraak/blob/main/assets/videos/zoltraak2_smooth_high_quality.gif?raw=true)
+
 <h1>創造魔法 Zoltraak</h1>
 <p>
 Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔法の名です。
@@ -20,7 +21,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-11-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -42,6 +43,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/kinopeee"><img src="https://avatars.githubusercontent.com/u/119112484?v=4?s=100" width="100px;" alt="kinopeee"/><br /><sub><b>kinopeee</b></sub></a><br /><a href="#code-kinopeee" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Otori2501"><img src="https://avatars.githubusercontent.com/u/10893373?v=4?s=100" width="100px;" alt="Otori"/><br /><sub><b>Otori</b></sub></a><br /><a href="#doc-Otori2501" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://t.co/qqv5Zts5V4"><img src="https://avatars.githubusercontent.com/u/164516526?v=4?s=100" width="100px;" alt="tetumemo"/><br /><sub><b>tetumemo</b></sub></a><br /><a href="#doc-tetumemo" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://habatakurikei.com/"><img src="https://avatars.githubusercontent.com/u/131997581?v=4?s=100" width="100px;" alt="Habatakurikei"/><br /><sub><b>Habatakurikei</b></sub></a><br /><a href="#code-Habatakurikei" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
@@ -51,16 +53,13 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-
 コントリビューターの追加方法に関する詳細は以下のリンクを参照してください。
 [コントリビューターの追加方法](#コントリビューターの追加方法)
 
+Zoltraak は自然言語を実行言語に変換するプロンプトコンパイラシステムを採用し、数語の呪文から起動術式を用いて複雑な術式を展開しこれを即時実行可能な古代システム語へとコンパイルします。これにより術師の数語の呪文は強力な言霊の数々を織り込んだ魔法陣を通り魔法の範囲と威力を大幅に向上させることが可能となります。また詠唱、無詠唱での高速な創造魔法を実現可能とします。これにより相対する敵よりも圧倒的に高速かつ柔軟な術の発動を可能とします。
 
-Zoltraakは自然言語を実行言語に変換するプロンプトコンパイラシステムを採用し、数語の呪文から起動術式を用いて複雑な術式を展開しこれを即時実行可能な古代システム語へとコンパイルします。これにより術師の数語の呪文は強力な言霊の数々を織り込んだ魔法陣を通り魔法の範囲と威力を大幅に向上させることが可能となります。また詠唱、無詠唱での高速な創造魔法を実現可能とします。これにより相対する敵よりも圧倒的に高速かつ柔軟な術の発動を可能とします。
-
-以下将来的にTODO: 
+以下将来的に TODO:
 独自言語呪文や暗号呪文へのコンパイルも可能とするため周りから呪文を抜き取られリバースエンジニアリングされる心配もありません。 微調整の後それを古代語として圧縮し呪文を秘匿する事も可能です。 また、独自言語を用い数語微修正するのみで、実行言語が瞬時に変わり術が発動します。
-
 
 ## ディストリビューション
 
@@ -70,21 +69,19 @@ https://github.com/Sunwood-ai-labs/zoltraak_docker
 
 - Streamlit
 
-https://x.com/habatakurikei/status/1784561693705560419 
+https://x.com/habatakurikei/status/1784561693705560419
 
-https://twitter.com/habatakurikei 
+https://twitter.com/habatakurikei
 https://twitter.com/habatakurikei
 
-
-- hagging face 
+- hagging face
 
 https://t.co/TlEq204NBG
 https://x.com/hokazuya/status/1784887255154282524
 
-
-
 ## 他言語（Other languages）
-他言語版readmeは以下からご覧になれます。現在サポートしているのは以下の言語です。
+
+他言語版 readme は以下からご覧になれます。現在サポートしているのは以下の言語です。
 
 Readme files in other languages are available here. Currently we support:
 - [English](https://github.com/dai-motoki/zoltraak/blob/main/README_EN.md) : Note that it could be out of date, because it is manually maintained. To check an up-to-date info, I recommend you run ``zoltraak -r English``.
@@ -110,87 +107,166 @@ If you would like to have an automatic and updated support, then:
 - [ビデオ](https://github.com/dai-motoki/zoltraak/blob/main/docs/video.md)
 - [貢献](https://github.com/dai-motoki/zoltraak/blob/main/docs/contributing.md)
 
+# Zoltraak の動作イメージ
 
+![Last frame of video](assets/images/last_frame.png)
 
+# 利用方法
 
-# Zoltraakの動作イメージ
-![Last frame of video](https://github.com/dai-motoki/zoltraak/blob/main/assets/images/last_frame.png?raw=true)
+非エンジニアの方でも迷わないように、丁寧に記載します。
 
+## Windows での利用方法
 
-## 利用方法
+1. 事前準備
 
-1. Zoltraakをインストール
-   ```sh
-   pip install --upgrade zoltraak
-   ```
+   1. Python のインストール
 
-## 利用方法
+      [こちら](https://pythonlinks.python.jp/ja/index.html)のリンク（非公式）から、windows 用インストーラをダウンロードして、Python3 をインストールします。
 
+   2. ANTHROPIC_API_KEY の取得
 
-1. 使い方
-   1. `.env` ファイルに以下の環境変数を設定します。
+      [こちら](https://console.anthropic.com/)で ANTHROPIC のアカウントを作成し、Get API Keys より API KEY をコピーして保存しておきます。
+      **絶対に誰にも見られないように管理しましょう。勝手に課金され放題になってしまいます。**
+
+   3. ワークスペースフォルダの作成
+
+      ユーザ配下に「workspace」など、任意の名前の専用フォルダを作っておくと、既存のファイルと混ざらずに管理しやすくなります。
+      ここでは、以下のようなフォルダを作成しておきます。
+
       ```
-      ANTHROPIC_API_KEY={Anthropicのキー}
+      C:/Users/{ユーザ名}/workspace
       ```
-   2. 以下のコマンドでZoltraakをインストールします。
+
+      自分で別の名前を命名した場合、以下においては`workspace`を自分のつけた名前で読み替えてください。
+
+   4. `.env`ファイルの作成
+
+      エクスプローラ（黄色いフォルダのやつ）を開いて、`C:/Users/{ユーザ名}/workspace`を開きます。
+      今は`.venv`だけがあるかと思いますが、ここに「右クリック>>新規作成>>テキストドキュメント」から、テキストファイルを作成します。
+      =>作成したら、ファイル名を`.env`に変更します。
+      それから、ファイルを開いて、1 行目に以下のように入力して保存します。
+
+      ```
+      ANTHROPIC_API_KEY=ここにAnthropicから取得したキー
+      ```
+
+   5. テキストエディタの立ち上げ
+
+      コマンドプロンプトや Powershell でも構いませんし、vscoede などを入れても構いません。以下、ターミナルと呼びます。
+      次項では、このターミナルに呪文を打ち込んで、`Enter`を押下していきます。
+
+2. 詠唱
+
+   基本的には何も考えずに、以下の順番でコマンドを入力すればよいです。
+
+   1. ワークスペースへ移動
+      ```
+      cd C:/Users/{ユーザ名}/workspace
+      ```
+      `cd`とは「チェンジディレクトリ」の略で、ターミナルが指定したパスに移動してくれます。
+      つまり移動先の中でターミナルが動くよ、ということです。
+   2. 仮想環境を構築
+
+      ```
+      python -m venv .venv
+      ```
+
+      ターミナルが今いるフォルダ内に、仮想環境となるフォルダを作ってくれるコマンドです。
+
+      最後の`.venv`は任意のフォルダ名でも構いません。自分で名付けた場合、以下の手順についても`.venv`を自分のつけた名前に読み替えてください。
+
+      この中身が仮想環境となり、既存環境から切り離して`Zoltraak`を扱えるようになります。
+
+   3. 仮想環境の有効化
+
+      ```
+      .venv\scripts\activate
+      ```
+
+      こうするとターミナルの左側に`（.venv）`と表示されるかと思います。
+
+      そうなっている場合、ターミナルが仮想環境に対して動作していることを意味しています。
+
+      なお、解除には`deactivate`と打てばよいです。
+
+   4. Zoltraak のインストール
       ```
       pip install zoltraak
       ```
-   3. 以下のコマンドを実行し、プロンプトを入力します。
+      しばらく時間がかかります。`.venv`内を開くといくつものフォルダが作られていることがわかります。
+      特に、魔導書の根幹となるファイルたちは、以下のパスに保存されています。
       ```
-      zoltraak "最新の大規模言語モデルが学べるポケモンゲームの様なシステムを作りたい" -c dev_obj
+      C:\Users\{ユーザ名}\workspace\.venv\Lib\site-packages\zoltraak\grimoires
+      ```
+      この中身は、この README 下部の「魔導書構成」で示されていますのでそちらを参照のこと。
+   5. 詠唱
+
+      以上で準備は整いました。以下のように、`zoltraak`コマンドに続けて"プロンプト"と起動式（プロンプトコンパイラ）を指定します。
+
+      ```
+      zoltraak "プロンプト内容" -c コンパイラ名
       ```
 
-   これにより、入力したプロンプトに基づいた要件定義書が生成されます。生成された要件定義書は叩き台となるため、必要に応じて内容を修正・拡充してください。
+      コンパイラ名、プロンプト内容の例については、次項以降にて示します。
 
-2. プロンプトコンパイラ（起動式）の指定
-   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。指定なしの場合は、最も適切と思われるプロンプトコンパイラを5つ自動でピックアップするコンパイラが実行されます。
+      これにより、入力したプロンプトに基づいた要件定義書が生成されます。生成された要件定義書は叩き台となるため、必要に応じて内容を修正・拡充してください。
+      生成された要件定義書は、以下のフォルダに格納されます。
 
-   | コンパイラ名 | 説明 |
-   | --- | --- |
-   | dev_func | 関数型プログラミングを用いた開発タスクに関する要件定義書を生成するコンパイラ |
-   | dev_obj | オブジェクト指向設計を用いた開発タスクに関する要件定義書を生成するコンパイラ |
-   | biz_consult | ビジネスコンサルティングに関するドキュメントを生成するコンパイラ |
-   | general_def | 一般的な開発タスクに関する要件定義書を生成するコンパイラ |
-   | general_reqdef | 一般的な要求事項に関する要件定義書を生成するコンパイラ |
-   | dev_react_fastapi | React + FastAPIを用いた開発タスクに関する要件定義書を生成するコンパイラ |
+      ```
+      C:\Users\{ユーザ名}\workspace\generated\requirements
+      C:\Users\{ユーザ名}\workspace\requirements
+      ```
 
-3. 具体例
+3. プロンプトコンパイラ（起動式）の指定
+   `-c` オプション以降は用途に応じて変更できるプロンプトコンパイラ（起動式）を指定します。指定なしの場合は、最も適切と思われるプロンプトコンパイラを 5 つ自動でピックアップするコンパイラが実行されます。
+
+   | コンパイラ名      | 説明                                                                         |
+   | ----------------- | ---------------------------------------------------------------------------- |
+   | dev_func          | 関数型プログラミングを用いた開発タスクに関する要件定義書を生成するコンパイラ |
+   | dev_obj           | オブジェクト指向設計を用いた開発タスクに関する要件定義書を生成するコンパイラ |
+   | biz_consult       | ビジネスコンサルティングに関するドキュメントを生成するコンパイラ             |
+   | general_def       | 一般的な開発タスクに関する要件定義書を生成するコンパイラ                     |
+   | general_reqdef    | 一般的な要求事項に関する要件定義書を生成するコンパイラ                       |
+   | dev_react_fastapi | React + FastAPI を用いた開発タスクに関する要件定義書を生成するコンパイラ     |
+
+4. 具体例
+
    ```sh
    zoltraak "Manimを用いて、MoE（専門家の混合）モデルを視覚化するプログラムを開発する" -c dev_func
-   zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj 
+   zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj
    zoltraak "今月中に中小企業向けのビジネスコンサルティングドキュメントを作成する。具体的には、マーケティング戦略、財務管理、人材育成に関するアドバイスを含む" -c biz_consult
    zoltraak "今月中に教育用の拡張現実（AR）アプリケーションを開発する" -c general_def
    zoltraak "今月中に政府向けの少子化対策として、具体的な施策と予算案を含む提言書を執筆する" -c general_reqdef
    ```
 
+5. `test_dev_obj.md`というファイルを作成し、後続スレッドの内容をコピーして貼り付けてください。このファイルを zoltraak を実行するディレクトリと同じ階層に配置します。
 
-4. `test_dev_obj.md`というファイルを作成し、後続スレッドの内容をコピーして貼り付けてください。このファイルをzoltraakを実行するディレクトリと同じ階層に配置します。
+6. `test_dev_obj.md`を以下のルールに従って自分の定義書生成プログラムに書き換えましょう:
 
-5. `test_dev_obj.md`を以下のルールに従って自分の定義書生成プログラムに書き換えましょう:
-   - `{prompt}`は zoltraakの後のプロンプト（呪文）が入るので消さないでください。
+   - `{prompt}`は zoltraak の後のプロンプト（呪文）が入るので消さないでください。
    - `## 2. ファイル・フォルダ構成`も消さないでください。
    - それ以外は自由に変更可能です。
 
-6. 以下のコマンドを実行して、自作コンパイラを使用します:
+7. 以下のコマンドを実行して、自作コンパイラを使用します:
+
    ```sh
    zoltraak プロンプト -cc 自作コンパイラ
    zoltraak "コーヒーショップ顧客管理システムを作りたい" -cc test_dev_obj.md
    ```
 
-7. `zoltraak requirements/~~~.md`が貼り付けできるようになっているはずなので実行してください。
+8. `zoltraak requirements/~~~.md`が貼り付けできるようになっているはずなので実行してください。
 
-8. ディレクトリが構築されます。Cursor、VSCodeにてopenコマンドが起動しない方は以下を参照してください:
+9. ディレクトリが構築されます。Cursor、VSCode にて open コマンドが起動しない方は以下を参照してください:
    https://note.com/88gram/n/n4ead3a677b83
 
-注意: 全てClaude3 Haikuにより実行されています（一回あたり約1円の料金がかかります。ご自身で確認ください）。
-
+注意: 全て Claude3 Haiku により実行されています（一回あたり約 1 円の料金がかかります。ご自身で確認ください）。
 
 ```
 zoltraak book.md -p "本を書きたい"
 ```
 
 ファイル作成後は以下のように何度でも書き換えることができる。
+
 ```
 zoltraak book.md -p "もっと分量増やしたい"
 ```
@@ -202,13 +278,13 @@ zoltraak aaaa.md -f ./input.md （作成予定）
 zoltraak dir/*.md （作成予定）
 ```
 
-
 ![llmcomment.png](https://github.com/dai-motoki/zoltraak/blob/main/assets/images/llmcomment.png?raw=true)
 
 ### オプショナル引数
-- ``-f`` : フォーマット指定。grimoiresフォルダ
-- ``-l`` : 汎用言語指定。言語名は、"Español"などの現地名でも、"Spanish"のような英語でも、「スペイン語」のような日本語でもOKです。
-  - 指定フォーマットについて、汎用言語フォーマッター（"``_lang.md``"で終わるファイル）が存在する場合は、そのファイルに基づき処理されます。
+
+- `-f` : フォーマット指定。grimoires フォルダ
+- `-l` : 汎用言語指定。言語名は、"Español"などの現地名でも、"Spanish"のような英語でも、「スペイン語」のような日本語でも OK です。
+  - 指定フォーマットについて、汎用言語フォーマッター（"`_lang.md`"で終わるファイル）が存在する場合は、そのファイルに基づき処理されます。
   - 存在しない場合は、デフォルトの言語セットコンパイラが起動します。ただ、相対的に効果がやや不安定なので、汎用言語フォーマッターを作成しておくことが強く推奨されます。
 
 ```
@@ -217,38 +293,38 @@ zoltraak "今月中にオブジェクト指向設計を用いて、多機能在�
 zoltraak "今月中にオブジェクト指向設計を用いて、多機能在庫管理システムを開発する" -c dev_obj -l グルジア語
 ```
 
-
 ## プロジェクトへの参加
 
 1. リポジトリをクローンします:
+
    ```
    git clone https://github.com/dai-motoki/zoltraak.git
    ```
 
 2. プロジェクトディレクトリに移動します:
+
    ```
    cd zoltraak
    ```
 
 3. 仮想環境の作成
-まず、パッケージ開発用の独立した仮想環境を作成します。これにより、システム全体のPythonとは分離された環境で開発できます。
+   まず、パッケージ開発用の独立した仮想環境を作成します。これにより、システム全体の Python とは分離された環境で開発できます。
 
 ```bash
 python -m venv zoltraak-dev
 source zoltraak-dev/bin/activate  # Linuxの場合
-zoltraak-env\Scripts\activate.bat  # Windowsの場合 
+zoltraak-env\Scripts\activate.bat  # Windowsの場合
 ```
 
 4. 必要なパッケージのインストール
-開発に必要な依存パッケージをインストールします。例えば、`setuptools`と`wheel`は最低限必要です。
+   開発に必要な依存パッケージをインストールします。例えば、`setuptools`と`wheel`は最低限必要です。
 
 ```bash
 pip install setuptools wheel
 ```
 
-
 5. パッケージのインストール
-開発中のパッケージを仮想環境にインストールします。
+   開発中のパッケージを仮想環境にインストールします。
 
 ```bash
 pip install -e .
@@ -256,20 +332,17 @@ pip install -e .
 
 これで、仮想環境内でパッケージを使用したり、変更を加えたりできるようになります。
 
-
-4. Anthropic APIキーを設定します:
+4. Anthropic API キーを設定します:
    - プロジェクトのルートディレクトリに`.env`ファイルを作成します。
-   - 以下の行を`.env`ファイルに追加し、`YOUR_API_KEY`を実際のAnthropicのAPIキーに置き換えます:
+   - 以下の行を`.env`ファイルに追加し、`YOUR_API_KEY`を実際の Anthropic の API キーに置き換えます:
      ```
      ANTHROPIC_API_KEY=YOUR_API_KEY
      ```
 
-
-
 ### 追加コマンド（以下はオーナーのみ）
 
-
 update_and_upload.sh
+
 ```sh
 
 echo "バージョンをアップデート中..."
@@ -311,41 +384,37 @@ memo: grimoires内の全てのベンチマークは各々やるような実験�
 
 ```
 
-
 ## 使用方法
 
-MarkdownファイルをPythonコードに変換するには、以下のコマンドを使用します。
+Markdown ファイルを Python コードに変換するには、以下のコマンドを使用します。
 
-
-はい、以下に英語のREADMEを日本語に翻訳しました。
+はい、以下に英語の README を日本語に翻訳しました。
 
 ## キャッシング
 
-Zoltraakは、変更されていないMarkdownファイルの不要な変換を避けるために、キャッシングメカニズムを実装しています。各Markdownファイルのハッシュ値を計算し、`hashes.txt`ファイルに保存します。変換コマンドを実行すると、Zoltraakは現在のハッシュ値を保存されているものと比較します。ハッシュ値が一致する場合、Markdownファイルが変更されていないことを示しているため、変換はスキップされ、以前に生成されたPythonコードが使用されます。
+Zoltraak は、変更されていない Markdown ファイルの不要な変換を避けるために、キャッシングメカニズムを実装しています。各 Markdown ファイルのハッシュ値を計算し、`hashes.txt`ファイルに保存します。変換コマンドを実行すると、Zoltraak は現在のハッシュ値を保存されているものと比較します。ハッシュ値が一致する場合、Markdown ファイルが変更されていないことを示しているため、変換はスキップされ、以前に生成された Python コードが使用されます。
 
-## CI/CDとの統合
+## CI/CD との統合
 
-ZoltraakはCI/CDワークフローに統合して、変換プロセスを自動化することができます。`run_tests.sh`スクリプトは、この統合を容易にするために提供されています。以下の手順を実行します。
+Zoltraak は CI/CD ワークフローに統合して、変換プロセスを自動化することができます。`run_tests.sh`スクリプトは、この統合を容易にするために提供されています。以下の手順を実行します。
 
 1. 仮想環境を作成し、アクティベートします。
 
 2. 必要な依存関係をインストールします。
 
-3. MarkdownファイルをPythonコードに変換します。
+3. Markdown ファイルを Python コードに変換します。
 
-4. 生成されたPythonコードを実行します。
+4. 生成された Python コードを実行します。
 
 5. 対応するユニットテストを実行します。
 
-`run_tests.sh`スクリプトをCI/CDパイプラインで使用するには、CI/CDシステムがビルドプロセスの一部としてスクリプトを実行するように設定してください。
+`run_tests.sh`スクリプトを CI/CD パイプラインで使用するには、CI/CD システムがビルドプロセスの一部としてスクリプトを実行するように設定してください。
 
 ## 貢献
 
-コントリビューションを歓迎します！問題を見つけた場合や改善の提案がある場合は、issueを開くかプルリクエストを送信してください。
+コントリビューションを歓迎します！問題を見つけた場合や改善の提案がある場合は、issue を開くかプルリクエストを送信してください。
 
 ## ライセンス
-
-
 
 ## TODO
 
@@ -368,71 +437,75 @@ pip install zoltraak
 一発で依存関係全て入る様に調整します。
 ```
 
-### CLIコマンド関連
-- [ ] zoltraak -p "manim動画を作りたい"  これで要件定義書とプログラムが生成
+### CLI コマンド関連
 
-  - 
+- [ ] zoltraak -p "manim 動画を作りたい" これで要件定義書とプログラムが生成
+
+  -
 
 ### ドキュメント生成
-- [ ] 出力されたPythonファイルと詳細設計書のドキュメントを欲しい。
-  - pythonファイルからドキュメントを生成したい
-    - 例: `Zoltraakgenerated/calc.py` のようにpythonファイルを指定すると、そのファイルに対応するマークダウンドキュメントを生成、更新できるようにする 
-    - pythonファイルのdocstringやコメントからドキュメントを自動生成する
+
+- [ ] 出力された Python ファイルと詳細設計書のドキュメントを欲しい。
+  - python ファイルからドキュメントを生成したい
+    - 例: `Zoltraakgenerated/calc.py` のように python ファイルを指定すると、そのファイルに対応するマークダウンドキュメントを生成、更新できるようにする
+    - python ファイルの docstring やコメントからドキュメントを自動生成する
     - 生成されたドキュメントはマークダウン形式で出力する
 
 ### テスト
-- [ ] テストファイルは別途作成し、必要なタイミングでgit pushなどによりテストが実行されるようにしたい。
 
-### Issue管理
-- [ ] issueを記述したい。
+- [ ] テストファイルは別途作成し、必要なタイミングで git push などによりテストが実行されるようにしたい。
+
+### Issue 管理
+
+- [ ] issue を記述したい。
 
 ### ファイル管理
-- [x] 繰り返し利用する場合は、MarkdownファイルとPythonファイルを自動的に紐付けたい。（変更がある場合のみ再コンパイル）
+
+- [x] 繰り返し利用する場合は、Markdown ファイルと Python ファイルを自動的に紐付けたい。（変更がある場合のみ再コンパイル）
 
 ### 要件定義関連
+
 - [ ] 読み上げ文章から要件定義書を生成するプログラムをあきらさんのプロジェクトで実装する。
   - 宣言型と手続き型はごちゃっと入れた方が良さそう
 - [ ] ZoltraakAAA.md 〜したい で定義書を修正
-- [ ] あると嬉しいのは要件定義を決める際のプロンプトドキュメント 
+- [ ] あると嬉しいのは要件定義を決める際のプロンプトドキュメント
   - コンパイラファイルは選択したい
 - [ ] プログラムから要件定義に戻すフローが必要。
 
 ### その他
+
 - [ ] 各種高級言語の変な癖を解消するための中間ファイルを事前に用意しておくのがよい。
 - [ ] このファイルで、色合いに相当する部分のプロンプトの行数を教えて
 - [ ] 差分をプロンプトとして伝達したい。
 - [ ] 全て１から作り直す。mdファイルから
 ![image](https://github.com/dai-motoki/zoltraak/blob/main/assets/images//graph.png?raw=true)
 
-
-
-
-
-
-
-
 ## 全体の流れ
 
-- ①曖昧で抽象的：初期のプロンプトがこれに相当。「ほにゃらしたい」という曖昧な要求。
+- ① 曖昧で抽象的：初期のプロンプトがこれに相当。「ほにゃらしたい」という曖昧な要求。
 
 shell
+
 ```
 zoltraak "本書きたい"
 ```
+
 ↓
 
-mdファイル
-gen_def_{goal}.md
+md ファイル
+gen*def*{goal}.md
 
 ```
 # ゴール: 本を書きたい
 要件定義書:
 {def}
 ```
+
 ↓
 
-- ②厳密で抽象的：要件定義書など。プロンプトから定義書を作成することで曖昧さが排除され、抽象的な状態になる。 
-def_{goal}.md
+- ② 厳密で抽象的：要件定義書など。プロンプトから定義書を作成することで曖昧さが排除され、抽象的な状態になる。
+  def\_{goal}.md
+
 ```
 書籍執筆要件定義書:
 import {def}
@@ -445,19 +518,23 @@ import {def}
 ~~~~~~~
 ~~~~~~~
 ```
+
 ↓
 
-- ③曖昧で具体的：具体的な行動は伴っているが、まだ試行錯誤している段階。対話型（インタプリタ）とも言える。
-exe_{goal}.py
-```
-プログラム # コメント
-プログラム # コメント
-プログラム # コメント
-プログラム # コメント
-```
-- ④厳密で具体的：1本の具体的な行動に落とし込まれており、マニュアル化（ドキュメント型、コンパイル）された状態。
+- ③ 曖昧で具体的：具体的な行動は伴っているが、まだ試行錯誤している段階。対話型（インタプリタ）とも言える。
+  exe\_{goal}.py
 
-exe_{goal}.md
+```
+プログラム # コメント
+プログラム # コメント
+プログラム # コメント
+プログラム # コメント
+```
+
+- ④ 厳密で具体的：1 本の具体的な行動に落とし込まれており、マニュアル化（ドキュメント型、コンパイル）された状態。
+
+exe\_{goal}.md
+
 ```
 詳細手順書（暗号化、抽象化、使い手がわかりやすい状態にする。[]
 
@@ -465,20 +542,7 @@ exe_{goal}.md
 
 zoltraak book.md
 
-
-
-
-
-
-
-
-
-
-
-
-
 ### 自然言語プログラミングの系譜
-
 
 ```
 *ChatGPT登場
@@ -495,62 +559,62 @@ zoltraak book.md
                                                                         ↑ イマココ
 ```
 
-
-
 ### アップロードの仕方
 
-
-PyPIにパッケージをアップロードする手順は以下の通りです。
+PyPI にパッケージをアップロードする手順は以下の通りです。
 
 1. パッケージの準備:
+
    - プロジェクトのディレクトリ構成を適切に設定します。
    - [setup.py](file:///Users/motokidaisuke/motoki/setup.py#1%2C1-1%2C1)ファイルを作成し、パッケージの情報（名前、バージョン、依存関係など）を記述します。
    - [README.md](file:///Users/motokidaisuke/motoki/README.md#1%2C1-1%2C1)ファイルを作成し、パッケージの説明や使用方法を記載します。
 
-2. アカウントの作成とAPIトークンの取得:
-   - PyPIのWebサイト（https://pypi.org/）にアクセスします。
+2. アカウントの作成と API トークンの取得:
+
+   - PyPI の Web サイト（https://pypi.org/）にアクセスします。
    - 新しいアカウントを作成するか、既存のアカウントにログインします。
-   - アカウントの設定ページで、APIトークンを生成します。
+   - アカウントの設定ページで、API トークンを生成します。
 
 3. ビルドとアップロード用ツールのインストール:
+
    - `twine`と`setuptools`をインストールします。
      ```
      pip install twine setuptools
      ```
 
 4. パッケージのビルド:
+
    - プロジェクトのルートディレクトリで以下のコマンドを実行し、パッケージをビルドします。
      ```
      python setup.py sdist bdist_wheel
      ```
    - これにより、`dist`ディレクトリにパッケージの配布用ファイルが生成されます。
 
-5. PyPIへのアップロード:
-   - 以下のコマンドを実行し、パッケージをPyPIにアップロードします。
+5. PyPI へのアップロード:
+
+   - 以下のコマンドを実行し、パッケージを PyPI にアップロードします。
      ```
      twine upload dist/*
      ```
-   - ユーザー名とパスワードの代わりに、取得したAPIトークンを使用します。
+   - ユーザー名とパスワードの代わりに、取得した API トークンを使用します。
 
 6. アップロードの確認:
-   - PyPIのWebサイトにアクセスし、アップロードしたパッケージが正しく表示されていることを確認します。
+   - PyPI の Web サイトにアクセスし、アップロードしたパッケージが正しく表示されていることを確認します。
 
-これで、`zoltraak`パッケージがPyPIに公開されました。ユーザーは`pip install zoltraak`コマンドを使用してパッケージをインストールできます。
+これで、`zoltraak`パッケージが PyPI に公開されました。ユーザーは`pip install zoltraak`コマンドを使用してパッケージをインストールできます。
 
 注意点:
+
 - パッケージ名は一意である必要があります。既に存在する名前は使用できません。
 - バージョン番号は、新しいバージョンをアップロードするたびに増やす必要があります。
 - `setup.py`ファイルには、適切なメタデータと依存関係を記述してください。
 - `README.md`ファイルには、パッケージの説明や使用方法を明確に記載してください。
 
-以上が、PyPIへのパッケージのアップロード手順です。問題がある場合は、PyPIのドキュメンテーションを参照するか、コミュニティに質問してください。
-
-
-
+以上が、PyPI へのパッケージのアップロード手順です。問題がある場合は、PyPI のドキュメンテーションを参照するか、コミュニティに質問してください。
 
 ## 仮想環境を用いて実行
 
-`pyenv` はPythonのバージョン管理ツールですが、直接的に仮想環境を作成する機能は持っていません。仮想環境を作成するためには、`pyenv-virtualenv` というプラグインを使用する必要があります。
+`pyenv` は Python のバージョン管理ツールですが、直接的に仮想環境を作成する機能は持っていません。仮想環境を作成するためには、`pyenv-virtualenv` というプラグインを使用する必要があります。
 
 以下は `pyenv-virtualenv` を使用して仮想環境を作成する手順です。
 
@@ -607,18 +671,16 @@ PyPIにパッケージをアップロードする手順は以下の通りです�
 
 これで `pyenv` と `pyenv-virtualenv` を使用して Python の仮想環境を作成し、管理する方法を説明しました。
 
-
 ローカル環境
 
 pip install -e .
 
 を行うと
-Users/motokidaisuke/.pyenv/versions/3.11.5 
+Users/motokidaisuke/.pyenv/versions/3.11.5
 に入ってしまうらしい
 
 python setup.py sdist bdist_wheel
-twine upload --verbose dist/*
-
+twine upload --verbose dist/\*
 
 仮想環境
 deactivate
@@ -626,16 +688,11 @@ rm -rf /Users/motokidaisuke/aaaaa/zoltraak-env
 python3 -m venv /Users/motokidaisuke/aaaaa/zoltraak-env
 source /Users/motokidaisuke/aaaaa/zoltraak-env/bin/activate
 
-
-
-
 # アイデア（重要）
 
 呪文 → 文書 → 構造体 → 情報構造体 → 実行
-       |→ 自然言語     |→ 自然言語
-                           |→ プログラミング言語
-
-
+|→ 自然言語 |→ 自然言語
+|→ プログラミング言語
 
 # メモ
 
@@ -646,52 +703,44 @@ import writer.book.lecture
 
 ```
 
-
-
 # TODO
 
-
 - [ ] ディレクトリ構築はペーストではなくシステムから構築するか聞かれるようにする
-- [ ] Pythonのファイル取得部は関数化して外部ファイル化ける
+- [ ] Python のファイル取得部は関数化して外部ファイル化ける
 - [ ] デザイナーと開発者を導入。
 
-
 # 0.1.25 更新情報
-2024_04_28 
 
-- setting → grimoiresに変更
-- react & fast APIの要件定義書を記載しディレクトリを構築するdev_react_fast_api を追加
-- formatter 25パターンほど追加
+2024_04_28
+
+- setting → grimoires に変更
+- react & fast API の要件定義書を記載しディレクトリを構築する dev_react_fast_api を追加
+- formatter 25 パターンほど追加
 - 実行フローを整理、アニメーション追加
-
 
 # チップス
 
-zoltraak "かぞく情報データ分析v4" -c dev_react_fastapi  
+zoltraak "かぞく情報データ分析 v4" -c dev_react_fastapi
 
 とやると要件定義書名にバージョンを記載してくれる。
-
 
 ## コントリビューターの追加方法
 
 コントリビューターを追加するには、以下の手順を実行してください:
 
-1. issueまたはプルリクエストに、以下の形式でコメントを残してください:  
+1. issue またはプルリクエストに、以下の形式でコメントを残してください:
 
 ```
 @all-contributors please add @username for <contributions>
 ```
-`@username`をコントリビューターのGitHubユーザー名に、`<contributions>`をコントリビュートのタイプに置き換えてください。コントリビュートのタイプは、[Emoji Key](https://allcontributors.org/docs/en/emoji-key)を参照してください。
 
+`@username`をコントリビューターの GitHub ユーザー名に、`<contributions>`をコントリビュートのタイプに置き換えてください。コントリビュートのタイプは、[Emoji Key](https://allcontributors.org/docs/en/emoji-key)を参照してください。
 
 2. ボットがコントリビューターをプロジェクトに追加するためのプルリクエストを作成します。
 
-3. プルリクエストがマージされると、コントリビューターがREADMEに追加されます。
-
-
+3. プルリクエストがマージされると、コントリビューターが README に追加されます。
 
 # 超大事なことメモ
-
 
 起動式にグリモワを全部詰め込む！！！！
 忘れないように
