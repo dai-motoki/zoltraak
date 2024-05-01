@@ -5,12 +5,11 @@ import hashlib
 from dotenv import load_dotenv
 from zoltraak.md_generator import generate_md_from_prompt
 import zoltraak
+
+import zoltraak.settings
 import zoltraak.llms.claude as claude
 from zoltraak.gencode import TargetCodeGenerator
 
-
-load_dotenv()  # .envファイルから環境変数を読み込む
-anthropic.api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAPI keyを取得
 
 class MarkdownToPythonConverter:
     def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None):
