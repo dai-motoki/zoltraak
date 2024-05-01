@@ -98,7 +98,7 @@ class MarkdownToPythonConverter:
             target.generate_target_code()
         else:
             print(f"""
-要件定義書執筆中: {self.target_file_path}は新しいファイルです。少々お時間をいただきます。
+{"検索結果生成中" if self.compiler_path is None else "要件定義書執筆中"}: {self.target_file_path}は新しいファイルです。少々お時間をいただきます。
                   """)
             generate_md_from_prompt(
                 self.prompt,
