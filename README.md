@@ -6,6 +6,12 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 
 これまでの未体系であった呪文からの術の発動を、魔法の文法体系に昇華しより高速かつ広範囲な術式展開と強大な魔法の発動を可能とするシステムです。
 
+これは近い未来、一般魔法になるものです。
+
+遠慮は要りません。
+
+![撃て。](assets\images\cast_zoltraak.png)
+
 </p>
 <a href="https://twitter.com/ai_syacho" alt="Twitter Follow">
 <img src="https://img.shields.io/twitter/follow/Xiaogang_He.svg?label=Follow&style=social" /></a>
@@ -28,7 +34,9 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -96,8 +104,6 @@ Readme files in other languages are available here. Currently we support:
 
 # 目次
 
-
-
 - [自然言語プログラミング文法](docs/NLProgramming_grammar.md)
 - [研究](docs/research.md)
 - [設定](docs/configuration.md)
@@ -142,18 +148,7 @@ Readme files in other languages are available here. Currently we support:
 
       自分で別の名前を命名した場合、以下においては`workspace`を自分のつけた名前で読み替えてください。
 
-   4. `.env`ファイルの作成
-
-      エクスプローラ（黄色いフォルダのやつ）を開いて、`C:/Users/{ユーザ名}/workspace`を開きます。
-      今は`.venv`だけがあるかと思いますが、ここに「右クリック>>新規作成>>テキストドキュメント」から、テキストファイルを作成します。
-      =>作成したら、ファイル名を`.env`に変更します。
-      それから、ファイルを開いて、1 行目に以下のように入力して保存します。
-
-      ```
-      ANTHROPIC_API_KEY=ここにAnthropicから取得したキー
-      ```
-
-   5. テキストエディタの立ち上げ
+   4. テキストエディタの立ち上げ
 
       コマンドプロンプトや Powershell でも構いませんし、vscoede などを入れても構いません。以下、ターミナルと呼びます。
       次項では、このターミナルに呪文を打ち込んで、`Enter`を押下していきます。
@@ -193,16 +188,35 @@ Readme files in other languages are available here. Currently we support:
       なお、解除には`deactivate`と打てばよいです。
 
    4. Zoltraak のインストール
+
       ```
       pip install zoltraak
       ```
+
       しばらく時間がかかります。`.venv`内を開くといくつものフォルダが作られていることがわかります。
       特に、魔導書の根幹となるファイルたちは、以下のパスに保存されています。
+
       ```
       C:\Users\{ユーザ名}\workspace\.venv\Lib\site-packages\zoltraak\grimoires
       ```
+
       この中身は、この README 下部の「魔導書構成」で示されていますのでそちらを参照のこと。
-   5. 詠唱
+
+   5. `.env`ファイルの作成
+
+      エクスプローラ（黄色いフォルダのやつ）を開いて、`C:/Users/{ユーザ名}/workspace/.venv/Lib/site-packages/zoltraak`を開きます。
+
+      ここに「右クリック>>新規作成>>テキストドキュメント」から、テキストファイルを作成します。
+      =>作成したら、ファイル名を`.env`に変更します。
+      それから、ファイルを開いて、1 行目に以下のように入力して保存します。
+
+      ```
+      ANTHROPIC_API_KEY=ここにAnthropicから取得したキー
+      ```
+
+      ※本当はコマンドでも作成できますが、文字コードというのを合わせるなどが必要なので、現状は非エンジニアは手動で作成したほうが簡単のようです。
+
+   6. 詠唱
 
       以上で準備は整いました。以下のように、`zoltraak`コマンドに続けて"プロンプト"と起動式（プロンプトコンパイラ）を指定します。
 
