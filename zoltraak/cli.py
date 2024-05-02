@@ -166,11 +166,11 @@ def process_text_input(args):
     # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
+    language_option = '-l ' + args.language if args.language is not None else ''
     if args.custom_compiler:
-        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter} -l {args.language}")
+        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter} {language_option}")
     else:
-        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} -l {args.language}")
-
+        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} {language_option}")
 def generate_md_file_name(prompt):
     # promptからファイル名を生成するためにgenerate_response関数を利用
 
