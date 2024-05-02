@@ -2,7 +2,7 @@
 **`要件定義書`を元に、以下の指示に従ってPythonでディレクトリ構成を構築するコードを記述してください。コードのみ**
 
 # モジュール情報
-以下記載
+以下出力pythonファイル冒頭に記載すること
 from zoltraak.llms.claude import `generate_response`
 from zoltraak.utils.process_text import `normal`
 
@@ -16,7 +16,7 @@ from zoltraak.utils.process_text import `normal`
     以下参考、ただしメインファイルはプログラムを詳細に記載する
     ```
     files = [
-    ('dirname', 'filename', 'プログラムコードを書いてもらう感じのプロンプトを詳細に記載'),
+    ('dirname', 'filename', '〜〜のプログラムを記載して下さい。という末尾で終了すること'),
     ]
     ```
     全てのpromptに`要件定義ファイル`を読み込みモードで取得した内容を入れて、ファイル名と必要なプロンプトを記載
@@ -25,8 +25,6 @@ from zoltraak.utils.process_text import `normal`
         プログレスバーを初期化。合計処理ファイル数: len(files)、単位: "files"
         filesリストの要素を順にループ。各要素は (ディレクトリ名, ファイル名, プロンプト) のタプル
             モジュール記載忘れないように
-            from zoltraak.llms.claude import `generate_response`
-            from zoltraak.utils.process_text import `normal`
             全てのファイルは`generate_response(model, prompt, max_tokens, temperature)`をもちいてfor文で然るべき内容を記載
                 - モデル名を指定: "claude-3-haiku-20240307"
                 - プロンプト: readme_content + 改行 + "上記の内容をもとにして" + prompt
@@ -42,6 +40,9 @@ pythonのsubprocessを使って code `ルートディレクトリ`
 pythonのsubprocessを使って code `ルートディレクトリ`/README.md
 4. 生成したコードは即座に実行可能な状態にすること
 5. 出力先ファイルはpythonであり、プログラムコードのみを記載し文言はコメントアウトで記載すること
+    必ず冒頭に以下を入れること
+    from zoltraak.llms.claude import `generate_response`
+    from zoltraak.utils.process_text import `normal`
 
 # 引用
 - `要件定義書` = [source_content]
