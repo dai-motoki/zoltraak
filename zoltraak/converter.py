@@ -10,6 +10,9 @@ import zoltraak.settings
 import zoltraak.llms.claude as claude
 from zoltraak.gencode import TargetCodeGenerator
 
+load_dotenv()  # .envファイルから環境変数を読み込む
+anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
+groq_api_key = os.getenv("GROQ_API_KEY")  # 環境変数からGroqのAPI keyを取得
 
 class MarkdownToPythonConverter:
     def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None, readme_lang=None):
@@ -20,7 +23,7 @@ class MarkdownToPythonConverter:
         self.formatter_path = formatter_path
         self.language = language
         self.readme_lang = readme_lang
-        self.client = anthropic.Anthropic(api_key=anthropic.api_key)
+        self.client = anthropic.Anthropic(api_key=anthropic_api_key)
 
     def convert(self):
 

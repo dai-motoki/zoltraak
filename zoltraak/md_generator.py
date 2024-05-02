@@ -12,6 +12,10 @@ import zoltraak.settings
 import zoltraak.llms.claude as claude
 import re
 
+load_dotenv()  # .envファイルから環境変数を読み込む
+anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
+groq_api_key = os.getenv("GROQ_API_KEY")  # 環境変数からGroqのAPI keyを取得
+
 def generate_md_from_prompt(
     goal_prompt,
     target_file_path,
@@ -78,13 +82,15 @@ def generate_md_from_prompt(
     )
     
     # 翻訳時
-    while readme_lang is not None and response.find("END OF TRANSLATION") < 0:
+    iteration = 0
+    while readme_lang is not None and response.find("END OF TRANSLATION") < 0 and iteration < 5:
         prompt = prompt[0:prompt.find("## Task")] + f"\n\n## Additional Task.\n\n Your translation is still incomplete. Continue with your translating above from Japanese into {readme_lang} by detecting the restarting point, which is equivalent to the end of \"Current Progress\" section. Keep all the original structures as is, which include but are not limited to: links, image links, tags, and the markdown format. Only output the continued part of the translation result. Make sure you continue until the end, which is equivalent to the \"超大事なことメモ\" section above. DO NOT INCLUDE THIS \"Additional Task\" SECTION ITSELF AND BELOW. When and only when you finished your translation, that is, when everything above this \"Additional Task\" section is translated, write \"END OF TRANSLATION\" in English at the end of the line.\n\n## Current Progress\n{response.strip()}"
         print("") # レイアウト崩れ防止の改行
         # print(prompt) # デバッグ用
         # print(len(response.split("\n"))) # デバッグ用
         print("翻訳が途中で途切れたため、継続します。")
         response = response.strip() + generate_response(developer, "claude-3-sonnet-20240229", prompt).strip() # 2回目以降の不安定さはモデル性能で殴って解決する
+        iteration += 1
 
     done = True                                                         # 応答生成後にスピナーの終了フラグをTrueに設定
     spinner_thread.join()                                               # スピナーの表示を終了
