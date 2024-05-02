@@ -250,7 +250,7 @@ def get_formatter(formatter_path, language=None, readme_lang=None):
         str: フォーマッタの内容
     """
     if readme_lang is not None:
-        formatter = f"\n\n---\n\n## Task\nTranslate above into {readme_lang}. Translate everything. Keep all the original structures as is, which include but are not limited to: links, image links, tags, and the markdown format. Only output the translated result. When and only when you finished your translation, that is, when everything in the original document is translated, write \"END OF TRANSLATION\" in English at the end of the line."
+        formatter = f"\n\n---\n\n## Task\nTranslate above into {readme_lang}. Translate everything. Keep all the original structures as is, which include but are not limited to: links, image links, tags, and the markdown format. Only output the translated result. Make sure you continue until the end, which is equivalent to the \"超大事なことメモ\" section above. When and only when you finished your translation, that is, when everything in the original document is translated, write \"END OF TRANSLATION\" in English at the end of the line."
     elif formatter_path is None:  # フォーマッタパスが指定されていない場合
         formatter = ""  # - フォーマッタを空文字列に設定
     else:  # フォーマッタパスが指定されている場合
