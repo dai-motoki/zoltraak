@@ -10,7 +10,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 
 遠慮は要りません。
 
-![撃て。](assets\images\cast_zoltraak.png)
+![撃て。](assets/images/cast_zoltraak.png)
 
 </p>
 <a href="https://twitter.com/ai_syacho" alt="Twitter Follow">
