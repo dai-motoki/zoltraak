@@ -209,25 +209,7 @@ class TargetCodeGenerator:
                 print(f"\033[91mエラーメッセージ: {str(e)}\033[0m")
                 print(f"エラーが発生したPythonファイルのパス: \033[33m{self.target_file_path}\033[0m")
                 
-                prompt = f"""
-                Pythonファイルの実行中に以下のエラーが発生しました。
-                ファイルの内容: {code}
-                エラーメッセージ: {str(e)}
-                考えられるエラーの原因と解決方法を教えてください。
-                """
-                response = generate_response(
-                    model="claude-3-haiku-20240307",
-                    prompt=prompt,
-                    max_tokens=1000,
-                    temperature=0.7
-                )
-                print(f"\033[33m{response}\033[0m")
-                print("")
-                
-                user_input = input("コードを再実行しますか？ (y/n): ")
-                if user_input.lower() != 'y':
-                    break
-                else:
+                while True:
                     prompt = f"""
                     以下のPythonコードにエラーがあります。修正してください。
                     コード: {code}
@@ -241,12 +223,62 @@ class TargetCodeGenerator:
                         temperature=0.3
                     )
                     code = code.replace("```python", "").replace("```", "")
+                    
+                    print("修正したコードを再実行します。")
+                    try:
+                        exec(code)
+                        print("コードの実行が成功しました。")
+                        break
+                    except Exception as e:
+                        print(f"修正後のコードでもエラーが発生しました。再度修正を試みます。")
+                        print(f"\033[91m修正後のエラーメッセージ: {str(e)}\033[0m")
                 
-                print("次のコードを実行してください:")
-                print(f"python {self.target_file_path}")
-                import pyperclip
-                pyperclip.copy(f"python {self.target_file_path}")
-                print("コードをクリップボードにコピーしました。")
+                with open(self.target_file_path, "w", encoding="utf-8") as target_file:
+                    target_file.write(code)
+
+            # except Exception as e:
+            #     print(f"Pythonファイルの実行中にエラーが発生しました。")
+            #     print(f"\033[91mエラーメッセージ: {str(e)}\033[0m")
+            #     print(f"エラーが発生したPythonファイルのパス: \033[33m{self.target_file_path}\033[0m")
+                
+            #     prompt = f"""
+            #     Pythonファイルの実行中に以下のエラーが発生しました。
+            #     ファイルの内容: {code}
+            #     エラーメッセージ: {str(e)}
+            #     考えられるエラーの原因と解決方法を教えてください。
+            #     """
+            #     response = generate_response(
+            #         model="claude-3-haiku-20240307",
+            #         prompt=prompt,
+            #         max_tokens=1000,
+            #         temperature=0.7
+            #     )
+            #     print(f"\033[33m{response}\033[0m")
+            #     print("")
+                
+            #     user_input = input("コードを再実行しますか？ (y/n): ")
+            #     if user_input.lower() != 'y':
+            #         break
+            #     else:
+            #         prompt = f"""
+            #         以下のPythonコードにエラーがあります。修正してください。
+            #         コード: {code}
+            #         エラーメッセージ: {str(e)}
+            #         プログラムコードのみ記載してください。
+            #         """
+            #         code = generate_response(
+            #             model="claude-3-haiku-20240307",
+            #             prompt=prompt,
+            #             max_tokens=4000,
+            #             temperature=0.3
+            #         )
+            #         code = code.replace("```python", "").replace("```", "")
+                
+            #     print("次のコードを実行してください:")
+            #     print(f"python {self.target_file_path}")
+            #     import pyperclip
+            #     pyperclip.copy(f"python {self.target_file_path}")
+            #     print("コードをクリップボードにコピーしました。")
     def print_target_file_path(self):
         """
         ターゲットファイルのパスを出力するメソッド
