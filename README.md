@@ -4,7 +4,17 @@
 <p>
 Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔法の名です。
 
+
+
 これまでの未体系であった呪文からの術の発動を、魔法の文法体系に昇華しより高速かつ広範囲な術式展開と強大な魔法の発動を可能とするシステムです。
+
+これは近い未来、一般魔法になるものです。
+
+遠慮は要りません。
+
+![撃て。](assets/images/cast_zoltraak.png)
+
+* Zoltraakの名はフリーレンの一般攻撃魔法Zoltraakから付けさせて頂いております。
 
 </p>
 <a href="https://twitter.com/ai_syacho" alt="Twitter Follow">
@@ -18,10 +28,17 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 <a href="https://github.com/dai-motoki/zoltraak" alt="GitHub issues by-label">
 <img src="https://img.shields.io/github/issues/XiaogangHe/InVEST-Cities-in-Nature" /></a> -->
 
+
+## 最新リリース
+0.1.27: ファイル執筆作成自動化
+
+![](assets/videos/zoltraak0.1.27_high_quality.gif)
+
+
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -44,6 +61,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Otori2501"><img src="https://avatars.githubusercontent.com/u/10893373?v=4?s=100" width="100px;" alt="Otori"/><br /><sub><b>Otori</b></sub></a><br /><a href="#doc-Otori2501" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://t.co/qqv5Zts5V4"><img src="https://avatars.githubusercontent.com/u/164516526?v=4?s=100" width="100px;" alt="tetumemo"/><br /><sub><b>tetumemo</b></sub></a><br /><a href="#doc-tetumemo" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://habatakurikei.com/"><img src="https://avatars.githubusercontent.com/u/131997581?v=4?s=100" width="100px;" alt="Habatakurikei"/><br /><sub><b>Habatakurikei</b></sub></a><br /><a href="#code-Habatakurikei" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/zapabob"><img src="https://avatars.githubusercontent.com/u/130830376?v=4?s=100" width="100px;" alt="峯岸　亮"/><br /><sub><b>峯岸　亮</b></sub></a><br /><a href="#code-zapabob" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
@@ -95,7 +113,6 @@ If you would like to have an automatic and updated support, then:
 
 # 目次
 
-
 - [研究](https://github.com/dai-motoki/zoltraak/blob/main/docs/research.md)
 - [設定](https://github.com/dai-motoki/zoltraak/blob/main/docs/configuration.md)
 - [FAQ](https://github.com/dai-motoki/zoltraak/blob/main/docs/faq.md)
@@ -139,18 +156,7 @@ If you would like to have an automatic and updated support, then:
 
       自分で別の名前を命名した場合、以下においては`workspace`を自分のつけた名前で読み替えてください。
 
-   4. `.env`ファイルの作成
-
-      エクスプローラ（黄色いフォルダのやつ）を開いて、`C:/Users/{ユーザ名}/workspace`を開きます。
-      今は`.venv`だけがあるかと思いますが、ここに「右クリック>>新規作成>>テキストドキュメント」から、テキストファイルを作成します。
-      =>作成したら、ファイル名を`.env`に変更します。
-      それから、ファイルを開いて、1 行目に以下のように入力して保存します。
-
-      ```
-      ANTHROPIC_API_KEY=ここにAnthropicから取得したキー
-      ```
-
-   5. テキストエディタの立ち上げ
+   4. テキストエディタの立ち上げ
 
       コマンドプロンプトや Powershell でも構いませんし、vscoede などを入れても構いません。以下、ターミナルと呼びます。
       次項では、このターミナルに呪文を打ち込んで、`Enter`を押下していきます。
@@ -190,16 +196,35 @@ If you would like to have an automatic and updated support, then:
       なお、解除には`deactivate`と打てばよいです。
 
    4. Zoltraak のインストール
+
       ```
       pip install zoltraak
       ```
+
       しばらく時間がかかります。`.venv`内を開くといくつものフォルダが作られていることがわかります。
       特に、魔導書の根幹となるファイルたちは、以下のパスに保存されています。
+
       ```
       C:\Users\{ユーザ名}\workspace\.venv\Lib\site-packages\zoltraak\grimoires
       ```
+
       この中身は、この README 下部の「魔導書構成」で示されていますのでそちらを参照のこと。
-   5. 詠唱
+
+   5. `.env`ファイルの作成
+
+      エクスプローラ（黄色いフォルダのやつ）を開いて、`C:/Users/{ユーザ名}/workspace/.venv/Lib/site-packages/zoltraak`を開きます。
+
+      ここに「右クリック>>新規作成>>テキストドキュメント」から、テキストファイルを作成します。
+      =>作成したら、ファイル名を`.env`に変更します。
+      それから、ファイルを開いて、1 行目に以下のように入力して保存します。
+
+      ```
+      ANTHROPIC_API_KEY=ここにAnthropicから取得したキー
+      ```
+
+      ※本当はコマンドでも作成できますが、文字コードというのを合わせるなどが必要なので、現状は非エンジニアは手動で作成したほうが簡単のようです。
+
+   6. 詠唱
 
       以上で準備は整いました。以下のように、`zoltraak`コマンドに続けて"プロンプト"と起動式（プロンプトコンパイラ）を指定します。
 
