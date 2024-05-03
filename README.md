@@ -125,7 +125,7 @@ Readme files in other languages are available here. Currently we support:
 
 # 利用方法
 
-非エンジニアの方でも迷わないように、丁寧に記載します。
+ビジネスサイドの方でも迷わないように、丁寧に記載します。
 
 ## Windows での利用方法
 
