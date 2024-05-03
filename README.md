@@ -38,7 +38,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -62,6 +62,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
       <td align="center" valign="top" width="14.28%"><a href="https://t.co/qqv5Zts5V4"><img src="https://avatars.githubusercontent.com/u/164516526?v=4?s=100" width="100px;" alt="tetumemo"/><br /><sub><b>tetumemo</b></sub></a><br /><a href="#doc-tetumemo" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://habatakurikei.com/"><img src="https://avatars.githubusercontent.com/u/131997581?v=4?s=100" width="100px;" alt="Habatakurikei"/><br /><sub><b>Habatakurikei</b></sub></a><br /><a href="#code-Habatakurikei" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/zapabob"><img src="https://avatars.githubusercontent.com/u/130830376?v=4?s=100" width="100px;" alt="峯岸　亮"/><br /><sub><b>峯岸　亮</b></sub></a><br /><a href="#code-zapabob" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/eieio81810"><img src="https://avatars.githubusercontent.com/u/34175263?v=4?s=100" width="100px;" alt="Suzuki Yuto"/><br /><sub><b>Suzuki Yuto</b></sub></a><br /><a href="#tutorial-eieio81810" title="Tutorials">✅</a></td>
     </tr>
   </tbody>
 </table>
