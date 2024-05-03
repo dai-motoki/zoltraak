@@ -100,7 +100,7 @@ def process_markdown_file(args):
 
     zoltraak_dir = os.path.dirname(zoltraak.__file__)                        # zoltraakパッケージのディレクトリパスを取得
 
-    if args.readme != "None":
+    if args.readme is not None and args.readme != "None":
         print("Readme翻訳先言語: " + args.readme)
         compiler_path = f"{zoltraak_dir}\README.md"
         
@@ -194,12 +194,12 @@ def process_text_input(args):
 
     language_option = '-l ' + args.language if args.language is not None else ''
     readme_lang_option = '-r ' + args.readme if args.readme is not None else ''
-    if args.custom_compiler:\
+    if args.custom_compiler:
         os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter} {language_option} {readme_lang_option}")
     else:
         os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} {language_option} {readme_lang_option}")
         
-def generate_md_file_name(prompt):\
+def generate_md_file_name(prompt, readme_lang):
     # promptからファイル名を生成するためにgenerate_response関数を利用
 
     # readmeの場合は、すでにあって内容が同じなら上書き理由がないのであえて名前を固定する
