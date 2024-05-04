@@ -37,3 +37,12 @@ def generate_response(model, prompt, max_tokens, temperature):
     # print(response)
     
     return response.content[0].text.strip()
+if __name__ == "__main__":
+
+    model = "claude-3-haiku-20240307"
+    prompt = "今日の晩御飯を提案して"
+    max_tokens = 100
+    temperature = 0.8
+    response = generate_response(model, prompt, max_tokens, temperature)
+
+    print(response)
