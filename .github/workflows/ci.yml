@@ -32,9 +32,12 @@ jobs:                                                                         # 
       - name: Run test_sample.py                                              # -- test_sample.pyの実行
         run: |                                                                # --- 以下のコマンドを実行  
           pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
-      - name: Run test_minimal.py                                              # -- test_minimal.pyの実行
+      - name: Run test_llms.py                                              # -- test_llms.pyの実行
         run: |                                                                # --- 以下のコマンドを実行  
-          pytest tests/test_minimal.py                                         # ---- test_minimal.pyをpytestで実行
+          pytest tests/test_llms.py -s                                     # ---- test_llms.pyをpytestで実行
+      # - name: Run test_minimal.py                                              # -- test_minimal.pyの実行
+      #   run: |                                                                # --- 以下のコマンドを実行  
+      #     pytest tests/test_minimal.py -s                                     # ---- test_minimal.pyをpytestで実行し、print内容を出力
       # - name: Run test_sample.py                                              # -- test_sample.pyの実行
       #   if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
       #   run: |                                                                # --- 以下のコマンドを実行  

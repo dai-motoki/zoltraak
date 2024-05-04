@@ -10,7 +10,7 @@ class MinimumTestCase(unittest.TestCase):
         result = subprocess.run(['zoltraak'], capture_output=True, text=True)  # zoltraakコマンドを引数なしで実行し、その結果をresultに格納します。
         print("STDOUT:", result.stdout)  # 標準出力の内容を出力
         print("STDERR:", result.stderr)  # 標準エラーの内容を出力
-        self.assertIn("エラー: 入力ファイルまたはテキストが指定されていません。", result.stdout)
+        self.assertIn("エラー: 入力ファイルまたはテキストが指定されていません。", result.stderr)  # エラーメッセージは標準エラー出力に含まれているはずなので、result.stderrをチェックするように修正
 
     # def test_zoltraak_with_compiler(self):
     #     """zoltraak "〜したい" -cコマンドのテスト"""

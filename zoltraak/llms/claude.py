@@ -1,7 +1,7 @@
 import os
 import anthropic
 from zoltraak import settings
-from large_language_model import LargeLanguageModel
+from zoltraak.llms.large_language_model import LargeLanguageModel
 
 class AnthropicModel(LargeLanguageModel):
     def __init__(self, model):
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     prompt = "今日の晩御飯を提案して"
     max_tokens = 100
     temperature = 0.8
-    response = generate_response(model, prompt, max_tokens, temperature)
+    response = AnthropicModel.generate_response(model, prompt, max_tokens, temperature)
 
     print(response)
 
