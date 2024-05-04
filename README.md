@@ -38,7 +38,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
 ## 貢献者
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
@@ -66,6 +66,7 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/eieio81810"><img src="https://avatars.githubusercontent.com/u/34175263?v=4?s=100" width="100px;" alt="Suzuki Yuto"/><br /><sub><b>Suzuki Yuto</b></sub></a><br /><a href="#tutorial-eieio81810" title="Tutorials">✅</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/astertechs-dev"><img src="https://avatars.githubusercontent.com/u/75663625?v=4?s=100" width="100px;" alt="astertechs-dev"/><br /><sub><b>astertechs-dev</b></sub></a><br /><a href="#bug-astertechs-dev" title="Bug reports">🐛</a></td>
     </tr>
   </tbody>
 </table>
