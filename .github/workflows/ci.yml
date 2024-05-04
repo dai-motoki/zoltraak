@@ -10,6 +10,7 @@ on:                                                                           # 
     branches:                                                                 # -- 対象ブランチ 
       - main                                                                  # --- mainブランチ
       - "release/**"                                                          # --- releaseで始まるブランチ
+      - "issue-*"                                                             # --- issue-で始まるブランチ（例: issue-107-python-3.10-tests）
 
 jobs:                                                                         # ジョブの定義
   test:                                                                       # テストジョブ
