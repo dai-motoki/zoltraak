@@ -3,7 +3,9 @@ name: PyPI Package CI/CD                                                      # 
 on:                                                                           # トリガーの設定
   push:                                                                       # - プッシュイベントの場合
     branches:                                                                 # -- 対象ブランチ
-      - '**'                                                                 # --- 全てのブランチ
+      - main                                                                  # --- mainブランチ
+      - "release/**"                                                          # --- releaseで始まるブランチ
+      - "issue/**"                                                            # --- issueで始まるブランチ
   pull_request:                                                               # - プルリクエストイベントの場合
     branches:                                                                 # -- 対象ブランチ 
       - main                                                                  # --- mainブランチ
