@@ -1,0 +1,75 @@
+name: PyPI Package CI/CD                                                      # PyPIパッケージのCI/CDワークフロー名
+
+on:                                                                           # トリガーの設定
+  push:                                                                       # - プッシュイベントの場合
+    branches:                                                                 # -- 対象ブランチ
+      - main                                                                  # --- mainブランチ
+      - "release/**"                                                          # --- releaseで始まるブランチ
+  pull_request:                                                               # - プルリクエストイベントの場合
+    branches:                                                                 # -- 対象ブランチ
+      - main                                                                  # --- mainブランチ
+      - "release/**"                                                          # --- releaseで始まるブランチ
+
+jobs:                                                                         # ジョブの定義
+  test:                                                                       # テストジョブ
+    runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9, "3.10", "3.11"]                       # 複数のPythonバージョン（3.7〜3.11）でテストを実行
+    steps:                                                                    # - ステップの定義
+      - uses: actions/checkout@v2                                             # -- リポジトリのチェックアウト（v2）
+      - name: Set up Python ${{ matrix.python-version }}                      # -- 指定したバージョンのPythonをセットアップ
+        uses: actions/setup-python@v2                                         # --- Python環境のセットアップ（v2）
+        with:                                                                 # --- オプション
+          python-version: ${{ matrix.python-version }}                        # ---- マトリクスで指定したPythonバージョンを使用
+      - name: Install dependencies                                            # -- 依存関係のインストール
+        run: |                                                                # --- 以下のコマンドを実行
+          python -m pip install --upgrade pip                                 # ---- pipのアップグレード
+          pip install -e .                                                    # ---- 現在のディレクトリを編集可能モードでインストール
+      - name: Run tests                                                       # -- テストの実行
+        run: |                                                                # --- 以下のコマンドを実行
+          pip install pytest                                                  # ---- pytestをインストール
+      - name: Run test_sample.py                                              # -- test_sample.pyの実行
+        if: matrix.python-version != '3.11'                                   # --- Python 3.11以外の場合のみ実行
+        run: |                                                                # --- 以下のコマンドを実行  
+          pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
+      - name: Run test_sample.py                                              # -- test_sample.pyの実行
+        if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
+        run: |                                                                # --- 以下のコマンドを実行  
+          pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
+      - name: Run test_cli.py                                                 # -- test_cli.pyの実行
+        if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
+        run: |                                                                # --- 以下のコマンドを実行
+          pytest tests/test_cli.py                                            # ---- test_cli.pyをpytestで実行
+      - name: Run test_converter.py                                           # -- test_converter.pyの実行
+        if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行  
+        run: |                                                                # --- 以下のコマンドを実行
+          pytest tests/test_converter.py                                      # ---- test_converter.pyをpytestで実行
+  deploy:                                                                     # デプロイジョブ 
+    needs: test                                                               # - テストジョブが成功した後に実行
+    runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/') # - releaseブランチへのプッシュ時のみ実行
+    steps:                                                                    # - ステップの定義
+      - uses: actions/checkout@v2                                             # -- リポジトリのチェックアウト（v2）  
+      - name: Set up Python                                                   # -- Pythonのセットアップ
+        uses: actions/setup-python@v2                                         # --- Python環境のセットアップ（v2）
+        with:                                                                 # --- オプション
+          python-version: 3.10                                                 # ---- Python 3.8を使用
+      - name: Install dependencies                                            # -- 依存関係のインストール
+        run: |                                                                # --- 以下のコマンドを実行
+          python -m pip install --upgrade pip                                 # ---- pipのアップグレード
+          pip install -e .                                                    # ---- 現在のディレクトリを編集可能モードでインストール
+      - name: Update version and upload to PyPI                               # -- バージョンの更新とPyPIへのアップロード
+        env:                                                                  # --- 環境変数の設定
+          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}                        # ---- PyPIユーザー名（シークレットから取得）
+          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}                        # ---- PyPIパスワード（シークレットから取得）  
+        run: |                                                                # --- 以下のコマンドを実行
+          chmod +x update_and_upload.sh                                       # ---- update_and_upload.shに実行権限を付与
+          ./update_and_upload.sh                                              # ---- update_and_upload.shを実行
+      - name: Merge release branch to main                                    # -- リリースブランチをmainブランチにマージ
+        uses: devmasx/merge-branch@v1.3.1                                     # --- merge-branchアクションを使用（v1.3.1）
+        with:                                                                 # --- オプション  
+          type: now                                                           # ---- 即時マージ
+          from_branch: ${{ github.ref }}                                      # ---- マージ元ブランチ（現在のブランチ）
+          target_branch: main                                                 # ---- マージ先ブランチ（mainブランチ）
+          github_token: ${{ secrets.GITHUB_TOKEN }}                           # ---- GitHubトークン（シークレットから取得）

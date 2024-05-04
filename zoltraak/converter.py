@@ -22,8 +22,7 @@ class MarkdownToPythonConverter:
         self.compiler_path = compiler_path
         self.formatter_path = formatter_path
         self.language = language
-        self.readme_lang = readme_lang
-        self.client = anthropic.Anthropic(api_key=anthropic_api_key)
+        self.client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     def convert(self):
 
