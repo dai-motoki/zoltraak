@@ -12,8 +12,6 @@ import subprocess
 import unittest
 from zoltraak.md_generator import generate_md_from_prompt, generate_response
 
-from loguru import logger
-
 class TestzoltraakCommand(unittest.TestCase):  # TestzoltraakCommandクラスを定義し、unittest.TestCaseを継承します。
     # def test_zoltraak_command(self):
     #     """
