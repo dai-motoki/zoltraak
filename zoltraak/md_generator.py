@@ -10,8 +10,6 @@ import time
 import sys
 import zoltraak.settings
 import zoltraak.llms.claude as claude
-import zoltraak.llms.litellm_response as litellm
-
 import re
 
 def generate_md_from_prompt(
@@ -134,9 +132,7 @@ def generate_response(developer, model_name, prompt):
         response = create_prompt_and_get_response_groq(model_name, prompt)
     elif developer == "anthropic":  # Anthropicを使用する場合
         response = claude.generate_response(model_name, prompt, 4000, 0.7)
-    elif developer == "litellm":  # litellmを使用する場合
-        response = litellm.generate_response(model_name, prompt)
-        
+    
     else:  # 想定外のデベロッパーの場合
         raise ValueError(
             f"サポートされていないデベロッパー: {developer}。"
