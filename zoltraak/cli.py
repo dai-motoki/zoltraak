@@ -34,10 +34,9 @@ def main():
     if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
-        # print(args.input)
-        # print("mo")
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
-            args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
+            # args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
+            show_compiler_error_and_exit()
         elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         
@@ -45,6 +44,9 @@ def main():
     else:                                                                    # 入力がテキストの場合
         if args.compiler and args.custom_compiler:                           # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
+        elif args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
+            # args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
+            show_compiler_error_and_exit()
         
         process_text_input(args)                                             # - テキスト入力を処理する関数を呼び出す
 
