@@ -15,7 +15,7 @@ jobs:                                                                         # 
     runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10"]                               # 複数のPythonバージョンでテストを実行
+        python-version: [3.7, 3.8, 3.9]                                       # Python 3.7, 3.8, 3.9でテストを実行
     steps:                                                                    # - ステップの定義
       - uses: actions/checkout@v2                                             # -- リポジトリのチェックアウト（v2）
       - name: Set up Python ${{ matrix.python-version }}                      # -- 指定したバージョンのPythonをセットアップ
@@ -32,16 +32,32 @@ jobs:                                                                         # 
       - name: Run test_sample.py                                              # -- test_sample.pyの実行
         run: |                                                                # --- 以下のコマンドを実行  
           pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
+  test-3.10:                                                                  # Python 3.10用のテストジョブ
+    runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
+    steps:                                                                    # - ステップの定義
+      - uses: actions/checkout@v2                                             # -- リポジトリのチェックアウト（v2）
+      - name: Set up Python 3.10                                              # -- Python 3.10のセットアップ
+        uses: actions/setup-python@v2                                         # --- Python環境のセットアップ（v2）
+        with:                                                                 # --- オプション
+          python-version: '3.10'                                              # ---- Python 3.10を使用
+      - name: Install dependencies                                            # -- 依存関係のインストール
+        run: |                                                                # --- 以下のコマンドを実行
+          python -m pip install --upgrade pip                                 # ---- pipのアップグレード
+          pip install -e .                                                    # ---- 現在のディレクトリを編集可能モードでインストール
+      - name: Run tests                                                       # -- テストの実行
+        run: |                                                                # --- 以下のコマンドを実行
+          pip install pytest                                                  # ---- pytestをインストール
+      - name: Run test_sample.py                                              # -- test_sample.pyの実行
+        run: |                                                                # --- 以下のコマンドを実行
+          pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
       - name: Run test_cli.py                                                 # -- test_cli.pyの実行
-        if: matrix.python-version == '3.10'                                   # --- Python 3.10の場合のみ実行
         run: |                                                                # --- 以下のコマンドを実行
           pytest tests/test_cli.py                                            # ---- test_cli.pyをpytestで実行
       - name: Run test_converter.py                                           # -- test_converter.pyの実行
-        if: matrix.python-version == '3.10'                                   # --- Python 3.10の場合のみ実行  
         run: |                                                                # --- 以下のコマンドを実行
           pytest tests/test_converter.py                                      # ---- test_converter.pyをpytestで実行
   deploy:                                                                     # デプロイジョブ 
-    needs: test                                                               # - テストジョブが成功した後に実行
+    needs: [test, test-3.10]                                                  # - テストジョブが成功した後に実行
     runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
     if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release/') # - releaseブランチへのプッシュ時のみ実行
     steps:                                                                    # - ステップの定義
