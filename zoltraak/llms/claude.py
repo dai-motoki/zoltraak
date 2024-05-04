@@ -23,6 +23,9 @@ class AnthropicModel(LargeLanguageModel):
         client = anthropic.Anthropic(
             api_key=os.environ.get("ANTHROPIC_API_KEY")  # 環境変数からAPI keyを取得
         )
+        # APIキーの先頭3文字と末尾3文字のみを表示し、残りは"..."で省略する
+        # これにより、APIキーが漏洩することを防ぎつつ、正しいAPIキーが設定されていることを確認できる
+        print("ANTHROPIC_API_KEY:" + os.environ.get("ANTHROPIC_API_KEY")[:3] + "..." + os.environ.get("ANTHROPIC_API_KEY")[-3:])
         response = client.messages.create(
             model=model,
             max_tokens=max_tokens,
