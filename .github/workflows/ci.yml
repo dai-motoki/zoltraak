@@ -14,4 +14,4 @@ jobs:
       - name: Install pytest
         run: pip install pytest
       - name: Run tests
-        run: pytest /Users/motokidaisuke/zoltraak/tests/test_sample.py
+        run: pytest tests/test_sample.py
