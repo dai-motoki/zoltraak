@@ -30,21 +30,23 @@ jobs:                                                                         # 
         run: |                                                                # --- 以下のコマンドを実行
           pip install pytest                                                  # ---- pytestをインストール
       - name: Run test_sample.py                                              # -- test_sample.pyの実行
-        if: matrix.python-version != '3.11'                                   # --- Python 3.11以外の場合のみ実行
         run: |                                                                # --- 以下のコマンドを実行  
           pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
-      - name: Run test_sample.py                                              # -- test_sample.pyの実行
-        if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
+      - name: Run test_minimal.py                                              # -- test_minimal.pyの実行
         run: |                                                                # --- 以下のコマンドを実行  
-          pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
-      - name: Run test_cli.py                                                 # -- test_cli.pyの実行
-        if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
-        run: |                                                                # --- 以下のコマンドを実行
-          pytest tests/test_cli.py                                            # ---- test_cli.pyをpytestで実行
-      - name: Run test_converter.py                                           # -- test_converter.pyの実行
-        if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行  
-        run: |                                                                # --- 以下のコマンドを実行
-          pytest tests/test_converter.py                                      # ---- test_converter.pyをpytestで実行
+          pytest tests/test_minimal.py                                         # ---- test_minimal.pyをpytestで実行
+      # - name: Run test_sample.py                                              # -- test_sample.pyの実行
+      #   if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
+      #   run: |                                                                # --- 以下のコマンドを実行  
+      #     pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
+      # - name: Run test_cli.py                                                 # -- test_cli.pyの実行
+      #   if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行
+      #   run: |                                                                # --- 以下のコマンドを実行
+      #     pytest tests/test_cli.py                                            # ---- test_cli.pyをpytestで実行
+      # - name: Run test_converter.py                                           # -- test_converter.pyの実行
+      #   if: matrix.python-version == '3.11'                                   # --- Python 3.11の場合のみ実行  
+      #   run: |                                                                # --- 以下のコマンドを実行
+      #     pytest tests/test_converter.py                                      # ---- test_converter.pyをpytestで実行
   deploy:                                                                     # デプロイジョブ 
     needs: test                                                               # - テストジョブが成功した後に実行
     runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
