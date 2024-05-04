@@ -5,7 +5,7 @@ on:                                                                           # 
     branches:                                                                 # -- 対象ブランチ
       - main                                                                  # --- mainブランチ
       - "release/**"                                                          # --- releaseで始まるブランチ
-      - "issue/**"                                                            # --- issueで始まるブランチ
+      - "issue-*"                                                             # --- issue-で始まるブランチ（例: issue-107-python-3.10-tests）
   pull_request:                                                               # - プルリクエストイベントの場合
     branches:                                                                 # -- 対象ブランチ 
       - main                                                                  # --- mainブランチ
