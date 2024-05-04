@@ -63,6 +63,8 @@ Zoltraakは本格的な魔法時代の始まりを象徴する強大な創造魔
       <td align="center" valign="top" width="14.28%"><a href="https://habatakurikei.com/"><img src="https://avatars.githubusercontent.com/u/131997581?v=4?s=100" width="100px;" alt="Habatakurikei"/><br /><sub><b>Habatakurikei</b></sub></a><br /><a href="#code-Habatakurikei" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/lulu-hk"><img src="https://avatars.githubusercontent.com/u/167414497?v=4?s=100" width="100px;" alt="Lulu Hiyokono"/><br /><sub><b>Lulu Hiyokono</b></sub></a><br /><a href="#code-lulu-hk" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/zapabob"><img src="https://avatars.githubusercontent.com/u/130830376?v=4?s=100" width="100px;" alt="峯岸　亮"/><br /><sub><b>峯岸　亮</b></sub></a><br /><a href="#code-zapabob" title="Code">💻</a></td>
+    </tr>
+    <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/eieio81810"><img src="https://avatars.githubusercontent.com/u/34175263?v=4?s=100" width="100px;" alt="Suzuki Yuto"/><br /><sub><b>Suzuki Yuto</b></sub></a><br /><a href="#tutorial-eieio81810" title="Tutorials">✅</a></td>
     </tr>
   </tbody>
