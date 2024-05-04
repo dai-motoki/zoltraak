@@ -10,9 +10,12 @@ import zoltraak.settings
 import zoltraak.llms.claude as claude
 from zoltraak.gencode import TargetCodeGenerator
 
+load_dotenv()  # .envファイルから環境変数を読み込む
+anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
+groq_api_key = os.getenv("GROQ_API_KEY")  # 環境変数からGroqのAPI keyを取得
 
 class MarkdownToPythonConverter:
-    def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None):
+    def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None, readme_lang=None):
         self.md_file_path = md_file_path
         self.py_file_path = py_file_path
         self.prompt = prompt
@@ -22,6 +25,7 @@ class MarkdownToPythonConverter:
         self.client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     def convert(self):
+
         if self.prompt is None:                                                                                  # プロンプトが指定されていない場合
             self.source_file_path = self.md_file_path                                                            # - ソースファイルパスをマークダウンファイルパスに設定
             self.target_file_path = self.py_file_path                                                            # - ターゲットファイルパスをPythonファイルパスに設定
@@ -36,7 +40,7 @@ class MarkdownToPythonConverter:
                 self.propose_target_diff(self.target_file_path, self.prompt)                                     # --- プロンプトに従ってターゲットファイルの差分を提案
                 return                                                                                           # --- 関数を終了
 
-        if os.path.exists(self.source_file_path):                                                                # ソースファイルが存在する場合
+        if self.readme_lang is None and os.path.exists(self.source_file_path):                                   # ソースファイルが存在する場合
             self.source_hash = self.calculate_file_hash(self.source_file_path)                                   # - ソースファイルのハッシュ値を計算
             os.makedirs(self.past_source_folder, exist_ok=True)                                                  # - 過去のソースフォルダを作成（既存の場合はスキップ）
             self.past_source_file_path = os.path.join(
@@ -108,7 +112,8 @@ class MarkdownToPythonConverter:
                 compiler_path=self.compiler_path,
                 formatter_path=self.formatter_path,
                 language=self.language,
-                open_file=True
+                readme_lang=self.readme_lang,
+                open_file=self.compiler_path is None or self.readme_lang is not None # 検索かReadme翻訳の時は開かせる
             )
 
     def propose_target_diff(self, target_file_path, prompt):
