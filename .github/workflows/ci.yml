@@ -13,5 +13,9 @@ jobs:
           python-version: '3.11'
       - name: Install pytest
         run: pip install pytest
-      - name: Run tests
+      - name: Run test_sample
         run: pytest tests/test_sample.py
+      - name: Run test_cli
+        run: pytest tests/test_cli.py
+      - name: Run test_converter
+        run: pytest tests/test_converter.py
