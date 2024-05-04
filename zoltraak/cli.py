@@ -23,15 +23,16 @@ def main():
     parser.add_argument("-cc", "--custom-compiler", help="自作コンパイラー（自作定義書生成文書）")
     parser.add_argument("-v", "--version", action="store_true", help="バージョン情報を表示")  # 追加: バージョン情報表示オプション
     parser.add_argument("-l", "--language", help="出力言語を指定", default=None)  # 追加: 汎用言語指定オプション
+    parser.add_argument("-r", "--readme", help="Readmeを指定言語に翻訳", default=None)  # 追加: Readme多言語指定オプション
     args = parser.parse_args()
 
     if args.version:                                                         # バージョン情報表示オプションが指定された場合
         show_version_and_exit()                                              # - バージョン情報を表示して終了
 
-    if args.input is None:                                                   # 入力ファイルまたはテキストが指定されていない場合
+    if  args.readme is None and args.input is None:                                                   # 入力ファイルまたはテキストが指定されていない場合
         show_usage_and_exit()                                                # - 使用方法を表示して終了
 
-    if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
+    if args.input is not None and (args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
@@ -101,7 +102,25 @@ def process_markdown_file(args):
 
     zoltraak_dir = os.path.dirname(zoltraak.__file__)                        # zoltraakパッケージのディレクトリパスを取得
 
-    if args.custom_compiler:                                                 # カスタムコンパイラーが指定されている場合
+    if args.readme is not None and args.readme != "None":
+        print("Readme翻訳先言語: " + args.readme)
+        compiler_path = f"{zoltraak_dir}\README.md"
+        
+        # README.mdが存在しないか空の場合は、github repoからダウンロードして、f"{zoltraak_dir}\README.md"にファイルを上書き保存する。
+        if not os.path.exists(compiler_path) or os.path.getsize(compiler_path) < 100: # 変に改行とかでサイズ稼がれたりすると嫌なのでバッファとして100バイト以下とする
+            import requests
+            
+            url = "https://raw.githubusercontent.com/dai-motoki/zoltraak/main/README.md"
+            response = requests.get(url)
+            
+            if response.status_code == 200:
+                with open(compiler_path, "wb") as file:
+                    file.write(response.content)
+                print("README.md downloaded successfully.")
+            else:
+                print(f"\033[31mエラー: README.mdのダウンロードに失敗しました。 Status code: {response.status_code}\033[0m")
+                exit(1)
+    elif args.custom_compiler:                                               # カスタムコンパイラーが指定されている場合
         compiler_path = get_custom_compiler_path(args.custom_compiler)       # - カスタムコンパイラーのパスを取得
     else:                                                                    # カスタムコンパイラーが指定されていない場合
         compiler_path = (                                                    # - デフォルトコンパイラーのパスを設定
@@ -128,16 +147,16 @@ def process_markdown_file(args):
     # print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
     # print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
 
-    language = None if args.language is None else args.language              # 汎用言語指定
+    language = None if args.language == "None" else args.language              # 汎用言語指定
     print("language:", args.language)
+    readme_lang = None if args.readme == "None" else args.readme               # readme翻訳先言語指定
 
     md_file_rel_path = os.path.relpath(md_file_path, os.getcwd())            # 現在のワーキングディレクトリからの相対パスを取得
     py_file_rel_path = os.path.splitext(md_file_rel_path)[0] + ".py"         # Markdownファイルの拡張子を.pyに変更
     py_file_path = os.path.join(output_dir, py_file_rel_path)                # 出力ディレクトリとPythonファイルの相対パスを結合
 
-
     mtp = MarkdownToPythonConverter(md_file_path, py_file_path,
-                                    prompt, compiler_path, formatter_path, language)
+                                    prompt, compiler_path, formatter_path, language, readme_lang)
     os.makedirs(os.path.dirname(py_file_path), exist_ok=True)                # Pythonファイルの出力ディレクトリを作成（既に存在する場合は何もしない）
     mtp.convert()
 
@@ -164,18 +183,31 @@ def get_custom_compiler_path(custom_compiler):
 
 def process_text_input(args):
     text = args.input
-    md_file_path = generate_md_file_name(text)
+    readme_lang = None if args.readme == "None" else args.readme
+    md_file_path = generate_md_file_name(text, readme_lang)
+    zoltraak_dir = os.path.dirname(zoltraak.__file__)  
+    if readme_lang is not None and os.path.exists(f"{zoltraak_dir}\{md_file_path}"):
+        print("すでに翻訳済みのReadmeがあるため、これを開きます。")
+        os.system(f"code {zoltraak_dir}\{md_file_path}")
+        exit(0)
+
     # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
+    language_option = '-l ' + args.language if args.language is not None else ''
+    readme_lang_option = '-r ' + args.readme if args.readme is not None else ''
     if args.custom_compiler:
-        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter} -l {args.language}")
+        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -cc {args.custom_compiler} -f {args.formatter} {language_option} {readme_lang_option}")
     else:
-        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} -l {args.language}")
-
-def generate_md_file_name(prompt):
+        os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} {language_option} {readme_lang_option}")
+        
+def generate_md_file_name(prompt, readme_lang):
     # promptからファイル名を生成するためにgenerate_response関数を利用
 
+    # readmeの場合は、すでにあって内容が同じなら上書き理由がないのであえて名前を固定する
+    if readme_lang is not None:
+        return f"README_{readme_lang}_{zoltraak.__version__}.md"
+    
     # requirementsディレクトリが存在しない場合は作成する
     requirements_dir = "requirements"
     if not os.path.exists(requirements_dir):
