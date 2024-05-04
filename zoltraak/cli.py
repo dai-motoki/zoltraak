@@ -2,14 +2,12 @@ import argparse
 import os
 import os.path
 import zoltraak
-from art import *
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 # print(package_dir)
 # from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.converter import MarkdownToPythonConverter
 import zoltraak.llms.claude as claude
-import zoltraak.llms.litellm_response as litellm
 
 
 def main():
@@ -25,9 +23,6 @@ def main():
     parser.add_argument("-cc", "--custom-compiler", help="自作コンパイラー（自作定義書生成文書）")
     parser.add_argument("-v", "--version", action="store_true", help="バージョン情報を表示")  # 追加: バージョン情報表示オプション
     parser.add_argument("-l", "--language", help="出力言語を指定", default=None)  # 追加: 汎用言語指定オプション
-
-    parser.add_argument("-d", "--developer", help="デベロッパー", default="anthropic")  
-    parser.add_argument("-m", "--model-name", help="モデル名", default="claude-3-haiku-20240307")  
     args = parser.parse_args()
 
     if args.version:                                                         # バージョン情報表示オプションが指定された場合
@@ -167,7 +162,7 @@ def get_custom_compiler_path(custom_compiler):
 
 def process_text_input(args):
     text = args.input
-    md_file_path = generate_md_file_name(prompt=text, developer=args.developer, model_name=args.model_name)
+    md_file_path = generate_md_file_name(text)
     # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
@@ -176,7 +171,7 @@ def process_text_input(args):
     else:
         os.system(f"zoltraak {md_file_path} -p \"{prompt}\" -c {args.compiler} -f {args.formatter} -l {args.language}")
 
-def generate_md_file_name(prompt, developer, model_name):
+def generate_md_file_name(prompt):
     # promptからファイル名を生成するためにgenerate_response関数を利用
 
     # requirementsディレクトリが存在しない場合は作成する
@@ -193,11 +188,7 @@ def generate_md_file_name(prompt, developer, model_name):
     file_name_prompt = f"{prompt}に基づいて、要件定義書のファイル名をdef_hogehoge.mdの形式で提案してください。\n"
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
-
-    if developer == "anthropic":  # Anthropicを使用する場合
-        response = claude.generate_response(model_name, prompt, 100, 0.7)
-    elif developer == "litellm":  # litellmを使用する場合
-        response = litellm.generate_response(model_name, prompt)
-
+    # print("file_name_prompt:", file_name_prompt)
+    response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"
