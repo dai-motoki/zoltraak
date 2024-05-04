@@ -32,12 +32,14 @@ jobs:                                                                         # 
       - name: Run test_sample.py                                              # -- test_sample.pyの実行
         run: |                                                                # --- 以下のコマンドを実行  
           pytest tests/test_sample.py                                         # ---- test_sample.pyをpytestで実行
-      # - name: Run test_cli.py                                                 # -- test_cli.pyの実行
-      #   run: |                                                                # --- 以下のコマンドを実行
-      #     pytest tests/test_cli.py                                            # ---- test_cli.pyをpytestで実行
-      # - name: Run test_converter.py                                           # -- test_converter.pyの実行  
-      #   run: |                                                                # --- 以下のコマンドを実行
-      #     pytest tests/test_converter.py                                      # ---- test_converter.pyをpytestで実行
+      - name: Run test_cli.py                                                 # -- test_cli.pyの実行
+        if: matrix.python-version == '3.10'                                   # --- Python 3.10の場合のみ実行
+        run: |                                                                # --- 以下のコマンドを実行
+          pytest tests/test_cli.py                                            # ---- test_cli.pyをpytestで実行
+      - name: Run test_converter.py                                           # -- test_converter.pyの実行
+        if: matrix.python-version == '3.10'                                   # --- Python 3.10の場合のみ実行  
+        run: |                                                                # --- 以下のコマンドを実行
+          pytest tests/test_converter.py                                      # ---- test_converter.pyをpytestで実行
   deploy:                                                                     # デプロイジョブ 
     needs: test                                                               # - テストジョブが成功した後に実行
     runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
