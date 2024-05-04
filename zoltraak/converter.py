@@ -19,7 +19,7 @@ class MarkdownToPythonConverter:
         self.compiler_path = compiler_path
         self.formatter_path = formatter_path
         self.language = language
-        self.client = anthropic.Anthropic(api_key=anthropic.api_key)
+        self.client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
     def convert(self):
         if self.prompt is None:                                                                                  # プロンプトが指定されていない場合
