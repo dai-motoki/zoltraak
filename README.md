@@ -1,4 +1,4 @@
-![](assets/videos/zoltraak2_smooth_high_quality.gif)
+![](https://github.com/dai-motoki/zoltraak/blob/main/assets/videos/zoltraak2_smooth_high_quality.gif?raw=true)
 
 <h1>創造魔法 Zoltraak</h1>
 <p>
@@ -106,22 +106,27 @@ https://x.com/hokazuya/status/1784887255154282524
 他言語版 readme は以下からご覧になれます。現在サポートしているのは以下の言語です。
 
 Readme files in other languages are available here. Currently we support:
+- [English](https://github.com/dai-motoki/zoltraak/blob/main/README_EN.md) : Note that it could be out of date, because it is manually maintained. To check an up-to-date info, I recommend you run ``zoltraak -r English``.
 
-- [English](README_EN.md)
+サポートしていない言語についても、通常インストールののち、``zoltraak -r 言語名``を実行することで、その言語版のREADMEを入手することができます。
+
+If you would like to have an automatic and updated support, then:
+1. execute ``pip install zoltraak`` or ``pip install zoltraak --upgrade`` for your environment in favor (which could be venv or docker)
+2. activate the environment and execute ``zoltraak -r (language_name)``
+3. This README will be automatically translated into the language in favor
 
 # 目次
 
-- [自然言語プログラミング文法](docs/NLProgramming_grammar.md)
-- [研究](docs/research.md)
-- [設定](docs/configuration.md)
-- [FAQ](docs/faq.md)
-- [始め方](docs/getting-started.md)
-- [インストール](docs/installation.md)
-- [使用方法](docs/usage.md)
-- [例](docs/examples)
-- [トラブルシューティング](docs/troubleshooting.md)
-- [ビデオ](docs/video.md)
-- [貢献](docs/contributing.md)
+- [研究](https://github.com/dai-motoki/zoltraak/blob/main/docs/research.md)
+- [設定](https://github.com/dai-motoki/zoltraak/blob/main/docs/configuration.md)
+- [FAQ](https://github.com/dai-motoki/zoltraak/blob/main/docs/faq.md)
+- [始め方](https://github.com/dai-motoki/zoltraak/blob/main/docs/getting-started.md)
+- [インストール](https://github.com/dai-motoki/zoltraak/blob/main/docs/installation.md)
+- [使用方法](https://github.com/dai-motoki/zoltraak/blob/main/docs/usage.md)
+- [例](https://github.com/dai-motoki/zoltraak/blob/main/docs/examples)
+- [トラブルシューティング](https://github.com/dai-motoki/zoltraak/blob/main/docs/troubleshooting.md)
+- [ビデオ](https://github.com/dai-motoki/zoltraak/blob/main/docs/video.md)
+- [貢献](https://github.com/dai-motoki/zoltraak/blob/main/docs/contributing.md)
 
 # Zoltraak の動作イメージ
 
@@ -302,7 +307,7 @@ zoltraak aaaa.md -f ./input.md （作成予定）
 zoltraak dir/*.md （作成予定）
 ```
 
-![llmcomment.png](assets/images/llmcomment.png)
+![llmcomment.png](https://github.com/dai-motoki/zoltraak/blob/main/assets/images/llmcomment.png?raw=true)
 
 ### オプショナル引数
 
@@ -501,8 +506,8 @@ pip install zoltraak
 - [ ] 各種高級言語の変な癖を解消するための中間ファイルを事前に用意しておくのがよい。
 - [ ] このファイルで、色合いに相当する部分のプロンプトの行数を教えて
 - [ ] 差分をプロンプトとして伝達したい。
-- [ ] 全て１から作り直す。md ファイルから
-      ![image](assets/images//graph.png)
+- [ ] 全て１から作り直す。mdファイルから
+![image](https://github.com/dai-motoki/zoltraak/blob/main/assets/images//graph.png?raw=true)
 
 ## 全体の流れ
 
