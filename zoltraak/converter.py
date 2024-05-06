@@ -8,11 +8,12 @@ import zoltraak
 
 import zoltraak.settings
 import zoltraak.llms.claude as claude
+import zoltraak.llms.litellm_api as litellm
 from zoltraak.gencode import TargetCodeGenerator
 
 
 class MarkdownToPythonConverter:
-    def __init__(self, md_file_path, py_file_path, prompt=None, compiler_path=None, formatter_path=None, language=None):
+    def __init__(self, md_file_path, py_file_path, developer, model_name, prompt=None, compiler_path=None, formatter_path=None, language=None):
         self.md_file_path = md_file_path
         self.py_file_path = py_file_path
         self.prompt = prompt
@@ -20,7 +21,9 @@ class MarkdownToPythonConverter:
         self.formatter_path = formatter_path
         self.language = language
         self.client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
-
+        self.developer = developer
+        self.model_name= model_name
+        
     def convert(self):
         if self.prompt is None:                                                                                  # プロンプトが指定されていない場合
             self.source_file_path = self.md_file_path                                                            # - ソースファイルパスをマークダウンファイルパスに設定
@@ -103,8 +106,8 @@ class MarkdownToPythonConverter:
             generate_md_from_prompt(
                 self.prompt,
                 self.target_file_path,
-                developer="anthropic",
-                model_name="claude-3-haiku-20240307",
+                developer=self.developer,                # "anthropic",
+                model_name=self.model_name,              # "claude-3-haiku-20240307",
                 compiler_path=self.compiler_path,
                 formatter_path=self.formatter_path,
                 language=self.language,

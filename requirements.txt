@@ -5,3 +5,4 @@ graphviz
 groq
 pyperclip
 pytest
+litellm

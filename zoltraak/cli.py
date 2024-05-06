@@ -23,8 +23,10 @@ def main():
     parser.add_argument("-cc", "--custom-compiler", help="自作コンパイラー（自作定義書生成文書）")
     parser.add_argument("-v", "--version", action="store_true", help="バージョン情報を表示")  # 追加: バージョン情報表示オプション
     parser.add_argument("-l", "--language", help="出力言語を指定", default=None)  # 追加: 汎用言語指定オプション
+    
+    parser.add_argument("-d", "--developer", help="使用するプロバイダー (anthropic または litellm)", default="anthropic")
+    parser.add_argument("-m", "--model_name", help="使用するモデルの名前", default="claude-3-haiku-20240307")
     args = parser.parse_args()
-
     if args.version:                                                         # バージョン情報表示オプションが指定された場合
         show_version_and_exit()                                              # - バージョン情報を表示して終了
 
@@ -134,8 +136,14 @@ def process_markdown_file(args):
     py_file_path = os.path.join(output_dir, py_file_rel_path)                # 出力ディレクトリとPythonファイルの相対パスを結合
 
 
-    mtp = MarkdownToPythonConverter(md_file_path, py_file_path,
-                                    prompt, compiler_path, formatter_path, language)
+    mtp = MarkdownToPythonConverter(md_file_path=md_file_path, 
+                                    py_file_path=py_file_path,
+                                    developer=args.developer,
+                                    model_name=args.model_name,
+                                    prompt=prompt, 
+                                    compiler_path=compiler_path, 
+                                    formatter_path=formatter_path, 
+                                    language=language)
     os.makedirs(os.path.dirname(py_file_path), exist_ok=True)                # Pythonファイルの出力ディレクトリを作成（既に存在する場合は何もしない）
     mtp.convert()
 
