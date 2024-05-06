@@ -1,4 +1,4 @@
-from zoltraak.llms.claude import AnthropicModel
+import zoltraak.llms.claude as claude
 
 def test_generate_response():
     """
@@ -9,7 +9,7 @@ def test_generate_response():
     max_tokens = 100
     temperature = 0.8
 
-    response = AnthropicModel.generate_response(model, prompt, max_tokens, temperature)
+    response = claude.generate_response(model, prompt, max_tokens, temperature)
 
     # レスポンスが文字列であることを確認
     assert isinstance(response, str)
