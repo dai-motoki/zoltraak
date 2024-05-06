@@ -101,7 +101,7 @@ def process_markdown_file(args):
     prompt = args.prompt                                                     # プロンプトを取得
 
     zoltraak_dir = os.path.dirname(zoltraak.__file__)                        # zoltraakパッケージのディレクトリパスを取得
-
+    print(f"args.compiler:[{args.compiler}]")
     if args.readme is not None and args.readme != "None":
         print("Readme翻訳先言語: " + args.readme)
         compiler_path = f"{zoltraak_dir}\README.md"
@@ -123,13 +123,13 @@ def process_markdown_file(args):
     elif args.custom_compiler:                                               # カスタムコンパイラーが指定されている場合
         compiler_path = get_custom_compiler_path(args.custom_compiler)       # - カスタムコンパイラーのパスを取得
     else:                                                                    # カスタムコンパイラーが指定されていない場合
-        compiler_path = (                                                    # - デフォルトコンパイラーのパスを設定
-            None                                                             # -- コンパイラーが"None"の場合はNoneに設定
-            if args.compiler == "None"
-            else os.path.join(                                               # -- それ以外の場合はzoltraakディレクトリ内のパスを設定
+        compiler_path = (
+            None
+            if args.compiler is None or args.compiler == "None"
+            else os.path.join(
                 zoltraak_dir,
                 "grimoires/compiler",
-                args.compiler + ("" if args.compiler.endswith(".md") else ".md"),
+                args.compiler if args.compiler and args.compiler.endswith(".md") else args.compiler + ".md",
             )
         )
         # print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
