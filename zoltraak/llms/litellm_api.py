@@ -20,7 +20,7 @@ def generate_response(model, prompt, max_tokens, temperature):
         max_tokens=max_tokens,
         temperature=temperature
     )
-    return response
+    return response.choices[0].message.content.strip()
 
 if __name__ == "__main__":
     model = "claude-3-haiku-20240307"
