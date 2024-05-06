@@ -27,7 +27,6 @@ def main():
     parser.add_argument("-d", "--developer", help="使用するプロバイダー (anthropic または litellm)", default="anthropic")
     parser.add_argument("-m", "--model_name", help="使用するモデルの名前", default="claude-3-haiku-20240307")
     args = parser.parse_args()
-
     if args.version:                                                         # バージョン情報表示オプションが指定された場合
         show_version_and_exit()                                              # - バージョン情報を表示して終了
 
