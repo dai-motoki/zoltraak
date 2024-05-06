@@ -4,7 +4,7 @@ import subprocess
 import zoltraak
 import zoltraak.llms.claude as claude
 from zoltraak.utils.prompt_import import load_prompt
-from zoltraak.llms.claude import generate_response
+from zoltraak.llms.claude import AnthropicModel
 class TargetCodeGenerator:
     def __init__(self, source_file_path, target_file_path, past_source_file_path, source_hash):
         self.source_file_path = source_file_path
@@ -174,7 +174,7 @@ class TargetCodeGenerator:
         """
         Claudeを使用してコードを生成するメソッド
         """
-        code = claude.generate_response(                                          
+        code = AnthropicModel.generate_response(                                          
             "claude-3-haiku-20240307", prompt, 4000, 0.3                          
         )
         code = code.replace("```python", "").replace("```", "")                   
@@ -216,7 +216,7 @@ class TargetCodeGenerator:
                     エラーメッセージ: {str(e)}
                     プログラムコードのみ記載してください。
                     """
-                    code = generate_response(
+                    code = AnthropicModel.generate_response(
                         model="claude-3-haiku-20240307",
                         prompt=prompt,
                         max_tokens=4000,

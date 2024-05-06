@@ -32,9 +32,7 @@ def main():
     if  args.readme is None and args.input is None:                                                   # 入力ファイルまたはテキストが指定されていない場合
         show_usage_and_exit()                                                # - 使用方法を表示して終了
 
-    if args.input is not None and (args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
-        args.input
-    ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
+    if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(args.input):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
             # args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
             show_compiler_error_and_exit()

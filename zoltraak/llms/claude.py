@@ -1,7 +1,7 @@
 import os
 import anthropic
 from zoltraak import settings
-from large_language_model import LargeLanguageModel
+from zoltraak.llms.large_language_model import LargeLanguageModel
 
 class AnthropicModel(LargeLanguageModel):
     def __init__(self, model):
@@ -23,6 +23,9 @@ class AnthropicModel(LargeLanguageModel):
         client = anthropic.Anthropic(
             api_key=os.environ.get("ANTHROPIC_API_KEY")  # 環境変数からAPI keyを取得
         )
+        # APIキーの先頭3文字と末尾3文字のみを表示し、残りは"..."で省略する
+        # これにより、APIキーが漏洩することを防ぎつつ、正しいAPIキーが設定されていることを確認できる
+        print("ANTHROPIC_API_KEY:" + os.environ.get("ANTHROPIC_API_KEY")[:3] + "..." + os.environ.get("ANTHROPIC_API_KEY")[-3:])
         response = client.messages.create(
             model=model,
             max_tokens=max_tokens,
@@ -50,7 +53,7 @@ if __name__ == "__main__":
     prompt = "今日の晩御飯を提案して"
     max_tokens = 100
     temperature = 0.8
-    response = generate_response(model, prompt, max_tokens, temperature)
+    response = AnthropicModel.generate_response(model, prompt, max_tokens, temperature)
 
     print(response)
 
