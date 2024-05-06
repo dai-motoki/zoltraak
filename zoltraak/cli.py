@@ -2,6 +2,7 @@ import argparse
 import os
 import os.path
 import zoltraak
+from zoltraak.llms.claude import AnthropicModel
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 # print(package_dir)
@@ -32,12 +33,13 @@ def main():
     if  args.readme is None and args.input is None:                                                   # 入力ファイルまたはテキストが指定されていない場合
         show_usage_and_exit()                                                # - 使用方法を表示して終了
 
-    if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(args.input):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
-        if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
-            # args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
-            show_compiler_error_and_exit()
-        elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
-            show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
+    if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(args.input):  
+    # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
+        # if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
+        #     # args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
+        #     show_compiler_error_and_exit()
+        # elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
+        #     show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         
         process_markdown_file(args)                                          # - Markdownファイルを処理する関数を呼び出す
     else:                                                                    # 入力がテキストの場合
@@ -221,6 +223,6 @@ def generate_md_file_name(prompt, readme_lang):
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
     # print("file_name_prompt:", file_name_prompt)
-    response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
+    response = AnthropicModel.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"

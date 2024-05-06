@@ -9,6 +9,7 @@ import zoltraak
 import zoltraak.settings
 import zoltraak.llms.claude as claude
 from zoltraak.gencode import TargetCodeGenerator
+from zoltraak.llms.claude import AnthropicModel
 
 load_dotenv()  # .envファイルから環境変数を読み込む
 anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
@@ -23,6 +24,7 @@ class MarkdownToPythonConverter:
         self.formatter_path = formatter_path
         self.language = language
         self.client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
+        self.readme_lang = readme_lang
 
     def convert(self):
 
@@ -217,7 +219,7 @@ class MarkdownToPythonConverter:
 
 番号など変わった場合は振り直しもお願いします。
         '''
-        modified_content = claude.generate_response("claude-3-sonnet-20240229", prompt, 2000, 0.3)
+        modified_content = AnthropicModel.generate_response("claude-3-sonnet-20240229", prompt, 2000, 0.3)
 
         # 修正後の内容をターゲットファイルに書き込む
         with open(target_file_path, "w", encoding="utf-8") as file:

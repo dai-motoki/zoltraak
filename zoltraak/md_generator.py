@@ -11,6 +11,7 @@ import sys
 import zoltraak.settings
 import zoltraak.llms.claude as claude
 import re
+from zoltraak.llms.claude import AnthropicModel
 
 load_dotenv()  # .envファイルから環境変数を読み込む
 anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")  # 環境変数からAnthropicのAPI keyを取得
@@ -148,7 +149,7 @@ def generate_response(developer, model_name, prompt):
     if developer == "groq":  # Groqを使用する場合
         response = create_prompt_and_get_response_groq(model_name, prompt)
     elif developer == "anthropic":  # Anthropicを使用する場合
-        response = claude.generate_response(model_name, prompt, 4000, 0.7)
+        response = AnthropicModel.generate_response(model_name, prompt, 4000, 0.7)
     else:  # 想定外のデベロッパーの場合
         raise ValueError(
             f"サポートされていないデベロッパー: {developer}。"
@@ -220,7 +221,9 @@ def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language
         prompt += prompt + formatter
     elif os.path.exists(compiler_path):  # プロンプトファイルが存在する場合
         with open(compiler_path, "r", encoding = "utf-8") as file:  # - プロンプトファイルを読み込みモードで開く
-            prompt = file.read()  # -- プロンプトファイルの内容を読み込み、goal_promptを埋め込む
+            prompt = file.read().format(
+                prompt=goal_prompt
+            )  # -- プロンプトファイルの内容を読み込み、goal_promptを埋め込む
         prompt = prompt + formatter  # - プロンプトにフォーマッタを追加
     else:  # プロンプトファイルが存在しない場合
         print(f"プロンプトファイル {compiler_path} が見つかりません。")  # - エラーメッセージを表示
@@ -302,6 +305,7 @@ def print_generation_result(target_file_path, compiler_path, readme_lang=None, o
     req = "requirements"
     target_file_path = f"{req}/{target_file_path}" if readme_lang is None else f"{os.path.dirname(zoltraak.__file__)}/{target_file_path}"
     print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
+    print("")  # 要件定義書の生成完了メッセージ
     
     # 検索結果生成以外ではユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
     if  compiler_path is not None and readme_lang is None and input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを実行しますか？ (y/n): ").lower() == 'y':
