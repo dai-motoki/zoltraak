@@ -25,18 +25,16 @@ def main():
     if args.input is None:                                                   # 入力ファイルまたはテキストが指定されていない場合
         show_usage_and_exit()                                                # - 使用方法を表示して終了
 
+    if args.compiler and args.custom_compiler:                               # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
+        show_compiler_conflict_error_and_exit()                              # --- コンパイラー競合エラーを表示して終了
+
     if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
             args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
-        elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
-            show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
         process_markdown_file(args)                                          # - Markdownファイルを処理する関数を呼び出す
     else:                                                                    # 入力がテキストの場合
-        if args.compiler and args.custom_compiler:                           # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
-            show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
-
         process_text_input(args)                                             # - テキスト入力を処理する関数を呼び出す
 
 
