@@ -3,17 +3,11 @@ import os
 import os.path
 import zoltraak
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# print(package_dir)
-# from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.converter import MarkdownToPythonConverter
 import zoltraak.llms.claude as claude
 
 
 def main():
-    current_dir = os.getcwd()
-    package_dir = os.path.dirname(os.path.abspath(__file__))
-
     parser = argparse.ArgumentParser(description="MarkdownファイルをPythonファイルに変換します")
     parser.add_argument("input", help="変換対象のMarkdownファイルのパスまたはテキスト", nargs='?')
     parser.add_argument("--output-dir", help="生成されたPythonファイルの出力ディレクトリ", default="generated")
@@ -34,18 +28,15 @@ def main():
     if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
-        # print(args.input)
-        # print("mo")
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
             args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
         elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
-        
         process_markdown_file(args)                                          # - Markdownファイルを処理する関数を呼び出す
     else:                                                                    # 入力がテキストの場合
         if args.compiler and args.custom_compiler:                           # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
             show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
-        
+
         process_text_input(args)                                             # - テキスト入力を処理する関数を呼び出す
 
 
@@ -116,7 +107,7 @@ def process_markdown_file(args):
     if compiler_path is not None and not os.path.exists(compiler_path):
         print(f"\033[31mファイル「{compiler_path}」が存在しないため検索モードに切り替わります。\033[0m")
         compiler_path = None
-        
+
 
     formatter_path = os.path.join(                                           # フォーマッタのパスを設定
         zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
