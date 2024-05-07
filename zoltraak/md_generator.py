@@ -5,7 +5,7 @@ import zoltraak
 import threading
 import time
 import sys
-import zoltraak.settings
+import zoltraak.settings as settings
 import zoltraak.llms.claude as claude
 import re
 
@@ -150,7 +150,7 @@ def create_prompt_and_get_response_groq(model, prompt):
     Returns:
         str: 生成されたテキスト
     """
-    client = Groq(api_key=groq_api_key)  # Groq APIクライアントを作成
+    client = Groq(api_key=settings.groq_api_key)  # Groq APIクライアントを作成
     chat_completion = client.chat.completions.create(
         messages=[
             {
