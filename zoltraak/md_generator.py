@@ -1,10 +1,7 @@
 import os
 import pyperclip
-import anthropic
-from dotenv import load_dotenv
-from groq import Groq  # Groqをインポート
+from groq import Groq
 import zoltraak
-from tqdm import tqdm  # tqdmをインポート
 import threading
 import time
 import sys
