@@ -189,6 +189,6 @@ def generate_md_file_name(prompt):
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
     # print("file_name_prompt:", file_name_prompt)
-    response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
+    response = claude.generate_response("claude-3-opus-20240229",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"
