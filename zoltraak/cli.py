@@ -6,6 +6,11 @@ import zoltraak
 from zoltraak.converter import MarkdownToPythonConverter
 import zoltraak.llms.claude as claude
 
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 
 def main():
     parser = argparse.ArgumentParser(description="MarkdownファイルをPythonファイルに変換します")
@@ -100,7 +105,7 @@ def process_markdown_file(args):
                 args.compiler + ("" if args.compiler.endswith(".md") else ".md"),
             )
         )
-        # print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
+        logger.debug(f"デフォルトコンパイラーのパス: {compiler_path}")            # - デフォルトコンパイラーのパスを表示
 
     if compiler_path is not None and not os.path.exists(compiler_path):
         print(f"\033[31mファイル「{compiler_path}」が存在しないため検索モードに切り替わります。\033[0m")
@@ -112,8 +117,8 @@ def process_markdown_file(args):
         "grimoires/formatter",
         args.formatter + ("" if args.formatter.endswith(".md") else ".md"),
     )
-    # print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
-    # print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
+    logger.debug("compiler_path:", compiler_path)                            # コンパイラーのパスを表示
+    logger.debug("formatter_path:", formatter_path)                          # フォーマッタのパスを表示
 
     language = None if args.language is None else args.language              # 汎用言語指定
     print("language:", args.language)
@@ -146,13 +151,13 @@ def get_custom_compiler_path(custom_compiler):
         print("2. カスタムコンパイラーのファイルパスが正しいことを確認してください。")
         print("3. ファイル名の拡張子が '.md' であることを確認してください。")
         print("4. ファイルの読み取り権限があることを確認してください。")
-    # print(f"カスタムコンパイラー: {compiler_path}")
+    logger.debug(f"カスタムコンパイラー: {compiler_path}")
     return compiler_path
 
 def process_text_input(args):
     text = args.input
     md_file_path = generate_md_file_name(text)
-    # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
+    logger.debug(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
     if args.custom_compiler:
@@ -171,13 +176,13 @@ def generate_md_file_name(prompt):
     # zoltraak/requirements/内のファイル名を全て取得
     existing_files = [file for file in os.listdir(requirements_dir) if file.startswith("def_")]
 
-    # print("existing_files:", existing_files)
+    logger.debug("existing_files:", existing_files)
 
     # 既存のファイル名と被らないようにファイル名を生成するプロンプトを作成
     file_name_prompt = f"{prompt}に基づいて、要件定義書のファイル名をdef_hogehoge.mdの形式で提案してください。\n"
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
-    # print("file_name_prompt:", file_name_prompt)
+    logger.debug("file_name_prompt:", file_name_prompt)
     response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"
