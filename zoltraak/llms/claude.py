@@ -2,6 +2,7 @@ import os
 import anthropic
 from zoltraak import settings
 
+
 def generate_response(model, prompt, max_tokens, temperature):
     """
     Anthropic APIを使用してプロンプトに対する応答を生成する関数。
@@ -35,5 +36,5 @@ def generate_response(model, prompt, max_tokens, temperature):
     )
 
     # print(response)
-    
+
     return response.content[0].text.strip()
