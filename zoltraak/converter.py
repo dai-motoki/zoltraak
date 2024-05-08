@@ -105,6 +105,7 @@ class MarkdownToPythonConverter:
                 self.target_file_path,
                 developer="anthropic",
                 model_name="claude-3-haiku-20240307",
+                # model_name="claude-3-opus-20240229",
                 compiler_path=self.compiler_path,
                 formatter_path=self.formatter_path,
                 language=self.language,
