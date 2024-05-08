@@ -2,11 +2,8 @@ import subprocess
 import anthropic
 import os
 import hashlib
-from dotenv import load_dotenv
 from zoltraak.md_generator import generate_md_from_prompt
-import zoltraak
 
-import zoltraak.settings
 import zoltraak.llms.claude as claude
 from zoltraak.gencode import TargetCodeGenerator
 

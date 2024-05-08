@@ -3,17 +3,16 @@ import os
 import os.path
 import zoltraak
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-# print(package_dir)
-# from zoltraak.md_generator import generate_md_from_prompt
 from zoltraak.converter import MarkdownToPythonConverter
 import zoltraak.llms.claude as claude
 
+import logging
+
+logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger(__name__)
+
 
 def main():
-    current_dir = os.getcwd()
-    package_dir = os.path.dirname(os.path.abspath(__file__))
-
     parser = argparse.ArgumentParser(description="MarkdownファイルをPythonファイルに変換します")
     parser.add_argument("input", help="変換対象のMarkdownファイルのパスまたはテキスト", nargs='?')
     parser.add_argument("--output-dir", help="生成されたPythonファイルの出力ディレクトリ", default="generated")
@@ -31,21 +30,16 @@ def main():
     if args.input is None:                                                   # 入力ファイルまたはテキストが指定されていない場合
         show_usage_and_exit()                                                # - 使用方法を表示して終了
 
+    if args.compiler and args.custom_compiler:                               # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
+        show_compiler_conflict_error_and_exit()                              # --- コンパイラー競合エラーを表示して終了
+
     if args.input.endswith(".md") or os.path.isfile(args.input) or os.path.isdir(
         args.input
     ):                                                                       # 入力がMarkdownファイル、ファイル、またはディレクトリの場合
-        # print(args.input)
-        # print("mo")
         if args.compiler is None and args.custom_compiler is None:           # -- コンパイラーが指定されていない場合
             args.compiler = "dev_obj"                                        # --- デフォルトのコンパイラー（general_def）を使用
-        elif args.compiler and args.custom_compiler:                         # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
-            show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
-        
         process_markdown_file(args)                                          # - Markdownファイルを処理する関数を呼び出す
     else:                                                                    # 入力がテキストの場合
-        if args.compiler and args.custom_compiler:                           # -- デフォルトのコンパイラーとカスタムコンパイラーの両方が指定されている場合
-            show_compiler_conflict_error_and_exit()                          # --- コンパイラー競合エラーを表示して終了
-        
         process_text_input(args)                                             # - テキスト入力を処理する関数を呼び出す
 
 
@@ -111,20 +105,20 @@ def process_markdown_file(args):
                 args.compiler + ("" if args.compiler.endswith(".md") else ".md"),
             )
         )
-        # print(f"デフォルトコンパイラーのパス: {compiler_path}")                     # - デフォルトコンパイラーのパスを表示
+        logger.debug(f"デフォルトコンパイラーのパス: {compiler_path}")            # - デフォルトコンパイラーのパスを表示
 
     if compiler_path is not None and not os.path.exists(compiler_path):
         print(f"\033[31mファイル「{compiler_path}」が存在しないため検索モードに切り替わります。\033[0m")
         compiler_path = None
-        
+
 
     formatter_path = os.path.join(                                           # フォーマッタのパスを設定
         zoltraak_dir,                                                        # - zoltraakディレクトリ内のパスを設定
         "grimoires/formatter",
         args.formatter + ("" if args.formatter.endswith(".md") else ".md"),
     )
-    # print("compiler_path:", compiler_path)                                   # コンパイラーのパスを表示
-    # print("formatter_path:", formatter_path)                                 # フォーマッタのパスを表示
+    logger.debug("compiler_path:", compiler_path)                            # コンパイラーのパスを表示
+    logger.debug("formatter_path:", formatter_path)                          # フォーマッタのパスを表示
 
     language = None if args.language is None else args.language              # 汎用言語指定
     print("language:", args.language)
@@ -157,13 +151,13 @@ def get_custom_compiler_path(custom_compiler):
         print("2. カスタムコンパイラーのファイルパスが正しいことを確認してください。")
         print("3. ファイル名の拡張子が '.md' であることを確認してください。")
         print("4. ファイルの読み取り権限があることを確認してください。")
-    # print(f"カスタムコンパイラー: {compiler_path}")
+    logger.debug(f"カスタムコンパイラー: {compiler_path}")
     return compiler_path
 
 def process_text_input(args):
     text = args.input
     md_file_path = generate_md_file_name(text)
-    # print(f"新しい要件定義書 '{md_file_path}' が生成されました。")
+    logger.debug(f"新しい要件定義書 '{md_file_path}' が生成されました。")
     prompt = f"{text}"
 
     if args.custom_compiler:
@@ -182,13 +176,13 @@ def generate_md_file_name(prompt):
     # zoltraak/requirements/内のファイル名を全て取得
     existing_files = [file for file in os.listdir(requirements_dir) if file.startswith("def_")]
 
-    # print("existing_files:", existing_files)
+    logger.debug("existing_files:", existing_files)
 
     # 既存のファイル名と被らないようにファイル名を生成するプロンプトを作成
     file_name_prompt = f"{prompt}に基づいて、要件定義書のファイル名をdef_hogehoge.mdの形式で提案してください。\n"
     file_name_prompt += f"ただし、以下の既存のファイル名と被らないようにしてください。\n{', '.join(existing_files)}\n"
     file_name_prompt += "ファイル名のみをアウトプットしてください。\n"
-    # print("file_name_prompt:", file_name_prompt)
+    logger.debug("file_name_prompt:", file_name_prompt)
     response = claude.generate_response("claude-3-haiku-20240307",file_name_prompt, 100, 0.7)
     file_name = response.strip()
     return f"{file_name}"

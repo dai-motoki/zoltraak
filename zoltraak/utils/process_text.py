@@ -1,4 +1,3 @@
-
 def normal(text, language=None):
     lines = text.split('\n')
     inside_code_block = False

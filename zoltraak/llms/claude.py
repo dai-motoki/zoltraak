@@ -1,6 +1,6 @@
 import os
 import anthropic
-from zoltraak import settings
+
 
 def generate_response(model, prompt, max_tokens, temperature):
     """
@@ -35,5 +35,5 @@ def generate_response(model, prompt, max_tokens, temperature):
     )
 
     # print(response)
-    
+
     return response.content[0].text.strip()

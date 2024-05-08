@@ -1,16 +1,14 @@
 import os
 import pyperclip
-import anthropic
-from dotenv import load_dotenv
-from groq import Groq  # Groqをインポート
+from groq import Groq
 import zoltraak
-from tqdm import tqdm  # tqdmをインポート
 import threading
 import time
 import sys
-import zoltraak.settings
+import zoltraak.settings as settings
 import zoltraak.llms.claude as claude
 import re
+
 
 def generate_md_from_prompt(
     goal_prompt,
@@ -39,20 +37,20 @@ def generate_md_from_prompt(
         prompt_compiler = os.path.basename(compiler_path)                     # - コンパイラパスからファイル名のみを取得してprompt_compilerに代入
     else:                                                                     # grimoires/ディレクトリにコンパイラパスが含まれていない場合
         prompt_compiler = compiler_path                                       # - コンパイラパスをそのままprompt_compilerに代入
-    
+
     # 汎用言語フォーマッタへの変更
     if language is not None:
         # formatter_pathに_lang.mdが存在するならそれを、しないならformatter_pathのまま
         lang_formatter_path = os.path.splitext(formatter_path)[0] + "_lang.md"
         if os.path.exists(lang_formatter_path):
             formatter_path = lang_formatter_path
-    
+
     # フォーマッターについて、デフォフォルダの時見栄えをシンプルにする
     if "grimoires" in formatter_path:                                         # grimoires/ディレクトリにフォーマッタパスが含まれている場合
         prompt_formatter = os.path.basename(formatter_path)                   # - フォーマッタパスからファイル名のみを取得してprompt_formatterに代入
     else:                                                                     # grimoires/ディレクトリにフォーマッタパスが含まれていない場合
         prompt_formatter = formatter_path                                     # - フォーマッタパスをそのままprompt_formatterに代入
-    
+
     print(f"""
 ステップ1. 起動術式を用いて魔法術式を構築する
 ==============================================================
@@ -69,7 +67,7 @@ def generate_md_from_prompt(
     done = False                                                        # スピナーの終了フラグを追加
     spinner_thread = threading.Thread(                                  # スピナーを表示するスレッドを作成し、終了フラグとgoalを渡す
         target=show_spinner,
-        args=(lambda: done, f"ステップ1. \033[31m起動術式\033[0mを用いて\033[32m魔法術式\033[0mを構築")           
+        args=(lambda: done, f"ステップ1. \033[31m起動術式\033[0mを用いて\033[32m魔法術式\033[0mを構築")
     )                                                                   #
     spinner_thread.start()                                              # スピナーの表示を開始
     response = generate_response(                                       # developerごとの分岐を関数化して応答を生成
@@ -80,6 +78,7 @@ def generate_md_from_prompt(
     md_content = response.strip()                                       # 生成された要件定義書の内容を取得し、前後の空白を削除
     save_md_content(md_content, target_file_path)        # 生成された要件定義書の内容をファイルに保存
     print_generation_result(target_file_path, compiler_path, open_file)                # 生成結果を出力し、open_fileフラグに応じてファイルを開く
+
 
 def show_spinner(done, goal):
     """スピナーを表示する関数
@@ -95,7 +94,7 @@ def show_spinner(done, goal):
         for i in range(1, len(progress_bar) + 1)
     ] + [f"{progress_bar}☆ﾟ.*･｡"]
     spinner = [spinner_base + anim for anim in spinner_animation]
-    
+
     while not done():                                                   # done()がFalseの間、スピナーを表示し続ける
         for cursor in spinner:                                          # - スピナーのアニメーションパターンを順番に処理
             sys.stdout.write(cursor + "\b" * (len(cursor)+100))          # -- カーソル文字を出力し、その文字数分だけバックスペースを出力して上書き
@@ -103,13 +102,12 @@ def show_spinner(done, goal):
             time.sleep(0.1)                                             # -- 0.1秒のディレイを追加
 
 
-
 def generate_response(developer, model_name, prompt):
     """
     対応デベロッパーごとに分岐してレスポンスを生成する関数
 
     現在対応しているデベロッパーとモデルは以下の通りです:
-    - Anthropic: 
+    - Anthropic:
       - claude-3-opus-20240229
       - claude-3-sonnet-20240229
       - claude-3-haiku-20240307
@@ -132,7 +130,7 @@ def generate_response(developer, model_name, prompt):
         response = create_prompt_and_get_response_groq(model_name, prompt)
     elif developer == "anthropic":  # Anthropicを使用する場合
         response = claude.generate_response(model_name, prompt, 4000, 0.7)
-    
+
     else:  # 想定外のデベロッパーの場合
         raise ValueError(
             f"サポートされていないデベロッパー: {developer}。"
@@ -152,7 +150,7 @@ def create_prompt_and_get_response_groq(model, prompt):
     Returns:
         str: 生成されたテキスト
     """
-    client = Groq(api_key=groq_api_key)  # Groq APIクライアントを作成
+    client = Groq(api_key=settings.groq_api_key)  # Groq APIクライアントを作成
     chat_completion = client.chat.completions.create(
         messages=[
             {
@@ -163,6 +161,7 @@ def create_prompt_and_get_response_groq(model, prompt):
         model=model,
     )
     return chat_completion.choices[0].message.content.strip()
+
 
 def create_prompt(goal_prompt, compiler_path=None, formatter_path=None, language=None):
     """
@@ -265,6 +264,7 @@ def save_md_content(md_content, target_file_path):
     with open(target_file_path, "w", encoding = "utf-8") as target_file:                          # ターゲットファイルを書き込みモードで開く
         target_file.write(md_content)                                         # - 生成された要件定義書の内容をファイルに書き込む
 
+
 def print_generation_result(target_file_path, compiler_path, open_file=True):
     """
     要件定義書の生成結果を表示する関数
@@ -278,7 +278,7 @@ def print_generation_result(target_file_path, compiler_path, open_file=True):
     target_file_path = f"{req}/{target_file_path}"
     print("")
     print(f"\033[32m魔法術式を構築しました: {target_file_path}\033[0m")  # 要件定義書の生成完了メッセージを緑色で表示
-    
+
     # 検索結果生成以外ではユーザーに要件定義書からディレクトリを構築するかどうかを尋ねる
     if  compiler_path is not None and input("\033[32m魔法術式\033[0mから\033[33m領域術式\033[0mを実行しますか？ (y/n): ").lower() == 'y':
         # ユーザーがyと答えた場合、zoltraakコマンドを実行してディレクトリを構築
@@ -288,10 +288,10 @@ def print_generation_result(target_file_path, compiler_path, open_file=True):
             args=(lambda: done, f"ステップ2. \033[32m魔法式\033[0mから\033[33m領域\033[0mを構築")
         )
         spinner_thread.start()  # スピナーの表示を開始
-        
+
         import subprocess
         subprocess.run(["zoltraak", target_file_path])
-        
+
         done = True  # zoltraakコマンド実行後にスピナーの終了フラグをTrueに設定
         spinner_thread.join()  # スピナーの表示を終了
     else:
@@ -300,4 +300,3 @@ def print_generation_result(target_file_path, compiler_path, open_file=True):
         print(f"\033[36mzoltraak {target_file_path}\033[0m")  # 実行コマンドを水色で表示
         pyperclip.copy(f"zoltraak {target_file_path}")  # 実行コマンドをクリップボードにコピー
         print("\033[35mコマンドをクリップボードにコピーしました。ターミナルに貼り付けて実行できます。\033[0m")  # コピー完了メッセージを紫色で表示
-        
