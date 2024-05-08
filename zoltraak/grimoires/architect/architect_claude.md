@@ -21,20 +21,21 @@ from zoltraak.utils.process_text import `normal`
     ```
     全てのpromptに`要件定義ファイル`を読み込みモードで取得した内容を入れて、ファイル名と必要なプロンプトを記載
     要件定義ファイルの内容を変数 readme_content に格納
-    - プログレスバーを利用
+    2.5 ルートディレクトリにREADME.mdファイルを書き込みモードで開く
+        - `要件定義ファイル`の内容を読み込みモードで開く
+        -- `要件定義ファイル`の内容をREADME.mdに書き込む
+    - tqdmのプログレスバーを利用
         プログレスバーを初期化。合計処理ファイル数: len(files)、単位: "files"
         filesリストの要素を順にループ。各要素は (ディレクトリ名, ファイル名, プロンプト) のタプル
             モジュール記載忘れないように
             全てのファイルは`generate_response(model, prompt, max_tokens, temperature)`をもちいてfor文で然るべき内容を記載
                 - モデル名を指定: "claude-3-haiku-20240307"
+                <!-- - モデル名を指定: "claude-3-opus-20240229" -->
                 - プロンプト: readme_content + 改行 + "上記の内容をもとにして" + prompt
                 - 最大トークン数を指定: 1000
                 - 温度パラメータを指定: 0.7
             出力結果は normal(response, "python")   にて加工して
         フォーマットしたレスポンスをファイルに書き込む
-    2.5 ルートディレクトリにREADME.mdファイルを書き込みモードで開く
-        - `要件定義ファイル`の内容を読み込みモードで開く
-        -- `要件定義ファイル`の内容をREADME.mdに書き込む
 3. ディレクトリを新しく開く
 pythonのsubprocessを使って code `ルートディレクトリ`
 pythonのsubprocessを使って code `ルートディレクトリ`/README.md
