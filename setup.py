@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="zoltraak",
-    version="0.1.29",
+    version="0.1.30",
     packages=find_packages(),
     # package_dir={'': '.'},  # ここでベースディレクトリを指定
     install_requires=[
