@@ -157,6 +157,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "wmoto-ai",
+      "name": "生ビール",
+      "avatar_url": "https://avatars.githubusercontent.com/u/151503669?v=4",
+      "profile": "https://github.com/wmoto-ai",
+      "contributions": [
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
