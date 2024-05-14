@@ -163,6 +163,12 @@ Install the packages required for development. For example, `setuptools` and `wh
 pip install setuptools wheel
 ```
 
+Also, you can use poetry.
+
+```bash
+poetry install
+```
+
 3. Package directory structure
 Create the package with the following basic directory structure:
 
