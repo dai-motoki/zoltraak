@@ -7,6 +7,13 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+anthropic = "^0.25.8"
+python-dotenv = "^1.0.1"
+pyyaml = "^6.0.1"
+graphviz = "^0.20.3"
+groq = "^0.5.0"
+pyperclip = "^1.8.2"
+pytest = "^8.2.0"
 
 
 [build-system]
