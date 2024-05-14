@@ -349,6 +349,12 @@ zoltraak-env\Scripts\activate.bat  # Windowsの場合
 pip install setuptools wheel
 ```
 
+poetryを使うこともできます。
+
+```bash
+poetry install
+```
+
 5. パッケージのインストール
    開発中のパッケージを仮想環境にインストールします。
 
