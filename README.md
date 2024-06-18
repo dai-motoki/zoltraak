@@ -98,7 +98,7 @@ https://x.com/habatakurikei/status/1784561693705560419
 https://twitter.com/habatakurikei
 https://twitter.com/habatakurikei
 
-- hagging face
+- Hugging Face
 
 https://t.co/TlEq204NBG
 https://x.com/hokazuya/status/1784887255154282524
