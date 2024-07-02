@@ -1,11 +1,11 @@
 #!/bin/sh
-echo "##active_line2##"
+# echo "##active_line2##"
 
-echo "##active_line3##"
-echo "バージョンをアップデート中..."
-echo "##active_line4##"
-python update_version.py
-echo "##active_line5##"
+# echo "##active_line3##"
+# echo "バージョンをアップデート中..."
+# echo "##active_line4##"
+# python update_version.py
+# echo "##active_line5##"
 
 echo "##active_line6##"
 echo "パッケージをビルド中..."

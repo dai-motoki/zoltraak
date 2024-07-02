@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="zoltraak",
-    version="0.1.31",
+    version="0.1.32",
     packages=find_packages(),
     # package_dir={'': '.'},  # ここでベースディレクトリを指定
     install_requires=[
@@ -13,6 +13,7 @@ setup(
         "pyperclip",
         "wheel",
         "diagrams"
+        "google-api-python-client",  # Google APIクライアントライブラリを追加
     ],
     package_data={
         '': ['*.txt', '*.md', '*.json', '*.csv', '*.yaml', '*.yml'],
