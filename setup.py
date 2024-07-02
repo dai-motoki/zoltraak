@@ -12,7 +12,7 @@ setup(
         "python-dotenv",
         "pyperclip",
         "wheel",
-        "diagrams"
+        "diagrams",
         "google-api-python-client",  # Google APIクライアントライブラリを追加
         "google-generativeai",  # Google の生成 AI ライブラリを追加
     ],
