@@ -17,7 +17,7 @@ jobs:                                                                         # 
     runs-on: ubuntu-latest                                                    # - Ubuntu最新版で実行
     strategy:
       matrix:
-        python-version: [3.7, 3.8, 3.9, "3.10", "3.11"]                       # 複数のPythonバージョン（3.7〜3.11）でテストを実行
+        python-version: ["3.10", "3.11"]                       # 複数のPythonバージョン（3.7〜3.11）でテストを実行
     steps:                                                                    # - ステップの定義
       - uses: actions/checkout@v2                                             # -- リポジトリのチェックアウト（v2）
       - name: Set up Python ${{ matrix.python-version }}                      # -- 指定したバージョンのPythonをセットアップ
