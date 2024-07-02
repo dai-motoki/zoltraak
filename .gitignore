@@ -162,6 +162,7 @@ cython_debug/
 .DS_Store
 generated/*
 requirements/*
+requirements2/*
 gomi/*
 past_md_files/*
 
@@ -169,3 +170,6 @@ zoltraak-dev/
 assets/videos/480p15/partial_movie_files/
 
 SourceSageAssets
+
+mygrimoire/*
+!mygrimoire/

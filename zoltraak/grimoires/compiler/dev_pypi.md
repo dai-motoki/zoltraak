@@ -10,8 +10,16 @@
 Pythonパッケージの標準的なディレクトリ構成と、各ディレクトリ・ファイルの役割について説明してください。
 マークダウン形式
 
+多言語翻訳のi18nice[YAML]についてもディレクトリ構成に含めること
+CICDはカスタマージャーニーを詳細に記載
+
 ```
 project/
+├── .github/workflows/
+│   ├── ci.yml       # GitHub ActionsによるCIワークフローの設定ファイル
+                        CICDはカスタマージャーニーを詳細に記載
+│   └── cd.yml       # GitHub ActionsによるCDワークフローの設定ファイル
+                        CICDはカスタマージャーニーを詳細に記載
 ├── package/
 ├── tests/
 ├── docs/
@@ -24,14 +32,22 @@ project/
 ├── requirements.txt # パッケージが依存する外部ライブラリを記載するファイル
 ├── Dockerfile       # Dockerイメージのビルド手順を記述するファイル
 ├── docker-compose.yml # 複数のDockerコンテナを定義・実行するための設定ファイル
-├── .github/workflows/
-│   ├── ci.yml       # GitHub ActionsによるCIワークフローの設定ファイル
-│   └── cd.yml       # GitHub ActionsによるCDワークフローの設定ファイル
 └── app.py           # Streamlit/Gradioを使用したWebアプリケーションのエントリーポイント
+├── .gitignore       # Gitで追跡しないファイルやディレクトリを指定するファイル
+└── app.py           # Streamlit/Gradioを使用したWebアプリケーションのエントリーポイント
+└── pypi_update.sh  # PyPIへのパッケージアップロードを自動化するスクリプト
+```
+
+```pypi_update.sh  # PyPIへのパッケージアップロードを自動化するスクリプト
+pip install wheel
+python setup.py sdist bdist_wheel
+twine upload dist/grimo-1.3.46*
+git add . && git commit -m "Release v1.3.46" && git push && git tag v1.3.46 && git push --tags
+
 ```
 
 ## 3. setup.pyの書き方
-setup.pyファイルの役割と、記述すべき主要な項目について以下を参考に具体的に説明してください。
+pypiにおけるsetup.pyファイルの役割と、記述すべき主要な項目について以下を参考に具体的に説明してください。
 以下はあくまで一般的な例です。
 - `name`: パッケージ名
 - `version`: パッケージのバージョン
@@ -42,6 +58,16 @@ setup.pyファイルの役割と、記述すべき主要な項目について以
 - `url`: パッケージのWebサイトやリポジトリのURL
 - `packages`: パッケージに含めるPythonモジュールを指定
 - `install_requires`: パッケージが依存する外部ライブラリを指定
+
+また、pypiへのアップロード方法も記載
+pip install wheel
+pip install --upgrade setuptools wheel
+
+
+python setup.py sdist bdist_wheel
+twine upload dist/package_name
+
+
 
 ## 4. __init__.pyの役割
 記述すべき主要な項目について以下を参考に具体的に説明してください。

@@ -3,6 +3,7 @@ import shutil
 import subprocess
 import zoltraak
 import zoltraak.llms.claude as claude
+import zoltraak.llms.gemini as gemini
 from zoltraak.utils.prompt_import import load_prompt
 from zoltraak.llms.claude import generate_response
 class TargetCodeGenerator:
@@ -97,7 +98,7 @@ class TargetCodeGenerator:
         プロンプトの読み込みとコード生成を行うメソッド
         """
         prompt = self.load_prompt_with_variables(create_domain_grimoire, variables)  # 領域術式（要件定義書）からプロンプトを読み込み、変数を埋め込む
-        # print(prompt)
+        print(prompt)
         code   = self.generate_code_with_claude(prompt)                           # Claudeを使用してコードを生成
         # print(code)
         
@@ -174,8 +175,16 @@ class TargetCodeGenerator:
         """
         Claudeを使用してコードを生成するメソッド
         """
+        # print("geminiを使用してコードを生成します")
+        # code = gemini.generate_response(
+        #     "gemini-1.5-pro"
+        #     , prompt, 8192, 1
+        # )
         code = claude.generate_response(                                          
-            "claude-3-haiku-20240307", prompt, 4000, 0.3                          
+            # "claude-3-haiku-20240307"
+            # "claude-3-opus-20240229"
+            "claude-3-5-sonnet-20240620"
+            , prompt, 4000, 0.3                          
         )
         code = code.replace("```python", "").replace("```", "")                   
         return code
